@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Medidor de uso · Acervo Psico</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231d6b5f'/%3E%3Cpath d='M9 22V15M14 22V10M19 22v-5M24 22V12' stroke='%23fff' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fundo: #f4f1ea;
+    --superficie: #fffdf9;
+    --tinta: #1e2a2d;
+    --tinta-2: #4f5d5a;
+    --tinta-3: #6f7976;
+    --linha: #e6e0d4;
+    --grade: #efe9de;
+    --acento: #1d6b5f;
+    --acento-claro: #e3efea;
+    --barra: #1d6b5f;
+    --barra-vazia: #e9e3d7;
+    --vivo: #2f9a6b;
+    --sombra: 0 1px 2px rgba(30,42,45,.05), 0 6px 20px rgba(30,42,45,.05);
+    --serif: "Source Serif 4", Georgia, serif;
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fundo: #141a1b;
+      --superficie: #1c2425;
+      --tinta: #e8ecea;
+      --tinta-2: #b4bdba;
+      --tinta-3: #8d9794;
+      --linha: #2c3638;
+      --grade: #263032;
+      --acento: #6cc4b0;
+      --acento-claro: #20393a;
+      --barra: #5bb5a1;
+      --barra-vazia: #2a3436;
+      --vivo: #4cc58e;
+      --sombra: none;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--fundo); color: var(--tinta);
+    font: 15px/1.55 var(--sans); -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--acento); }
+  :focus-visible { outline: 2px solid var(--acento); outline-offset: 2px; border-radius: 4px; }
+
+  header {
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    padding: 12px 20px; background: var(--superficie); border-bottom: 1px solid var(--linha);
+  }
+  .logo {
+    width: 32px; height: 32px; border-radius: 9px; display: grid; place-items: center;
+    background: linear-gradient(145deg, #23806f, #15544a);
+  }
+  .marca { font: 600 18px/1.1 var(--serif); }
+  .marca small { display: block; font: 400 12px/1.3 var(--sans); color: var(--tinta-3); }
+  .voltar { margin-left: auto; font-size: 13.5px; text-decoration: none; font-weight: 500; }
+  .voltar:hover { text-decoration: underline; }
+
+  main { max-width: 1080px; margin: 0 auto; padding: 22px 16px 48px; }
+
+  .agora {
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    background: var(--superficie); border: 1px solid var(--linha); border-radius: 14px;
+    padding: 16px 20px; box-shadow: var(--sombra);
+  }
+  .pulso { width: 10px; height: 10px; border-radius: 50%; background: var(--tinta-3); flex: none; }
+  .pulso.ativo { background: var(--vivo); box-shadow: 0 0 0 4px color-mix(in srgb, var(--vivo) 22%, transparent); }
+  .agora strong { font: 600 20px/1.2 var(--serif); }
+  .agora .sub { color: var(--tinta-2); font-size: 13.5px; }
+  .agora .atualizado { margin-left: auto; color: var(--tinta-3); font-size: 12.5px; }
+
+  .abas { display: flex; gap: 6px; margin: 26px 0 12px; flex-wrap: wrap; }
+  .abas button {
+    border: 1px solid var(--linha); background: var(--superficie); color: var(--tinta-2);
+    border-radius: 999px; padding: 6px 14px; font: 500 13px var(--sans); cursor: pointer;
+  }
+  .abas button[aria-pressed="true"] { background: var(--acento); border-color: var(--acento); color: var(--superficie); }
+
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+  .tile {
+    background: var(--superficie); border: 1px solid var(--linha); border-radius: 12px;
+    padding: 14px 16px; box-shadow: var(--sombra);
+  }
+  .tile .rotulo { font-size: 12.5px; color: var(--tinta-2); }
+  .tile .valor { font: 600 30px/1.15 var(--serif); font-variant-numeric: tabular-nums; margin-top: 2px; }
+  .tile .dica { font-size: 11.5px; color: var(--tinta-3); }
+
+  .cartao {
+    background: var(--superficie); border: 1px solid var(--linha); border-radius: 14px;
+    padding: 18px 20px 14px; margin-top: 16px; box-shadow: var(--sombra);
+  }
+  .cartao h2 { margin: 0; font: 600 16px var(--serif); }
+  .cartao .legenda { margin: 2px 0 14px; color: var(--tinta-3); font-size: 12.5px; }
+
+  .grafico { position: relative; height: 180px; display: flex; align-items: flex-end; gap: 2px; padding-left: 30px; }
+  .grafico .guia {
+    position: absolute; left: 30px; right: 0; border-top: 1px solid var(--grade); pointer-events: none;
+  }
+  .grafico .guia span {
+    position: absolute; left: -30px; top: -8px; width: 24px; text-align: right;
+    font-size: 11px; color: var(--tinta-3); font-variant-numeric: tabular-nums;
+  }
+  .coluna {
+    flex: 1; min-width: 0; height: 100%; display: flex; align-items: flex-end; justify-content: center;
+    cursor: default; position: relative; z-index: 1; border-radius: 4px;
+  }
+  .coluna:hover, .coluna:focus-visible { background: color-mix(in srgb, var(--acento) 7%, transparent); }
+  .coluna i {
+    display: block; width: min(70%, 22px); background: var(--barra); border-radius: 4px 4px 0 0;
+  }
+  .coluna i.zero { height: 2px !important; background: var(--barra-vazia); border-radius: 1px; }
+  .eixo-x {
+    display: flex; gap: 2px; padding-left: 30px; margin-top: 6px;
+    font-size: 11px; color: var(--tinta-3); font-variant-numeric: tabular-nums;
+  }
+  .eixo-x span { flex: 1; min-width: 0; text-align: center; white-space: nowrap; overflow: visible; }
+
+  .dica-flutuante {
+    position: fixed; z-index: 10; pointer-events: none; min-width: 150px;
+    background: var(--tinta); color: var(--superficie); border-radius: 8px; padding: 8px 10px;
+    font-size: 12.5px; line-height: 1.45; box-shadow: 0 6px 20px rgba(0,0,0,.18);
+  }
+  .dica-flutuante b { display: block; font-weight: 600; margin-bottom: 2px; }
+  .dica-flutuante .l { display: flex; justify-content: space-between; gap: 14px; }
+
+  .duas { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .duas .cartao { margin-top: 16px; }
+  ol.ranking { list-style: none; margin: 0; padding: 0; }
+  ol.ranking li { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; padding: 6px 0; font-size: 13.5px; }
+  ol.ranking .nome { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  ol.ranking .n { color: var(--tinta-2); font-variant-numeric: tabular-nums; }
+  ol.ranking .trilha { grid-column: 1 / -1; height: 6px; border-radius: 3px; background: var(--barra-vazia); }
+  ol.ranking .trilha i { display: block; height: 100%; border-radius: 3px; background: var(--barra); }
+  .vazio { color: var(--tinta-3); font-size: 13.5px; margin: 6px 0 4px; }
+  ol.ruins { list-style: none; margin: 0; padding: 0; }
+  ol.ruins li { padding: 10px 0; border-top: 1px solid var(--linha); font-size: 13.5px; line-height: 1.5; overflow-wrap: anywhere; }
+  ol.ruins li:first-child { border-top: 0; }
+  ol.ruins .quando { font-size: 11.5px; color: var(--tinta-3); }
+  ol.ruins .pergunta { font-weight: 600; }
+  ol.ruins .comentario { color: var(--erro, #a23b2a); }
+  ol.ruins .resposta { color: var(--tinta-3); font-size: 12.5px; }
+
+  details { margin-top: 12px; font-size: 13.5px; }
+  summary { cursor: pointer; color: var(--acento); font-weight: 500; }
+  .tabela-rolagem { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; margin-top: 10px; font-variant-numeric: tabular-nums; }
+  th, td { padding: 6px 10px; text-align: right; border-bottom: 1px solid var(--linha); white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; }
+  th { color: var(--tinta-2); font-weight: 600; font-size: 12.5px; }
+
+  .nota { margin-top: 22px; color: var(--tinta-3); font-size: 12.5px; line-height: 1.6; }
+  .sub-h { margin: 18px 0 8px; font: 600 13px var(--sans); color: var(--tinta-2); }
+  .grafico.baixo { height: 110px; }
+  .tile.alerta { border-color: #d9822b; }
+  .tile.alerta .valor { color: #c0661b; }
+  .tile .valor.medio { font-size: 22px; }
+  .erro { color: #a23b2a; margin-top: 16px; }
+
+  @media (max-width: 720px) {
+    .duas { grid-template-columns: 1fr; }
+    .agora .atualizado { margin-left: 0; width: 100%; }
+    .tile .valor { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo" aria-hidden="true">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M5 20v-6M10 20V8M15 20v-4M20 20V6"/></svg>
+  </div>
+  <div class="marca">Medidor de uso<small>Acervo Psico · só administrador</small></div>
+  <a class="voltar" href="/">← Voltar ao acervo</a>
+</header>
+
+<main>
+  <section class="agora" aria-live="polite">
+    <span class="pulso" id="pulso"></span>
+    <div>
+      <strong id="agora-texto">carregando…</strong>
+      <div class="sub" id="ultimo-texto"></div>
+    </div>
+    <span class="atualizado" id="atualizado"></span>
+  </section>
+
+  <div class="abas" role="group" aria-label="Período">
+    <button type="button" data-periodo="hoje">Hoje</button>
+    <button type="button" data-periodo="7 dias" aria-pressed="true">7 dias</button>
+    <button type="button" data-periodo="30 dias">30 dias</button>
+    <button type="button" data-periodo="desde o início">Desde o início</button>
+  </div>
+  <section class="tiles" id="tiles" aria-label="Totais do período"></section>
+
+  <section class="cartao">
+    <h2>Uso por dia</h2>
+    <p class="legenda">Buscas, perguntas à Susmi, PDFs abertos e telas abertas, nos últimos 30 dias. Passe o mouse numa barra para ver o detalhe.</p>
+    <div class="grafico" id="g-dia" role="list" aria-label="Ações por dia"></div>
+    <div class="eixo-x" id="x-dia" aria-hidden="true"></div>
+    <details>
+      <summary>Ver como tabela</summary>
+      <div class="tabela-rolagem"><table id="tabela-dia"></table></div>
+    </details>
+  </section>
+
+  <section class="cartao">
+    <h2>Horário de pico</h2>
+    <p class="legenda">Ações por hora do dia (horário de Brasília), somando os últimos 30 dias.</p>
+    <div class="grafico" id="g-hora" role="list" aria-label="Ações por hora do dia"></div>
+    <div class="eixo-x" id="x-hora" aria-hidden="true"></div>
+  </section>
+
+  <div class="duas">
+    <section class="cartao">
+      <h2>Termos mais buscados</h2>
+      <p class="legenda">Últimos 30 dias. Só aparecem termos buscados 2 vezes ou mais.</p>
+      <ol class="ranking" id="termos"></ol>
+    </section>
+    <section class="cartao">
+      <h2>PDFs mais abertos</h2>
+      <p class="legenda">Últimos 30 dias.</p>
+      <ol class="ranking" id="pubs"></ol>
+    </section>
+  </div>
+
+  <section class="cartao">
+    <h2>Desempenho da Susmi</h2>
+    <p class="legenda" id="ia-legenda">Últimos 30 dias. Tempo contado do clique em “Perguntar” até a tela.</p>
+    <section class="tiles" id="ia-tiles" aria-label="Desempenho da IA"></section>
+    <h3 class="sub-h">Tempo da resposta completa por dia, em segundos (mediana)</h3>
+    <div class="grafico baixo" id="g-ia" role="list" aria-label="Tempo da resposta por dia"></div>
+    <div class="eixo-x" id="x-ia" aria-hidden="true"></div>
+    <p class="legenda" id="ia-memoria"></p>
+  </section>
+
+  <section class="cartao">
+    <h2>Servidor</h2>
+    <p class="legenda">A VM do LARCC vista de dentro do app. Atualiza a cada minuto.</p>
+    <section class="tiles" id="sis-tiles" aria-label="Saúde do servidor"></section>
+  </section>
+
+  <section class="cartao">
+    <h2>Avaliação das respostas da Susmi</h2>
+    <p class="legenda" id="aval-resumo">Últimos 30 dias.</p>
+    <ol class="ruins" id="aval-ruins"></ol>
+  </section>
+
+  <p class="erro" id="erro" hidden></p>
+  <p class="nota">
+    <strong>Como contar:</strong> “aparelho” é um login num navegador (cada login vale por 12 h).
+    Duas pessoas na mesma conta, em celulares diferentes, contam como 2. O medidor não guarda IP
+    nem o que foi lido: só o tipo da ação e a hora. O uso de contas administradoras não entra na
+    contagem. Buscas e perguntas feitas antes de o medidor existir (até 19/10/2026) aparecem nos
+    totais, mas sem aparelho.
+  </p>
+</main>
+
+<div class="dica-flutuante" id="dica" hidden></div>
+
+<script>
+const $ = (s) => document.querySelector(s);
+const fmt = (n) => Number(n).toLocaleString("pt-BR");
+const plural = (n, um, varios) => `${fmt(n)} ${n === 1 ? um : varios}`;
+let dados = null;
+let periodo = "7 dias";
+try { periodo = localStorage.getItem("uso-periodo") || periodo; } catch {}
+
+const TILES = [
+  ["aparelhos", "Aparelhos", "logins distintos"],
+  ["buscas", "Buscas", ""],
+  ["perguntas", "Perguntas à Susmi", ""],
+  ["pdfs", "PDFs abertos", ""],
+  ["logins", "Logins", ""],
+  ["dias_com_uso", "Dias com uso", ""],
+];
+
+function el(tag, cls, texto) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (texto != null) e.textContent = texto;
+  return e;
+}
+
+function desenharTiles() {
+  const p = dados.periodos.find((x) => x.nome === periodo) || dados.periodos[1];
+  const box = $("#tiles");
+  box.replaceChildren();
+  for (const [chave, rotulo, dica] of TILES) {
+    const t = el("div", "tile");
+    t.append(el("div", "rotulo", rotulo), el("div", "valor", fmt(p[chave])));
+    if (dica) t.append(el("div", "dica", dica));
+    box.append(t);
+  }
+  document.querySelectorAll(".abas button").forEach((b) =>
+    b.setAttribute("aria-pressed", String(b.dataset.periodo === p.nome)));
+}
+
+// Escala "redonda" para o eixo: 0, metade e topo.
+function topo(max) {
+  if (max <= 4) return 4;
+  const pot = 10 ** Math.floor(Math.log10(max));
+  for (const m of [1, 2, 2.5, 5, 10]) if (m * pot >= max) return m * pot;
+  return 10 * pot;
+}
+
+function desenharBarras(alvo, eixo, itens, rotuloX, detalhe) {
+  const box = $(alvo), ex = $(eixo);
+  box.replaceChildren(); ex.replaceChildren();
+  const max = topo(Math.max(0, ...itens.map((i) => i.valor)));
+  for (const f of [0.5, 1]) {
+    const g = el("div", "guia");
+    g.style.bottom = `${f * 100}%`;
+    g.append(el("span", null, fmt(max * f)));
+    box.append(g);
+  }
+  itens.forEach((item, idx) => {
+    const c = el("div", "coluna");
+    c.tabIndex = 0;
+    c.setAttribute("role", "listitem");
+    c.setAttribute("aria-label", detalhe(item).map((l) => l.join(": ")).join(", "));
+    const b = el("i", item.valor ? "" : "zero");
+    b.style.height = `${(item.valor / max) * 100}%`;
+    c.append(b);
+    const mostrar = (x, y) => mostrarDica(detalhe(item), x, y);
+    c.addEventListener("pointermove", (e) => mostrar(e.clientX, e.clientY));
+    c.addEventListener("pointerleave", esconderDica);
+    c.addEventListener("focus", () => { const r = c.getBoundingClientRect(); mostrar(r.left + r.width / 2, r.top); });
+    c.addEventListener("blur", esconderDica);
+    box.append(c);
+    ex.append(el("span", null, rotuloX(item, idx, itens.length)));
+  });
+}
+
+function mostrarDica(linhas, x, y) {
+  const d = $("#dica");
+  d.replaceChildren();
+  const [titulo, ...resto] = linhas;
+  d.append(el("b", null, titulo[0]));
+  for (const [k, v] of resto) {
+    const l = el("div", "l");
+    l.append(el("span", null, k), el("span", null, v));
+    d.append(l);
+  }
+  d.hidden = false;
+  const w = d.offsetWidth, h = d.offsetHeight;
+  const largura = document.documentElement.clientWidth;  // sem a barra de rolagem
+  d.style.left = `${Math.min(Math.max(8, x - w / 2), largura - w - 8)}px`;
+  d.style.top = `${y - h - 12 < 8 ? y + 16 : y - h - 12}px`;
+}
+function esconderDica() { $("#dica").hidden = true; }
+
+const SEMANA = ["dom", "seg", "ter", "qua", "qui", "sex", "sáb"];
+const dataDe = (s) => { const [a, m, d] = s.split("-").map(Number); return new Date(a, m - 1, d); };
+const diaCurto = (s) => { const d = dataDe(s); return `${d.getDate()}/${d.getMonth() + 1}`; };
+
+function desenharDias() {
+  const dias = dados.por_dia;
+  desenharBarras("#g-dia", "#x-dia",
+    dias.map((d) => ({ ...d, valor: d.acoes })),
+    (d, i, n) => (i === n - 1 ? "hoje" : (n - 1 - i) % 7 === 0 ? diaCurto(d.dia) : ""),
+    (d) => {
+      const dt = dataDe(d.dia);
+      return [
+        [`${SEMANA[dt.getDay()]}, ${diaCurto(d.dia)}`],
+        ["Aparelhos", fmt(d.aparelhos)], ["Buscas", fmt(d.buscas)],
+        ["Perguntas à Susmi", fmt(d.perguntas)], ["PDFs abertos", fmt(d.pdfs)], ["Logins", fmt(d.logins)],
+      ];
+    });
+  const t = $("#tabela-dia");
+  t.replaceChildren();
+  const cab = el("tr");
+  for (const h of ["Dia", "Aparelhos", "Logins", "Buscas", "Perguntas", "PDFs"]) cab.append(el("th", null, h));
+  t.append(cab);
+  for (const d of [...dias].reverse()) {
+    if (!d.acoes && !d.logins) continue;
+    const tr = el("tr");
+    const dt = dataDe(d.dia);
+    tr.append(el("td", null, `${SEMANA[dt.getDay()]}, ${diaCurto(d.dia)}`));
+    for (const k of ["aparelhos", "logins", "buscas", "perguntas", "pdfs"]) tr.append(el("td", null, fmt(d[k])));
+    t.append(tr);
+  }
+  if (t.rows.length === 1) {
+    const tr = el("tr"), td = el("td", null, "Nenhum uso nos últimos 30 dias.");
+    td.colSpan = 6; tr.append(td); t.append(tr);
+  }
+}
+
+function desenharHoras() {
+  desenharBarras("#g-hora", "#x-hora",
+    dados.por_hora.map((v, h) => ({ h, valor: v })),
+    (d) => (d.h % 3 === 0 ? `${d.h}h` : ""),
+    (d) => [[`${d.h}h às ${d.h + 1}h`], ["Ações", fmt(d.valor)]]);
+}
+
+function desenharRanking(alvo, itens, nome, vazio) {
+  const box = $(alvo);
+  box.replaceChildren();
+  if (!itens.length) { box.append(el("li", "vazio", vazio)); return; }
+  const max = Math.max(...itens.map((i) => i.vezes));
+  for (const i of itens) {
+    const li = el("li");
+    const n = el("span", "nome", nome(i));
+    n.title = nome(i);
+    const trilha = el("span", "trilha"), barra = el("i");
+    barra.style.width = `${(i.vezes / max) * 100}%`;
+    trilha.append(barra);
+    li.append(n, el("span", "n", plural(i.vezes, "vez", "vezes")), trilha);
+    box.append(li);
+  }
+}
+
+// 👍/👎: o resumo e os últimos 👎 (texto vindo das pessoas: sempre por textContent).
+function desenharAvaliacoes() {
+  const a = dados.avaliacoes || { uteis: 0, ruins: 0, ultimas_ruins: [] };
+  const total = a.uteis + a.ruins;
+  $("#aval-resumo").textContent = total
+    ? `Últimos 30 dias: ${plural(a.uteis, "👍 útil", "👍 úteis")} · ${plural(a.ruins, "👎 ruim", "👎 ruins")} (${Math.round((a.uteis / total) * 100)}% úteis).`
+    : "Últimos 30 dias: nenhuma resposta avaliada ainda.";
+  const box = $("#aval-ruins");
+  box.replaceChildren();
+  if (!a.ultimas_ruins.length) { if (total) box.append(el("li", "vazio", "Nenhum 👎 no período.")); return; }
+  for (const r of a.ultimas_ruins) {
+    const li = el("li");
+    li.append(el("div", "quando", r.quando), el("div", "pergunta", `“${r.pergunta}”`));
+    if (r.comentario) li.append(el("div", "comentario", `O que faltou: ${r.comentario}`));
+    li.append(el("div", "resposta", `Susmi: ${r.resposta || ""}…`));
+    box.append(li);
+  }
+}
+
+// Tempo em ms -> "1 min 12 s" / "8 s"
+const tempo = (ms) => {
+  if (ms == null) return "—";
+  const s = Math.round(ms / 1000);
+  return s >= 60 ? `${Math.floor(s / 60)} min ${String(s % 60).padStart(2, "0")} s` : `${s} s`;
+};
+const num1 = (v) => (v == null ? "—" : Number(v).toLocaleString("pt-BR", { maximumFractionDigits: 1 }));
+
+function tile(box, rotulo, valor, dica, { alerta = false, medio = false } = {}) {
+  const t = el("div", "tile" + (alerta ? " alerta" : ""));
+  t.append(el("div", "rotulo", rotulo), el("div", "valor" + (medio ? " medio" : ""), valor));
+  if (dica) t.append(el("div", "dica", dica));
+  box.append(t);
+}
+
+function desenharIA() {
+  const s = dados.susmi || {};
+  const g = s.geral || {};
+  const box = $("#ia-tiles");
+  box.replaceChildren();
+  tile(box, "Modelo em uso", s.modelo || "—", "", { medio: true });
+  tile(box, "Respostas", fmt(g.respostas || 0), g.guardadas ? `${fmt(g.guardadas)} já prontas (guardadas)` : "");
+  tile(box, "1ª palavra na tela", tempo(g.primeira_ms), "mediana", { alerta: g.primeira_ms > 90000, medio: true });
+  tile(box, "Resposta completa", tempo(g.total_ms), g.total_p90_ms ? `9 em 10 em até ${tempo(g.total_p90_ms)}` : "mediana",
+    { alerta: g.total_ms > 180000, medio: true });
+  tile(box, "Velocidade de escrita", g.tokens_por_segundo ? `${num1(g.tokens_por_segundo)}/s` : "—", "pedaços de palavra por segundo");
+  tile(box, "Velocidade de leitura", g.leitura_tps ? `${num1(g.leitura_tps)}/s` : "—", "das páginas, antes de escrever");
+  if (g.espera_ms > 1000) tile(box, "Espera na fila", tempo(g.espera_ms), "média", { alerta: g.espera_ms > 30000, medio: true });
+  const dias = s.por_dia || [];
+  desenharBarras("#g-ia", "#x-ia",
+    dias.map((d) => ({ ...d, valor: Math.round((d.total_ms || 0) / 1000) })),
+    (d, i, n) => (i === n - 1 ? "hoje" : (n - 1 - i) % 7 === 0 ? diaCurto(d.dia) : ""),
+    (d) => [[`${SEMANA[dataDe(d.dia).getDay()]}, ${diaCurto(d.dia)}`],
+            ["Respostas da IA", fmt(d.respostas)], ["Tempo (mediana)", d.respostas ? tempo(d.total_ms) : "—"]]);
+  const mem = s.na_memoria || [];
+  const modelos = (s.por_modelo || []).map((m) => `${m.modelo}: ${fmt(m.respostas)} resposta(s), mediana ${tempo(m.total_ms)}`);
+  $("#ia-memoria").textContent =
+    (mem.length ? `Na memória agora: ${mem.map((m) => `${m.nome} (${num1(m.tamanho_gb)} GB)`).join(", ")}.`
+                : "Nenhum modelo na memória agora: a próxima pergunta espera uns segundos para carregar.")
+    + (modelos.length > 1 ? ` Por modelo — ${modelos.join(" · ")}.` : "");
+}
+
+function desenharSistema() {
+  const s = dados.sistema || {}, a = dados.acervo || {};
+  const box = $("#sis-tiles");
+  box.replaceChildren();
+  if (s.disco_livre_gb != null)
+    tile(box, "Disco livre", `${num1(s.disco_livre_gb)} GB`, `de ${num1(s.disco_total_gb)} GB`, { alerta: s.disco_livre_gb < 10 });
+  if (s.memoria_livre_gb != null)
+    tile(box, "Memória disponível", `${num1(s.memoria_livre_gb)} GB`, `de ${num1(s.memoria_total_gb)} GB`, { alerta: s.memoria_livre_gb < 1 });
+  if (s.carga != null)
+    tile(box, "Carga da CPU", num1(s.carga), `${s.nucleos} núcleos · acima de ${s.nucleos} = fila`, { alerta: s.carga > s.nucleos * 1.5 });
+  if (s.ligada_ha_dias != null) tile(box, "Ligada há", `${num1(s.ligada_ha_dias)} dias`, "");
+  tile(box, "Último backup", s.backup_horas != null ? `há ${num1(s.backup_horas)} h` : "?",
+    s.backup_mb ? `${fmt(s.backup_mb)} MB · roda às 3h` : "sem acesso à pasta de backups", { alerta: s.backup_horas == null || s.backup_horas > 30 });
+  if (a.paginas) tile(box, "Acervo", `${fmt(a.publicacoes)} obras`,
+    `${fmt(a.paginas)} páginas · ${Math.round((a.com_pagina_impressa / a.paginas) * 100)}% com nº do livro · banco ${a.tamanho_banco}`);
+}
+
+function desenharAgora() {
+  const n = dados.agora;
+  $("#pulso").className = "pulso" + (n ? " ativo" : "");
+  $("#agora-texto").textContent = n
+    ? `${plural(n, "aparelho usando", "aparelhos usando")} agora`
+    : "Ninguém usando agora";
+  $("#ultimo-texto").textContent = dados.ultimo_uso
+    ? `Último uso: ${dados.ultimo_uso} · “agora” = ação nos últimos 15 minutos`
+    : "Nenhum uso registrado ainda.";
+  $("#atualizado").textContent = `atualizado às ${new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })}`;
+}
+
+async function carregar() {
+  try {
+    const r = await fetch("/uso/dados");
+    if (r.status === 401) { location.href = "/entrar"; return; }
+    if (!r.ok) throw new Error(`erro ${r.status}`);
+    dados = await r.json();
+    $("#erro").hidden = true;
+    desenharAgora();
+    desenharTiles();
+    desenharDias();
+    desenharHoras();
+    desenharRanking("#termos", dados.termos, (i) => i.termo, "Nenhum termo repetido ainda.");
+    desenharRanking("#pubs", dados.publicacoes, (i) => i.titulo, "Nenhum PDF aberto ainda.");
+    desenharAvaliacoes();
+    desenharIA();
+    desenharSistema();
+  } catch (e) {
+    $("#erro").textContent = `Não consegui carregar os dados (${e.message}). Tento de novo em 1 minuto.`;
+    $("#erro").hidden = false;
+  }
+}
+
+document.querySelectorAll(".abas button").forEach((b) => b.addEventListener("click", () => {
+  periodo = b.dataset.periodo;
+  try { localStorage.setItem("uso-periodo", periodo); } catch {}
+  if (dados) desenharTiles();
+}));
+
+carregar();
+setInterval(carregar, 60_000);
+</script>
+</body>
+</html>

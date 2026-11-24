@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entrar · Acervo Psico</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231d6b5f'/%3E%3Cpath d='M8 10.5c3-1.2 5.6-1 8 .8 2.4-1.8 5-2 8-.8v11c-3-1.2-5.6-1-8 .8-2.4-1.8-5-2-8-.8z' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linejoin='round'/%3E%3Cpath d='M16 11.3v11' stroke='%23fff' stroke-width='1.8'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fundo: #f4f1ea; --superficie: #fffdf9; --tinta: #1e2a2d; --tinta-2: #4f5d5a; --tinta-3: #868f8c;
+    --linha: #e6e0d4; --linha-2: #d4ccbb; --acento: #1d6b5f; --acento-2: #15544a; --acento-claro: #e3efea;
+    --erro: #a23b2a; --erro-fundo: #f8e6e2;
+    --serif: "Source Serif 4", Georgia, serif;
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    font: 15px/1.55 var(--sans); color: var(--tinta); -webkit-font-smoothing: antialiased;
+    background:
+      radial-gradient(1200px 600px at 85% -10%, rgba(29,107,95,.10), transparent 60%),
+      radial-gradient(900px 500px at -10% 110%, rgba(138,75,18,.07), transparent 60%),
+      var(--fundo);
+    display: grid; place-items: center; padding: 24px 16px;
+  }
+  button, input { font: inherit; color: inherit; }
+  .cartao {
+    width: 100%; max-width: 400px; background: var(--superficie); border: 1px solid var(--linha);
+    border-radius: 18px; padding: 34px 32px 26px;
+    box-shadow: 0 2px 4px rgba(30,42,45,.05), 0 24px 60px rgba(30,42,45,.10);
+    animation: surgir .35s ease both;
+  }
+  @keyframes surgir { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .logo {
+    width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; margin-bottom: 18px;
+    background: linear-gradient(145deg, #23806f, var(--acento-2));
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 4px 12px rgba(21,84,74,.25);
+  }
+  h1 { margin: 0; font: 600 27px/1.15 var(--serif); letter-spacing: -.015em; }
+  .sub { margin: 6px 0 24px; color: var(--tinta-2); font-size: 14px; }
+  label { display: block; font-size: 13px; font-weight: 500; margin: 0 0 6px; color: var(--tinta-2); }
+  input {
+    width: 100%; padding: 10px 12px; margin-bottom: 14px; font-size: 15px;
+    border: 1px solid var(--linha-2); border-radius: 10px; background: #fff;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  input:focus { outline: none; border-color: var(--acento); box-shadow: 0 0 0 4px rgba(29,107,95,.12); }
+  .campo-senha { position: relative; }
+  .campo-senha input { padding-right: 70px; }
+  .ver {
+    position: absolute; right: 6px; top: 6px; height: 32px; padding: 0 10px; border: 0; border-radius: 7px;
+    background: none; color: var(--tinta-3); font-size: 12.5px; cursor: pointer;
+  }
+  .ver:hover { background: var(--fundo); color: var(--tinta); }
+  .entrar {
+    width: 100%; margin-top: 6px; padding: 11px; border: 0; border-radius: 10px; cursor: pointer;
+    background: var(--acento); color: #fff; font-weight: 600; font-size: 15px;
+    display: flex; align-items: center; justify-content: center; gap: 8px; transition: background .15s;
+  }
+  .entrar:hover:not(:disabled) { background: var(--acento-2); }
+  .entrar:disabled { opacity: .7; cursor: default; }
+  .giro { width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(255,255,255,.4); border-top-color: #fff; animation: giro .8s linear infinite; }
+  @keyframes giro { to { transform: rotate(360deg); } }
+  .erro {
+    margin: 0 0 14px; padding: 9px 12px; border-radius: 9px; font-size: 13.5px;
+    background: var(--erro-fundo); color: var(--erro);
+  }
+  .rodape {
+    margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--linha);
+    display: flex; gap: 10px; align-items: flex-start; font-size: 12.5px; color: var(--tinta-3);
+  }
+  .rodape svg { flex: none; margin-top: 2px; color: var(--acento); }
+  :focus-visible { outline: 2px solid var(--acento); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+</style>
+</head>
+<body>
+<main class="cartao">
+  <div class="logo" aria-hidden="true">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"><path d="M3 5.5c3-1.3 6-1.1 9 .9 3-2 6-2.2 9-.9v13c-3-1.3-6-1.1-9 .9-3-2-6-2.2-9-.9z"/><path d="M12 6.4v13"/></svg>
+  </div>
+  <h1>Acervo Psico</h1>
+  <p class="sub">Pesquisa nas referências técnicas do CREPOP/CFP, nas normas da profissão, nas leis da área e em manuais do governo.</p>
+
+  <form id="form" novalidate>
+    <p class="erro" id="erro" role="alert" hidden></p>
+    <label for="login">Usuário</label>
+    <input id="login" name="username" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="60" required autofocus>
+    <label for="senha">Senha</label>
+    <div class="campo-senha">
+      <input id="senha" name="password" type="password" autocomplete="current-password" maxlength="200" required>
+      <button class="ver" id="ver" type="button" aria-label="Mostrar senha">Mostrar</button>
+    </div>
+    <button class="entrar" id="entrar" type="submit">Entrar</button>
+  </form>
+
+  <div class="rodape">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+    <span>Versão de teste para a Psicologia. A Susmi, nossa IA, roda em servidor próprio do LARCC: as pesquisas não saem para a internet.</span>
+  </div>
+</main>
+<script>
+const $ = (s) => document.querySelector(s);
+$("#ver").addEventListener("click", () => {
+  const s = $("#senha"), mostrar = s.type === "password";
+  s.type = mostrar ? "text" : "password";
+  $("#ver").textContent = mostrar ? "Ocultar" : "Mostrar";
+  s.focus();
+});
+$("#form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const login = $("#login").value.trim(), senha = $("#senha").value;
+  const erro = $("#erro");
+  if (!login || !senha) { erro.textContent = "Preencha usuário e senha."; erro.hidden = false; return; }
+  const botao = $("#entrar");
+  botao.disabled = true;
+  botao.innerHTML = `<span class="giro"></span>Entrando…`;
+  try {
+    const r = await fetch("/entrar", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ login, senha }),
+    });
+    if (r.ok) { location.href = "/"; return; }
+    let msg = "Não foi possível entrar.";
+    try { const d = (await r.json()).detail; if (typeof d === "string") msg = d; } catch {}
+    if (r.status === 429) msg = "Muitas tentativas. Aguarde alguns minutos e tente de novo.";
+    erro.textContent = msg; erro.hidden = false;
+    $("#senha").select();
+  } catch {
+    erro.textContent = "Sem conexão com o servidor."; erro.hidden = false;
+  } finally {
+    botao.disabled = false; botao.textContent = "Entrar";
+  }
+});
+</script>
+</body>
+</html>

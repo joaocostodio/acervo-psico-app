@@ -1,0 +1,20 @@
+# Postgres + pgvector para o Portal CREPOP.
+# O Ollama roda nativo na VM (não em container), então o backend o acessa em
+# http://localhost:11434. Só o banco é containerizado aqui.
+#
+# Subir:  POSTGRES_PASSWORD=... docker compose up -d
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: crepop-pg
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?defina POSTGRES_PASSWORD}
+      POSTGRES_DB: crepop
+    ports:
+      - "127.0.0.1:5432:5432"   # só localhost, nunca exposto para fora
+    volumes:
+      - crepop_pgdata:/var/lib/postgresql/data
+
+volumes:
+  crepop_pgdata:

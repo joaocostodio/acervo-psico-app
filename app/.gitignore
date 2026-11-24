@@ -1,0 +1,18 @@
+# Segredos e ambiente
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# PDFs e dados locais (o acervo não vai para o git)
+dados/
+*.pdf
+
+# Logs
+*.log
+
+# PDF.js (terceiros): baixado na instalação
+backend/static/pdfjs/

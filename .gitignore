@@ -1,0 +1,29 @@
+# brModelo (binário de terceiros — baixar de brmodelo.com.br) e seus arquivos locais
+brModelo.jar
+*.chc
+
+# Saída de compilação das ferramentas Java
+build/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# Segredos
+.env
+
+# Windows / editores
+desktop.ini
+Thumbs.db
+*.lnk
+.vscode/
+.playwright-mcp/
+
+# Relatórios de uso puxados da VM (têm logins; ficam só na máquina)
+relatorios/
+uso.txt
+
+
+# Acesso real à VM (salto, IP interno)
+app/deploy/acesso.local.ps1

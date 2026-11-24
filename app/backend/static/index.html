@@ -1,0 +1,2730 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Acervo Psico</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231d6b5f'/%3E%3Cpath d='M8 10.5c3-1.2 5.6-1 8 .8 2.4-1.8 5-2 8-.8v11c-3-1.2-5.6-1-8 .8-2.4-1.8-5-2-8-.8z' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linejoin='round'/%3E%3Cpath d='M16 11.3v11' stroke='%23fff' stroke-width='1.8'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fundo: #f4f1ea;
+    --fundo-2: #ece7dc;
+    --superficie: #fffdf9;
+    --tinta: #1e2a2d;
+    --tinta-2: #4f5d5a;
+    --tinta-3: #868f8c;
+    --linha: #e6e0d4;
+    --linha-2: #d4ccbb;
+    --acento: #1d6b5f;
+    --acento-2: #15544a;
+    --acento-claro: #e3efea;
+    --acento-suave: #f0f6f3;
+    --cita: #8a4b12;
+    --cita-fundo: #f7e9d6;
+    --grifo: #fbe3a0;
+    --grifo-equiv: #d3ebe2;
+    --erro: #a23b2a;
+    --sombra: 0 1px 2px rgba(30,42,45,.05), 0 6px 20px rgba(30,42,45,.05);
+    --sombra-alta: 0 2px 4px rgba(30,42,45,.06), 0 14px 36px rgba(30,42,45,.10);
+    --serif: "Source Serif 4", Georgia, serif;
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --acento-fundo: var(--acento);   /* fundo de botão com texto branco */
+    --realce: #faf7f0;               /* fundo ao passar o mouse */
+    --fundo-pdf: #e9e5dc;
+    --lei: #64398f; --lei-fundo: #efe7f7;        /* selo "Lei" */
+    --manual: #2e5687; --manual-fundo: #e4edf8;  /* selo "Manual do governo" */
+  }
+  /* Modo escuro: segue o sistema (celular/computador no tema escuro). */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fundo: #131a1b; --fundo-2: #192122; --superficie: #1b2324;
+      --tinta: #e6ebe9; --tinta-2: #b3bdba; --tinta-3: #8a9592;
+      --linha: #2a3537; --linha-2: #3a4749;
+      --acento: #5fbfab; --acento-2: #8fd6c6; --acento-claro: #1f3a38; --acento-suave: #172928;
+      --acento-fundo: #1f7a6b;
+      --cita: #e7ad73; --cita-fundo: #3a2a19;
+      --grifo: #6e5a17; --grifo-equiv: #1e4a40; --erro: #ef8a75;
+      --realce: #212b2c; --fundo-pdf: #0f1415;
+      --sombra: 0 1px 2px rgba(0,0,0,.3); --sombra-alta: 0 4px 18px rgba(0,0,0,.35);
+      --lei: #cbabef; --lei-fundo: #2b2238; --manual: #a3c3ec; --manual-fundo: #1b2a3c;
+    }
+    .logo { background: linear-gradient(145deg, #23806f, #15544a); }
+    ::selection { background: #2b5a52; }
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--fundo); color: var(--tinta);
+    font: 15px/1.55 var(--sans); -webkit-font-smoothing: antialiased;
+    display: flex; flex-direction: column; overflow: hidden;
+  }
+  button, input, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; }
+  svg { display: block; }
+  :focus-visible { outline: 2px solid var(--acento); outline-offset: 2px; border-radius: 4px; }
+  ::selection { background: var(--acento-claro); }
+
+  /* ---------- Topo ---------- */
+  header {
+    height: 58px; flex: none; display: flex; align-items: center; gap: 12px;
+    padding: 0 18px 0 20px; background: var(--superficie); border-bottom: 1px solid var(--linha);
+  }
+  .logo {
+    width: 32px; height: 32px; border-radius: 9px; display: grid; place-items: center;
+    background: linear-gradient(145deg, #23806f, var(--acento-2));
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 1px 2px rgba(21,84,74,.3);
+  }
+  .marca { font: 600 18px/1.1 var(--serif); letter-spacing: -.01em; }
+  .marca small { display: block; font: 400 12px/1.3 var(--sans); color: var(--tinta-3); letter-spacing: 0; }
+  .topo-acoes { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+  .nova {
+    display: flex; align-items: center; gap: 6px;
+    border: 1px solid var(--linha-2); background: var(--superficie); border-radius: 9px;
+    padding: 6px 12px; font-size: 13px; font-weight: 500; transition: border-color .15s, color .15s;
+  }
+  .nova:hover { border-color: var(--acento); color: var(--acento); }
+  .status {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12.5px; color: var(--tinta-2);
+    padding: 6px 12px; border: 1px solid var(--linha); border-radius: 999px; background: var(--fundo);
+  }
+  .ponto { width: 7px; height: 7px; border-radius: 50%; background: var(--tinta-3); }
+  .ponto.ok { background: #2f9a6b; box-shadow: 0 0 0 3px rgba(47,154,107,.15); }
+  .ponto.falha { background: var(--erro); }
+  .usuario { position: relative; }
+  .usuario > button {
+    display: flex; align-items: center; gap: 8px; border: 0; background: none;
+    padding: 4px 6px 4px 4px; border-radius: 999px;
+  }
+  .usuario > button:hover { background: var(--fundo); }
+  .avatar {
+    width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center;
+    background: var(--acento-claro); color: var(--acento-2); font: 600 12.5px var(--sans); text-transform: uppercase;
+  }
+  .menu {
+    position: absolute; right: 0; top: calc(100% + 6px); min-width: 190px; z-index: 20;
+    background: var(--superficie); border: 1px solid var(--linha); border-radius: 12px;
+    box-shadow: var(--sombra-alta); padding: 6px;
+  }
+  .menu p { margin: 4px 10px 8px; font-size: 12.5px; color: var(--tinta-3); }
+  .menu p strong { display: block; color: var(--tinta); font-size: 14px; font-weight: 600; }
+  .menu button {
+    width: 100%; text-align: left; border: 0; background: none; padding: 7px 10px; border-radius: 8px; font-size: 13.5px;
+  }
+  .menu button:hover { background: var(--fundo); color: var(--erro); }
+  .menu a {
+    display: block; padding: 7px 10px; border-radius: 8px; font-size: 13.5px;
+    color: inherit; text-decoration: none;
+  }
+  .menu a:hover { background: var(--fundo); color: var(--acento); }
+  .menu a[hidden] { display: none; }
+
+  /* ---------- Grade ---------- */
+  main { flex: 1; min-height: 0; display: flex; }
+  #fontes {
+    width: 284px; flex: none; display: flex; flex-direction: column; min-height: 0;
+    background: var(--superficie); border-right: 1px solid var(--linha);
+    transition: width .2s ease;
+  }
+  #conversa { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  #leitor {
+    width: 0; flex: none; display: flex; flex-direction: column; overflow: hidden;
+    background: var(--superficie); border-left: 1px solid var(--linha);
+    transition: width .25s ease;
+  }
+  main.com-leitor #leitor { width: min(47vw, 800px); }
+
+  main.fontes-recolhidas #fontes { width: 54px; }
+  main.fontes-recolhidas #fontes .conteudo-fontes { display: none; }
+  main:not(.fontes-recolhidas) #fontes .trilho { display: none; }
+  .trilho {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    padding-top: 16px; background: none; border: 0; color: var(--tinta-2); font-size: 11px;
+  }
+  .trilho:hover { color: var(--acento); }
+  .trilho .num { font-weight: 600; }
+
+  /* ---------- Painel de fontes ---------- */
+  .conteudo-fontes { display: flex; flex-direction: column; min-height: 0; flex: 1; }
+  .cab-fontes { display: flex; align-items: center; gap: 8px; padding: 16px 12px 10px 18px; }
+  .cab-fontes h2 { margin: 0; font: 600 14px var(--sans); }
+  .cab-fontes .qtd {
+    color: var(--tinta-2); font-size: 11.5px; font-weight: 600; background: var(--fundo);
+    padding: 0 7px; border-radius: 999px; line-height: 19px;
+  }
+  .botao-icone {
+    margin-left: auto; width: 30px; height: 30px; border-radius: 8px;
+    border: 0; background: none; color: var(--tinta-3); display: grid; place-items: center;
+  }
+  .botao-icone:hover:not(:disabled) { background: var(--fundo); color: var(--tinta); }
+  .botao-icone:disabled { opacity: .35; cursor: default; }
+  .busca-fontes { padding: 0 14px 8px; position: relative; }
+  .busca-fontes svg { position: absolute; left: 25px; top: 9px; color: var(--tinta-3); }
+  .busca-fontes input {
+    width: 100%; padding: 6px 10px 6px 32px; font-size: 13.5px;
+    border: 1px solid var(--linha); border-radius: 9px; background: var(--fundo);
+  }
+  .busca-fontes input:focus { outline: none; border-color: var(--acento); background: var(--superficie); }
+  .escopo-fontes {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 2px 18px 8px; font-size: 12px; color: var(--tinta-3);
+  }
+  .link { border: 0; background: none; padding: 0; color: var(--acento); font-size: 12px; font-weight: 500; }
+  .link:hover { text-decoration: underline; }
+  #lista-fontes { flex: 1; overflow-y: auto; padding: 0 8px 20px; }
+  .carregando { margin: 8px 10px; font-size: 13px; color: var(--tinta-3); }
+  .grupo { margin-top: 4px; }
+  .grupo summary {
+    list-style: none; display: flex; align-items: center; gap: 6px; cursor: pointer;
+    padding: 8px 10px 6px; font: 600 11px var(--sans); letter-spacing: .07em;
+    text-transform: uppercase; color: var(--tinta-3); border-radius: 6px;
+  }
+  .grupo summary:hover { color: var(--tinta-2); }
+  .grupo summary::-webkit-details-marker { display: none; }
+  .grupo summary svg { transition: transform .15s; }
+  .grupo[open] summary svg { transform: rotate(90deg); }
+  .grupo summary .n { margin-left: auto; font-weight: 500; letter-spacing: 0; }
+  .fonte { display: flex; align-items: center; gap: 4px; border-radius: 8px; padding-right: 6px; }
+  .fonte:hover { background: var(--fundo); }
+  .fonte.ativa { background: var(--acento-claro); }
+  .fonte.ativa .nome { color: var(--acento-2); font-weight: 500; }
+  .fonte .abrir {
+    flex: 1; min-width: 0; display: flex; align-items: baseline; gap: 8px;
+    border: 0; background: none; padding: 6px 4px 6px 10px; text-align: left;
+  }
+  /* Nome em até duas linhas (antes era cortado em uma: "Caderno de Atenção Básic…"). */
+  .fonte .nome {
+    flex: 1; min-width: 0; font-size: 13.5px; line-height: 1.3;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .fonte .pags { flex: none; font-size: 11.5px; color: var(--tinta-3); font-variant-numeric: tabular-nums; }
+  .fonte.fora .nome { color: var(--tinta-3); }
+  .marca-fonte { width: 14px; height: 14px; margin: 0; accent-color: var(--acento); flex: none; cursor: pointer; opacity: .5; }
+  .fonte:hover .marca-fonte, .marca-fonte:focus-visible, .marca-fonte:not(:checked) { opacity: 1; }
+
+  /* ---------- Conversa ---------- */
+  #mensagens { flex: 1; overflow-y: auto; padding: 0 28px 28px; scroll-behavior: smooth; }
+  .coluna { max-width: 760px; margin: 0 auto; }
+
+  .boas-vindas { padding-top: 8vh; text-align: center; animation: surgir .4s ease both; }
+  .selo {
+    display: inline-flex; align-items: center; gap: 7px; margin-bottom: 16px;
+    font-size: 12px; font-weight: 500; color: var(--acento-2);
+    background: var(--acento-claro); padding: 4px 12px; border-radius: 999px;
+  }
+  .boas-vindas h1 { font: 600 34px/1.15 var(--serif); margin: 0; letter-spacing: -.02em; }
+  .boas-vindas > p { color: var(--tinta-2); margin: 12px auto 22px; max-width: 540px; font-size: 15.5px; }
+  .temas { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 0 auto 28px; max-width: 640px; }
+  .tema {
+    border: 1px solid var(--linha-2); background: var(--superficie); border-radius: 999px;
+    padding: 5px 13px; font-size: 13.5px; color: var(--tinta-2); transition: all .15s;
+  }
+  .tema:hover { border-color: var(--acento); color: var(--acento-2); background: var(--acento-suave); transform: translateY(-1px); }
+  .modos-explicados { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; text-align: left; }
+  .modo-card {
+    border: 1px solid var(--linha); background: var(--superficie); border-radius: 14px;
+    padding: 18px 18px 14px; box-shadow: var(--sombra);
+  }
+  .modo-card h3 { margin: 0 0 4px; font: 600 15px var(--sans); display: flex; align-items: center; gap: 8px; }
+  .modo-card h3 .ic { width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; background: var(--acento-claro); color: var(--acento-2); }
+  .modo-card p { margin: 0 0 10px; font-size: 13.5px; color: var(--tinta-2); }
+  .modo-card .tempo { font: 500 11.5px var(--sans); color: var(--tinta-3); margin-left: auto; }
+  .exemplo {
+    display: block; width: 100%; text-align: left; border: 0; background: var(--fundo);
+    padding: 7px 10px; border-radius: 8px; font-size: 13.5px; margin-top: 6px; color: var(--tinta-2);
+    transition: background .15s, color .15s;
+  }
+  .exemplo:hover { background: var(--acento-claro); color: var(--acento-2); }
+  .exemplo::before { content: "→ "; color: var(--tinta-3); }
+
+  .msg { margin-top: 22px; animation: surgir .25s ease both; }
+  @keyframes surgir { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .pergunta { display: flex; justify-content: flex-end; }
+  .pergunta .bolha {
+    max-width: 80%; background: var(--acento-fundo); color: #fff;
+    padding: 8px 14px; border-radius: 16px 16px 4px 16px; white-space: pre-wrap;
+    box-shadow: 0 1px 2px rgba(21,84,74,.25);
+  }
+  .pergunta .tipo { display: block; font-size: 10.5px; font-weight: 600; letter-spacing: .06em; opacity: .75; }
+
+  .cartao {
+    background: var(--superficie); border: 1px solid var(--linha); border-radius: 14px;
+    box-shadow: var(--sombra); overflow: hidden;
+  }
+  .cartao-cab {
+    display: flex; align-items: center; gap: 8px; padding: 12px 18px;
+    border-bottom: 1px solid var(--linha); font-size: 13px; color: var(--tinta-2);
+  }
+  .cartao-cab strong { color: var(--tinta); font-weight: 600; }
+
+  /* Equivalências usadas na busca */
+  .aviso-crise { padding: 12px 18px; background: #fdecea; color: #5c1a14; border-left: 4px solid #c0392b; border-bottom: 1px solid var(--linha); font-size: 14px; line-height: 1.5; }
+  .aviso-crise strong { display: block; margin-bottom: 2px; }
+  .aviso-crise a { color: #a0281c; }
+  .equivalencias { padding: 10px 18px 11px; background: var(--acento-suave); border-bottom: 1px solid var(--linha); font-size: 12.5px; color: var(--tinta-2); }
+  .equivalencias .rot { font-weight: 600; color: var(--acento-2); margin-right: 4px; }
+  .equivalencias .eq { display: inline; }
+  .equivalencias .eq + .eq::before { content: "  ·  "; color: var(--tinta-3); white-space: pre; }
+  .chip-eq {
+    display: inline-block; background: var(--grifo-equiv); color: var(--acento-2);
+    padding: 0 7px; border-radius: 5px; margin: 1px 1px; font-weight: 500;
+  }
+
+  /* Lista de páginas encontradas */
+  .achado {
+    display: block; width: 100%; text-align: left; border: 0; background: none;
+    padding: 13px 18px; border-bottom: 1px solid var(--linha); position: relative;
+    transition: background .12s;
+  }
+  .achado:last-of-type { border-bottom: 0; }
+  .achado:hover { background: var(--realce); }
+  .achado:hover .doc { color: var(--acento-2); }
+  .achado.aberto { background: var(--acento-suave); box-shadow: inset 3px 0 0 var(--acento); }
+  .achado .linha1 { display: flex; align-items: baseline; gap: 10px; }
+  .achado .doc { font-weight: 600; font-size: 14px; }
+  .achado .cat { font-size: 12px; color: var(--tinta-3); white-space: nowrap; }
+  .chip-pag {
+    margin-left: auto; flex: none; font: 600 12px var(--sans); color: var(--cita);
+    background: var(--cita-fundo); padding: 1px 8px; border-radius: 6px;
+  }
+  .assunto {
+    flex: none; font: 500 11px var(--sans); color: var(--tinta-2); border: 1px dashed var(--linha-2);
+    padding: 0 6px; border-radius: 5px; white-space: nowrap;
+  }
+  .achado .trecho {
+    margin-top: 4px; font-size: 13.5px; color: var(--tinta-2);
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  mark { background: var(--grifo); color: inherit; border-radius: 3px; padding: 0 2px; }
+  mark.equivalente { background: var(--grifo-equiv); }
+  .mais { width: 100%; border: 0; background: none; padding: 11px; color: var(--acento); font-size: 13px; font-weight: 500; border-top: 1px solid var(--linha); }
+  .mais:hover { background: var(--realce); }
+
+  /* Resposta da IA */
+  .resposta { padding: 18px 22px 6px; font: 400 16.5px/1.7 var(--serif); overflow-wrap: anywhere; }
+  .resposta p { margin: 0 0 .7em; }
+  .resposta h4 { margin: 1.1em 0 .35em; font: 600 15px/1.4 var(--sans); color: var(--tinta); }
+  .resposta h4:first-child { margin-top: 0; }
+  .resposta ul, .resposta ol { margin: 0 0 .8em; padding-left: 1.3em; }
+  .resposta li { margin: .25em 0; }
+  .resposta li::marker { color: var(--acento); }
+
+  /* Ações na resposta: copiar com referências, imprimir */
+  .acoes-resposta { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 22px 12px; }
+  .acao {
+    display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--linha-2);
+    background: var(--superficie); border-radius: 999px; padding: 4px 12px;
+    font: 500 12.5px var(--sans); color: var(--tinta-2);
+  }
+  .acao:hover { border-color: var(--acento); color: var(--acento); }
+  .acao.feito { border-color: var(--acento); color: var(--acento); }
+  .aviso-longo {
+    margin: 12px 18px 0; padding: 8px 12px; border-radius: 8px; font-size: 13px;
+    background: var(--acento-suave); border: 1px solid var(--acento-claro); color: var(--tinta-2);
+  }
+
+  /* Diálogo "Como citar" (ABNT) */
+  dialog.citar {
+    width: min(560px, calc(100vw - 28px)); border: 1px solid var(--linha); border-radius: 16px;
+    padding: 0; background: var(--superficie); color: var(--tinta); box-shadow: var(--sombra-alta);
+  }
+  dialog.citar::backdrop { background: rgba(15, 22, 23, .45); }
+  .citar-cab { display: flex; align-items: center; gap: 8px; padding: 14px 16px 10px 20px; border-bottom: 1px solid var(--linha); }
+  .citar-cab h3 { margin: 0; font: 600 16px var(--serif); flex: 1; }
+  .citar-corpo { padding: 14px 20px 18px; }
+  .citar-corpo h4 { margin: 12px 0 6px; font: 600 11px var(--sans); letter-spacing: .07em; text-transform: uppercase; color: var(--tinta-3); }
+  .citar-corpo h4:first-child { margin-top: 0; }
+  .citar-caixa {
+    display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border-radius: 10px;
+    background: var(--fundo); border: 1px solid var(--linha); font: 400 14.5px/1.55 var(--serif);
+  }
+  .citar-caixa > div { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+  .citar-nota { margin: 12px 0 0; font-size: 12.5px; color: var(--tinta-3); line-height: 1.5; }
+
+  /* ---------- Caderno de pesquisa ---------- */
+  .n-caderno {
+    font: 600 11px/17px var(--sans); background: var(--acento-fundo); color: #fff;
+    border-radius: 999px; padding: 0 6px; min-width: 17px; text-align: center;
+  }
+  .n-caderno:empty { display: none; }
+  .guardar-pag {
+    flex: none; display: inline-flex; align-items: center; gap: 4px;
+    border: 1px solid var(--linha-2); background: var(--superficie); border-radius: 6px;
+    padding: 0 8px; line-height: 20px; font-size: 11.5px; font-weight: 500; color: var(--tinta-2);
+    opacity: 0; transition: opacity .12s, border-color .12s, color .12s;
+  }
+  .achado:hover .guardar-pag, .achado:focus-within .guardar-pag, .achado.aberto .guardar-pag,
+  .guardar-pag.feito { opacity: 1; }
+  .guardar-pag:hover { border-color: var(--acento); color: var(--acento-2); }
+  .guardar-pag.feito, .acao.guardar-pag.feito { color: var(--acento-2); border-color: var(--acento); }
+  .acao.guardar-pag { opacity: 1; border-radius: 999px; padding: 4px 12px; font-size: 12.5px; line-height: normal; }
+  .guardar-pag + .chip-pag { margin-left: 0; }
+  @media (hover: none) { .guardar-pag { opacity: 1; line-height: 28px; padding: 0 11px; font-size: 12.5px; } }
+
+  dialog.caderno {
+    width: min(780px, calc(100vw - 20px)); max-height: calc(100dvh - 32px); border: 1px solid var(--linha);
+    border-radius: 16px; padding: 0; background: var(--superficie); color: var(--tinta); box-shadow: var(--sombra-alta);
+  }
+  dialog.caderno[open] { display: flex; flex-direction: column; }
+  dialog.caderno::backdrop { background: rgba(15, 22, 23, .45); }
+  .caderno-aviso { margin: 0; padding: 10px 20px; font-size: 12.5px; color: var(--tinta-3); border-bottom: 1px solid var(--linha); background: var(--acento-suave); }
+  .caderno-lista { flex: 1; overflow-y: auto; padding: 14px 20px 6px; }
+  .caderno-vazio { color: var(--tinta-2); font-size: 14px; line-height: 1.6; margin: 6px 0 14px; }
+  .item-caderno { border: 1px solid var(--linha); border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; background: var(--fundo); }
+  .item-caderno .cab { display: flex; gap: 6px 8px; align-items: baseline; flex-wrap: wrap; font-size: 12.5px; color: var(--tinta-3); }
+  .item-caderno .num { font-weight: 600; color: var(--tinta-3); }
+  .item-caderno .obra { font-weight: 600; color: var(--tinta); font-size: 13.5px; }
+  .item-caderno blockquote { margin: 8px 0 4px; font: 400 14.5px/1.55 var(--serif); color: var(--tinta); }
+  .item-caderno .cit { color: var(--cita); font: 500 12.5px var(--sans); }
+  .item-caderno .dica { font-size: 11.5px; color: var(--tinta-3); }
+  .item-caderno .resp { font: 400 14px/1.55 var(--serif); max-height: 14em; overflow: auto; margin-top: 6px; }
+  .item-caderno .resp h4 { font: 600 14px var(--sans); margin: 8px 0 2px; }
+  .item-caderno .resp p, .item-caderno .resp ul, .item-caderno .resp ol { margin: 4px 0; }
+  .item-caderno textarea {
+    display: block; width: 100%; min-height: 2.5em; margin-top: 8px; resize: vertical; font-size: 13px;
+    border: 1px solid var(--linha-2); border-radius: 8px; padding: 6px 9px; background: var(--superficie);
+  }
+  .item-caderno textarea:focus { outline: none; border-color: var(--acento); }
+  .item-caderno .acoes-item { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .caderno-rodape { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 12px 20px; border-top: 1px solid var(--linha); }
+  .caderno-rodape .acao:disabled { opacity: .45; cursor: default; }
+  .caderno-rodape .apagar { margin-left: auto; color: var(--erro); }
+  .caderno-rodape .apagar.confirmar { border-color: var(--erro); background: var(--erro); color: #fff; }
+
+  /* ---------- Linha do tempo ---------- */
+  dialog.linha-tempo { width: min(860px, calc(100vw - 20px)); height: calc(100dvh - 32px); }
+  .linha-topo { padding: 10px 20px 12px; border-bottom: 1px solid var(--linha); background: var(--acento-suave); }
+  .linha-topo p { margin: 0 0 8px; font-size: 13px; color: var(--tinta-2); }
+  .linha-topo .tipos-fonte { margin: 0; }
+  .tl { position: relative; padding: 4px 0 18px 0; }
+  .tl::before { content: ""; position: absolute; left: 27px; top: 0; bottom: 0; width: 2px; background: var(--linha-2); border-radius: 2px; }
+  .tl-decada { position: relative; margin: 18px 0 8px 66px; font: 600 11px var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--tinta-3); }
+  .tl-decada:first-child { margin-top: 6px; }
+  .tl-ano { position: relative; display: grid; grid-template-columns: 56px 1fr; gap: 10px; margin-bottom: 10px; }
+  .tl-marca { position: relative; z-index: 1; justify-self: center; align-self: start; margin-top: 7px; font: 600 12.5px/22px var(--sans);
+    font-variant-numeric: tabular-nums; padding: 0 7px; border-radius: 999px; background: var(--superficie);
+    border: 2px solid var(--acento); color: var(--acento-2); }
+  .tl-itens { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  .tl-obra { display: flex; align-items: center; gap: 8px; text-align: left; width: 100%; padding: 8px 12px;
+    border: 1px solid var(--linha); border-left: 3px solid var(--acento); border-radius: 10px; background: var(--fundo);
+    transition: border-color .12s, background .12s, transform .12s; }
+  .tl-obra:hover { background: var(--realce); border-color: var(--acento); transform: translateX(2px); }
+  .tl-obra.t-lei { border-left-color: var(--lei); }
+  .tl-obra.t-norma { border-left-color: var(--acento-2); }
+  .tl-obra.t-manual { border-left-color: var(--manual); }
+  .tl-obra .nome { flex: 1; min-width: 0; font-size: 14px; font-weight: 500; }
+  .tl-obra .pags { flex: none; font-size: 11.5px; color: var(--tinta-3); font-variant-numeric: tabular-nums; }
+  .tl-obra .resumo-curto { display: block; font-size: 12.5px; font-weight: 400; color: var(--tinta-3); margin-top: 2px;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  @media (max-width: 600px) {
+    .tl::before { left: 24px; }
+    .tl-ano { grid-template-columns: 50px 1fr; gap: 6px; }
+    .tl-marca { font-size: 11.5px; padding: 0 5px; }
+    .tl-decada { margin-left: 56px; }
+    .cab-leitor .rot-botao { display: none; }
+    .cab-leitor .leitor-guardar { padding: 6px 9px; }
+    .tl-obra { flex-wrap: wrap; row-gap: 4px; }
+    .tl-obra .nome { flex-basis: 100%; }
+    .tl-obra .pags { margin-left: auto; }
+    .linha-topo { padding: 8px 14px 10px; }
+  }
+
+  /* ---------- Ficha da obra ---------- */
+  dialog.ficha { width: min(720px, calc(100vw - 20px)); }
+  .ficha-corpo { font-size: 14px; }
+  .ficha-meta { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; font-size: 12.5px; color: var(--tinta-3); margin-bottom: 12px; }
+  .ficha-meta .eixo { padding: 0 8px; line-height: 20px; border-radius: 999px; background: var(--fundo); border: 1px solid var(--linha); }
+  .ficha-corpo h4 { margin: 16px 0 6px; font: 600 11px var(--sans); letter-spacing: .07em; text-transform: uppercase; color: var(--tinta-3); }
+  .ficha-resumo { font: 400 15.5px/1.6 var(--serif); margin: 0; }
+  .ficha-ia { display: flex; gap: 8px; align-items: flex-start; margin-top: 8px; padding: 8px 10px; border-radius: 8px;
+    background: var(--acento-suave); font-size: 12.5px; color: var(--tinta-2); line-height: 1.45; }
+  .ficha-ia svg { flex: none; margin-top: 2px; color: var(--acento); }
+  .ficha-pontos { margin: 0; padding-left: 20px; font: 400 14.5px/1.55 var(--serif); }
+  .ficha-pontos li { margin-bottom: 4px; }
+  .ficha-pontos .cita { margin-left: 4px; }
+  .ficha-espera { padding: 12px 14px; border-radius: 10px; border: 1px dashed var(--linha-2); color: var(--tinta-2); font-size: 13.5px; line-height: 1.5; }
+  .ficha-lista { display: flex; flex-direction: column; gap: 4px; }
+  .ficha-lista button, .ficha-lista span.item { display: flex; align-items: center; gap: 8px; text-align: left; width: 100%;
+    padding: 6px 10px; border: 1px solid var(--linha); border-radius: 8px; background: var(--fundo); font-size: 13.5px; }
+  .ficha-lista button:hover { border-color: var(--acento); background: var(--realce); }
+  .ficha-lista .n { margin-left: auto; flex: none; font-size: 11.5px; color: var(--tinta-3); }
+  .ficha-temas { display: flex; flex-wrap: wrap; gap: 6px; }
+  .ficha-temas button { border: 1px solid var(--linha-2); background: var(--superficie); border-radius: 999px; padding: 3px 11px; font-size: 13px; }
+  .ficha-temas button:hover { border-color: var(--acento); color: var(--acento-2); }
+  .ficha-ref { font: 400 14px/1.55 var(--serif); padding: 10px 12px; border-radius: 10px; background: var(--fundo); border: 1px solid var(--linha); overflow-wrap: anywhere; }
+  .acao.primaria { background: var(--acento-fundo); border-color: var(--acento-fundo); color: #fff; }
+  .acao.primaria:hover { color: #fff; filter: brightness(1.08); }
+  .ficha-fonte { flex: none; display: grid; place-items: center; width: 22px; height: 22px; border: 0; background: none;
+    border-radius: 6px; color: var(--tinta-3); opacity: 0; transition: opacity .12s, color .12s; }
+  .fonte:hover .ficha-fonte, .ficha-fonte:focus-visible { opacity: 1; }
+  .ficha-fonte:hover { color: var(--acento-2); background: var(--acento-claro); }
+  @media (hover: none) { .ficha-fonte { opacity: .8; width: 30px; height: 30px; } }
+  .leitor-guardar { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+  .leitor-aviso { padding: 6px 18px; font-size: 12.5px; color: var(--tinta-2); background: var(--acento-suave); border-bottom: 1px solid var(--linha); min-width: 340px; }
+  .leitor-aviso[hidden] { display: none; }
+
+  /* Últimas pesquisas (só neste navegador) */
+  .recentes { margin: -10px auto 26px; max-width: 640px; font-size: 13px; color: var(--tinta-3); }
+  .recentes .lista { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 6px; }
+  .recentes .tema { font-size: 12.5px; padding: 3px 11px; }
+  .recentes .tema .m { color: var(--tinta-3); margin-right: 4px; }
+  .cita {
+    display: inline-block; border: 0; padding: 0 6px; margin: 0 1px; border-radius: 5px;
+    background: var(--cita-fundo); color: var(--cita); font: 600 12px/1.7 var(--sans);
+    vertical-align: 1px;
+  }
+  button.cita:hover { background: var(--cita); color: #fff; }
+  .cursor {
+    display: inline-block; width: 8px; height: 1.05em; margin-left: 2px; vertical-align: -2px;
+    background: var(--acento); border-radius: 2px; animation: piscar 1s steps(2) infinite;
+  }
+  @keyframes piscar { 50% { opacity: 0; } }
+  .pensando + .resposta:not([hidden]) { padding-top: 4px; }
+  .consultadas { padding: 6px 22px 14px; }
+  .consultadas h4 { margin: 8px 0 6px; font: 600 11px var(--sans); letter-spacing: .07em; text-transform: uppercase; color: var(--tinta-3); }
+  .consultada {
+    display: flex; align-items: baseline; gap: 8px; width: 100%; text-align: left;
+    border: 0; background: none; padding: 5px 6px; margin: 0 -6px; border-radius: 7px; font-size: 13.5px;
+  }
+  .consultada:hover { background: var(--fundo); }
+  .consultada .i { color: var(--tinta-3); font-size: 12px; width: 14px; flex: none; }
+  .rodape-resposta { padding: 10px 22px; border-top: 1px solid var(--linha); font-size: 12px; color: var(--tinta-3); }
+
+  .pensando { display: flex; align-items: center; gap: 12px; padding: 16px 18px; color: var(--tinta-2); font-size: 14px; }
+  .pensando small { display: block; color: var(--tinta-3); font-size: 12.5px; }
+
+  /* ---------- Marca d'água e aviso nas respostas da IA ---------- */
+  .resposta.ia { position: relative; overflow: hidden; isolation: isolate; }
+  .resposta.ia::before {
+    content: "GERADO POR IA"; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    display: flex; align-items: center; justify-content: center; white-space: nowrap;
+    font: 800 clamp(26px, 7vw, 54px) var(--sans); letter-spacing: .18em;
+    color: var(--tinta); opacity: .05; transform: rotate(-14deg); user-select: none;
+  }
+  .aviso-ia {
+    display: flex; gap: 8px; align-items: flex-start; margin: 2px 22px 12px; padding: 8px 12px;
+    border-radius: 8px; background: var(--cita-fundo); color: var(--cita);
+    font: 500 12.5px/1.45 var(--sans);
+  }
+  .aviso-ia .ic { flex: none; font-size: 14px; line-height: 1.3; }
+
+  /* ---------- Leis citadas e avaliação da resposta ---------- */
+  .leis-cit { margin-top: 6px; font: 500 12px var(--sans); color: var(--tinta-2); }
+  .avaliacao {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 4px 22px 12px;
+    font: 13px var(--sans); color: var(--tinta-2);
+  }
+  .avaliacao .rot { color: var(--tinta-3); }
+  .avaliacao button {
+    border: 1px solid var(--linha-2); background: var(--superficie); border-radius: 999px;
+    padding: 4px 12px; font: 500 13px var(--sans); color: var(--tinta); cursor: pointer;
+  }
+  .avaliacao button:hover:not(:disabled) { border-color: var(--acento); color: var(--acento); }
+  .avaliacao textarea {
+    flex: 1 1 100%; font: 16px var(--sans); padding: 8px 10px; border-radius: 8px;
+    border: 1px solid var(--linha-2); background: var(--superficie); resize: vertical;
+  }
+  .avaliacao .mandar { background: var(--acento-fundo); color: #fff; border-color: var(--acento-fundo); }
+
+  /* ---------- Linha de pensamento da Susmi ---------- */
+  .linha-pensamento {
+    margin: 0 18px 12px; border: 1px solid var(--linha); border-radius: 12px;
+    background: var(--acento-suave); font-size: 13.5px; color: var(--tinta-2);
+  }
+  .linha-pensamento > summary {
+    list-style: none; cursor: pointer; padding: 10px 14px; display: flex; align-items: center; gap: 8px;
+    font: 600 11px var(--sans); letter-spacing: .07em; text-transform: uppercase; color: var(--acento);
+  }
+  .linha-pensamento:first-child { margin-top: 14px; }
+  .linha-pensamento > summary::-webkit-details-marker { display: none; }
+  .linha-pensamento > summary::after { content: "▾"; margin-left: auto; font-size: 12px; transition: transform .2s; }
+  .linha-pensamento:not([open]) > summary::after { transform: rotate(-90deg); }
+  .lp-corpo { padding: 0 14px 12px; max-height: 280px; overflow-y: auto; overscroll-behavior: contain; }
+  .lp-passo { margin: 0 0 6px; padding-left: 16px; position: relative; line-height: 1.5; animation: lp-entra .35s ease both; }
+  .lp-passo::before { content: "›"; position: absolute; left: 3px; color: var(--acento); font-weight: 700; }
+  .lp-leitura { margin: 10px 0 0; animation: lp-entra .35s ease both; }
+  .lp-leitura h5 { margin: 0 0 5px; display: flex; align-items: center; gap: 7px; font: 600 12.5px var(--sans); color: var(--tinta); }
+  .lp-leitura .ok { color: var(--acento); font-weight: 700; }
+  .giro.mini { width: 12px; height: 12px; }
+  .lp-texto {
+    font: 400 13.5px/1.6 var(--serif); background: var(--superficie);
+    border: 1px solid var(--linha); border-radius: 8px; padding: 8px 10px; color: var(--tinta);
+  }
+  .lp-texto span { opacity: .3; transition: opacity .25s; }
+  .lp-texto span.lida { opacity: 1; }
+  .lp-texto span.agora { text-decoration: underline 2px var(--acento); text-underline-offset: 3px; }
+  @keyframes lp-entra { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  .giro {
+    width: 18px; height: 18px; border-radius: 50%; flex: none;
+    border: 2px solid var(--linha-2); border-top-color: var(--acento);
+    animation: giro .9s linear infinite;
+  }
+  @keyframes giro { to { transform: rotate(360deg); } }
+  .erro { padding: 14px 18px; color: var(--erro); }
+  .vazio { padding: 16px 18px; color: var(--tinta-2); }
+
+  /* ---------- Entrada ---------- */
+  .entrada { flex: none; padding: 10px 28px 18px; }
+  .caixa {
+    background: var(--superficie); border: 1px solid var(--linha-2); border-radius: 16px;
+    box-shadow: var(--sombra-alta); padding: 6px 6px 6px 8px; transition: border-color .15s, box-shadow .15s;
+  }
+  .caixa:focus-within { border-color: var(--acento); box-shadow: 0 0 0 4px rgba(29,107,95,.10), var(--sombra-alta); }
+  .linha-caixa { display: flex; align-items: flex-end; gap: 6px; }
+  textarea {
+    flex: 1; resize: none; border: 0; background: none; outline: none;
+    padding: 9px 8px; min-height: 42px; max-height: 150px; font-size: 15px;
+  }
+  .enviar {
+    flex: none; width: 38px; height: 38px; border-radius: 11px; border: 0;
+    background: var(--acento-fundo); color: #fff; display: grid; place-items: center; margin-bottom: 2px;
+    transition: background .15s, transform .1s;
+  }
+  .enviar:hover:not(:disabled) { filter: brightness(.88); }
+  .enviar:active:not(:disabled) { transform: scale(.95); }
+  .enviar:disabled { background: var(--linha-2); cursor: default; }
+  .rodape-caixa { display: flex; align-items: center; gap: 10px; padding: 2px 2px 0; }
+  .alternador { display: inline-flex; background: var(--fundo); border-radius: 9px; padding: 2px; }
+  .alternador button {
+    border: 0; background: none; padding: 4px 11px; border-radius: 7px; font-size: 12.5px; color: var(--tinta-2);
+  }
+  .alternador button[aria-pressed="true"] { background: var(--superficie); color: var(--tinta); font-weight: 600; box-shadow: 0 1px 2px rgba(30,42,45,.14); }
+  .escopo { margin-left: auto; font-size: 12px; color: var(--tinta-3); padding-right: 6px; }
+  .contexto-ia {
+    display: flex; align-items: center; gap: 8px; margin: 2px 2px 4px; padding: 5px 6px 5px 10px;
+    background: var(--acento-suave); border: 1px solid var(--acento-claro); border-radius: 10px; font-size: 12.5px;
+  }
+  .contexto-ia[hidden] { display: none; }
+  .contexto-ia { flex-wrap: wrap; row-gap: 4px; }
+  .contexto-ia .rot { color: var(--tinta-3); flex: none; }
+  .contexto-ia .qual { flex: 1 1 140px; font-weight: 600; color: var(--acento-2); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .contexto-ia .estado-leitura { margin-left: auto; flex: none; color: var(--tinta-3); display: flex; align-items: center; gap: 6px; }
+  .contexto-ia .estado-leitura .giro { width: 12px; height: 12px; border-width: 2px; }
+  .contexto-ia .sair-ctx {
+    flex: none; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;
+    border: 1px solid var(--acento-claro); background: var(--superficie); color: var(--acento);
+    border-radius: 999px; padding: 3px 9px; font: 600 12px var(--sans); cursor: pointer;
+  }
+  .contexto-ia .sair-ctx:hover { background: var(--acento-fundo); color: #fff; }
+  .contexto-ia .estado-leitura:empty { display: none; }
+  .contexto-ia .estado-leitura:empty + .sair-ctx { margin-left: auto; }
+  .explicar {
+    margin-left: auto; flex: none; display: inline-flex; align-items: center; gap: 5px;
+    border: 1px solid var(--linha-2); background: var(--superficie); border-radius: 6px;
+    padding: 0 8px; line-height: 20px; font-size: 11.5px; font-weight: 500; color: var(--tinta-2);
+    opacity: 0; transition: opacity .12s, border-color .12s, color .12s;
+  }
+  .explicar + .chip-pag, .citar-pag + .chip-pag { margin-left: 0; }
+  .citar-pag {
+    flex: none; display: inline-flex; align-items: center; gap: 4px;
+    border: 1px solid var(--linha-2); background: var(--superficie); border-radius: 6px;
+    padding: 0 8px; line-height: 20px; font-size: 11.5px; font-weight: 500; color: var(--tinta-2);
+    opacity: 0; transition: opacity .12s, border-color .12s, color .12s;
+  }
+  .explicar + .citar-pag { margin-left: 0; }
+  textarea:focus-visible { outline: none; }
+  .achado:hover .explicar, .achado:focus-within .explicar, .achado.aberto .explicar,
+  .achado:hover .citar-pag, .achado:focus-within .citar-pag, .achado.aberto .citar-pag { opacity: 1; }
+  .explicar:hover, .citar-pag:hover { border-color: var(--acento); color: var(--acento-2); }
+  @media (hover: none) { .explicar, .citar-pag { opacity: 1; } }
+  .consultada .citar-pag { opacity: .8; margin-left: auto; }
+  .consultada .citar-pag + .chip-pag { margin-left: 0; }
+  .consultada:hover .citar-pag { opacity: 1; }
+  .achado { cursor: pointer; }
+
+  /* ---------- Tipo da fonte (10/11/2026) ----------
+     Lei, norma do CFP e manual do governo ganham selo colorido; as obras do CREPOP
+     (Referências Técnicas, seminários, guias) seguem em cinza, como antes. */
+  .cat.selo-tipo { display: inline-flex; align-items: center; gap: 4px; padding: 0 7px; border-radius: 5px; font-weight: 600; font-size: 11.5px; line-height: 19px; }
+  .selo-tipo svg { flex: none; }
+  .tipo-lei { color: var(--lei); background: var(--lei-fundo); }
+  .tipo-norma { color: var(--acento-2); background: var(--acento-claro); }
+  .tipo-manual { color: var(--manual); background: var(--manual-fundo); }
+  .consultada .selo-tipo { font-size: 10.5px; line-height: 17px; padding: 0 6px; }
+
+  /* Filtro por tipo na lista de fontes */
+  .tipos-fonte { display: flex; flex-wrap: wrap; gap: 5px; padding: 0 14px 8px; }
+  .tipo-chip {
+    border: 1px solid var(--linha-2); background: var(--superficie); border-radius: 999px;
+    padding: 1px 9px; font-size: 12px; color: var(--tinta-2); line-height: 20px;
+  }
+  .tipo-chip .n { color: var(--tinta-3); margin-left: 3px; font-variant-numeric: tabular-nums; }
+  .tipo-chip:hover { border-color: var(--acento); color: var(--acento-2); }
+  .tipo-chip[aria-pressed="true"] { background: var(--acento-fundo); border-color: var(--acento-fundo); color: #fff; }
+  .tipo-chip[aria-pressed="true"] .n { color: rgba(255,255,255,.8); }
+  .so-estas { display: block; margin: -2px 18px 8px; }
+  .so-estas[hidden] { display: none; }
+
+  /* Novidade na tela inicial */
+  .novidade {
+    display: flex; align-items: flex-start; gap: 10px; max-width: 640px; margin: 0 auto 22px; text-align: left;
+    background: var(--superficie); border: 1px solid var(--linha); border-left: 3px solid var(--lei);
+    border-radius: 10px; padding: 10px 14px; font-size: 13.5px; color: var(--tinta-2);
+  }
+  .novidade strong { color: var(--tinta); }
+  .novidade .link { font-size: 13.5px; }
+
+  /* Celular: o nome da obra em cima, sozinho; selo, botões e página na linha de baixo. */
+  .achado .linha1 { flex-wrap: wrap; row-gap: 3px; }
+  .achado .doc { min-width: 0; }
+  .cartao-cab { flex-wrap: wrap; row-gap: 2px; }
+  .cartao-cab strong { white-space: nowrap; }
+  @media (max-width: 600px) {
+    .achado { padding: 12px 14px; }
+    .achado .doc { flex-basis: 100%; }
+    .consultadas { padding: 6px 14px 12px; }
+    .consultada { flex-wrap: wrap; row-gap: 2px; }
+  }
+  /* No toque não há "passar o mouse": botões sempre visíveis e com área maior. */
+  @media (hover: none) {
+    .explicar, .citar-pag { line-height: 28px; padding: 0 11px; font-size: 12.5px; }
+    .chip-pag { line-height: 26px; }
+    .tipo-chip { line-height: 28px; padding: 0 12px; }
+  }
+  .rodape-busca {
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 12px 18px;
+    border-top: 1px solid var(--linha); background: var(--acento-suave); font-size: 12px; color: var(--tinta-3);
+  }
+  .perguntar-sobre {
+    display: inline-flex; align-items: center; gap: 7px; border: 0; border-radius: 9px; padding: 7px 13px;
+    background: var(--acento-fundo); color: #fff; font-size: 13px; font-weight: 500; transition: filter .15s;
+  }
+  .perguntar-sobre:hover { filter: brightness(.88); }
+
+  /* ---------- Leitor ---------- */
+  .cab-leitor { display: flex; align-items: center; gap: 6px; padding: 10px 10px 10px 18px; border-bottom: 1px solid var(--linha); min-width: 340px; }
+  .cab-leitor .t { flex: 1; min-width: 0; }
+  .cab-leitor .t strong { display: block; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cab-leitor .t span { font-size: 12px; color: var(--tinta-3); }
+  .cab-leitor .botao-icone { margin-left: 0; text-decoration: none; }
+  .barra-grifo {
+    display: flex; align-items: center; gap: 8px; padding: 7px 10px 7px 18px; min-width: 340px;
+    border-bottom: 1px solid var(--linha); background: var(--acento-suave); font-size: 12.5px; color: var(--tinta-2);
+  }
+  .barra-grifo[hidden] { display: none; }
+  .barra-grifo .rot { font-weight: 600; color: var(--acento-2); flex: none; }
+  .barra-grifo .termos { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .barra-grifo .termos mark { font-size: 12px; }
+  .barra-grifo .cont { flex: none; font-variant-numeric: tabular-nums; color: var(--tinta-3); }
+  .barra-grifo .botao-icone { width: 26px; height: 26px; }
+  .barra-grifo.so-trecho :is(.rot, .termos, .cont, .botao-icone) { display: none; }
+  .grifo-trecho { flex: none; display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: var(--tinta-2); }
+  .grifo-trecho[hidden] { display: none; }
+  .grifo-trecho i { width: 22px; height: 11px; border-radius: 2px; background: rgb(255 208 60 / .6); box-shadow: 0 0 0 1.5px rgb(255 208 60 / .45); }
+  .barra-grifo:not(.so-trecho) .grifo-trecho { padding-right: 8px; border-right: 1px solid var(--linha); }
+  #quadro { flex: 1; border: 0; width: 100%; min-width: 340px; background: var(--fundo-pdf); }
+
+  .botao-fontes { display: none; }
+  @media (max-width: 900px) {
+    #fontes { display: none; }
+    /* No celular as fontes abrem por cima, pelo botão "Fontes" do topo. */
+    main.fontes-abertas #fontes {
+      display: flex; position: fixed; inset: 58px auto 0 0; width: min(88vw, 330px); z-index: 7;
+      box-shadow: var(--sombra-alta);
+    }
+    main.fontes-abertas #fontes .conteudo-fontes { display: flex; }
+    main.fontes-abertas #fontes .trilho { display: none; }
+    main.fontes-abertas::after { content: ""; position: fixed; inset: 58px 0 0 0; background: rgba(15,22,23,.35); z-index: 6; }
+    .botao-fontes { display: flex; }
+    main.com-leitor #leitor { position: fixed; inset: 58px 0 0 0; width: auto; z-index: 5; }
+    #mensagens, .entrada { padding-left: 14px; padding-right: 14px; }
+    .modos-explicados { grid-template-columns: 1fr; }
+    .escopo, .status, .nova span, .marca small { display: none; }
+    .nova { padding: 6px 8px; }
+    .topo-acoes { gap: 6px; }
+    .boas-vindas h1 { font-size: 27px; }
+    header { padding: 0 10px 0 12px; gap: 8px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+  /* Impressão (ou "Salvar como PDF"): só a conversa, sem botões. */
+  @media print {
+    body { overflow: visible; display: block; background: #fff; color: #000; }
+    header, #fontes, #leitor, .entrada, .acoes-resposta, .avaliacao, .rodape-busca,
+    .explicar, .citar-pag, .guardar-pag, .linha-pensamento, .mais, .boas-vindas { display: none !important; }
+    main, #conversa { display: block; }
+    #mensagens { overflow: visible; padding: 0; }
+    .cartao { box-shadow: none; break-inside: avoid-page; }
+    .achado[hidden] { display: block !important; }
+    .resposta.ia::before { opacity: .08; }
+    .pergunta .bolha { background: #eee; color: #000; box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo" aria-hidden="true">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"><path d="M3 5.5c3-1.3 6-1.1 9 .9 3-2 6-2.2 9-.9v13c-3-1.3-6-1.1-9 .9-3-2-6-2.2-9-.9z"/><path d="M12 6.4v13"/></svg>
+  </div>
+  <div class="marca">Acervo Psico<small>CREPOP/CFP, normas, leis e manuais</small></div>
+  <div class="topo-acoes">
+    <button class="nova botao-fontes" id="botao-fontes" type="button" aria-controls="fontes" aria-expanded="false">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h4v14H4zM10 5h4v14h-4zM16.5 5.5l3.5-1 3 13.5-3.5 1z"/></svg>Fontes
+    </button>
+    <div class="status" aria-live="polite"><span class="ponto" id="ponto"></span><span id="status-texto">conectando…</span></div>
+    <button class="nova" id="botao-linha" type="button" title="Linha do tempo: todo o acervo em ordem de ano, de 1962 até hoje">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 3v18"/><circle cx="6" cy="7" r="2" fill="currentColor"/><circle cx="6" cy="16" r="2" fill="currentColor"/><path d="M10 7h10M10 16h7"/></svg><span>Linha do tempo</span>
+    </button>
+    <button class="nova" id="botao-caderno" type="button" title="Caderno de pesquisa: o que você guardou">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h11a2 2 0 0 1 2 2v16l-7-4-7 4V5a2 2 0 0 1 1-2z"/></svg><span>Caderno</span><b class="n-caderno" id="n-caderno"></b>
+    </button>
+    <button class="nova" id="nova" type="button">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span>Nova pesquisa</span>
+    </button>
+    <div class="usuario">
+      <button type="button" id="botao-usuario" aria-haspopup="true" aria-expanded="false" title="Conta">
+        <span class="avatar" id="avatar">·</span>
+      </button>
+      <div class="menu" id="menu-usuario" hidden>
+        <p>Conectado como<strong id="nome-usuario"></strong></p>
+        <a href="/uso" id="link-uso" hidden>Medidor de uso</a>
+        <button type="button" id="sair">Sair</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="grade">
+  <aside id="fontes" aria-label="Fontes do acervo">
+    <button class="trilho" id="abrir-fontes" type="button" title="Mostrar fontes">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 5h4v14H4zM10 5h4v14h-4zM16.5 5.5l3.5-1 3 13.5-3.5 1z"/></svg>
+      <span class="num" id="trilho-n"></span>
+    </button>
+    <div class="conteudo-fontes">
+      <div class="cab-fontes">
+        <h2>Fontes</h2><span class="qtd" id="qtd-fontes"></span>
+        <button class="botao-icone" id="recolher" type="button" title="Recolher fontes" aria-label="Recolher fontes">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
+        </button>
+      </div>
+      <div class="busca-fontes">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input id="filtro" type="search" placeholder="Filtrar fontes" aria-label="Filtrar fontes">
+      </div>
+      <div class="tipos-fonte" id="tipos-fonte" role="group" aria-label="Mostrar só um tipo de fonte"></div>
+      <div class="escopo-fontes"><span id="escopo-fontes"></span><button class="link" id="alternar-todas" type="button"></button></div>
+      <button class="link so-estas" id="so-estas" type="button" hidden>Pesquisar só nestas</button>
+      <div id="lista-fontes"><p class="carregando">Carregando fontes…</p></div>
+    </div>
+  </aside>
+
+  <section id="conversa" aria-label="Conversa">
+    <div id="mensagens" aria-live="polite">
+      <div class="coluna" id="boas-vindas">
+        <div class="boas-vindas">
+          <span class="selo">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+            Susmi, a IA em servidor próprio — nada sai para a internet
+          </span>
+          <h1>O que você quer pesquisar no acervo?</h1>
+          <p id="resumo-acervo">Referências técnicas do CREPOP/CFP, normas da profissão, leis e manuais do governo, pesquisadas pelo sentido — não só pela palavra exata.</p>
+          <div class="novidade" id="novidade">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex:none;margin-top:3px;color:var(--lei)"><path d="M12 3v18M5 7h14M7 7l-3 7a3 3 0 0 0 6 0zM17 7l-3 7a3 3 0 0 0 6 0z"/></svg>
+            <span><strong>Novo:</strong> o Código de Ética e resoluções do CFP, 19 leis da área (Maria da Penha, ECA, Reforma Psiquiátrica…) e manuais do Ministério da Saúde e do SUAS, na íntegra e com referência ABNT pronta.
+              <button type="button" class="link" id="ver-leis">Ver as leis</button> · <button type="button" class="link" id="ver-normas">ver as normas</button> · <button type="button" class="link" id="ver-linha">ver tudo na linha do tempo</button></span>
+          </div>
+          <div class="temas" aria-label="Temas para começar">
+            <button class="tema exemplo-tema" data-modo="buscar">violência contra a mulher</button>
+            <button class="tema exemplo-tema" data-modo="buscar">sigilo profissional</button>
+            <button class="tema exemplo-tema" data-modo="buscar">Lei Maria da Penha</button>
+            <button class="tema exemplo-tema" data-modo="buscar">documentos psicológicos</button>
+            <button class="tema exemplo-tema" data-modo="buscar">risco de suicídio</button>
+            <button class="tema exemplo-tema" data-modo="buscar">luto</button>
+            <button class="tema exemplo-tema" data-modo="buscar">racismo</button>
+            <button class="tema exemplo-tema" data-modo="buscar">trabalho em rede no SUAS</button>
+          </div>
+          <div class="recentes" id="recentes" hidden></div>
+          <div class="modos-explicados">
+            <div class="modo-card">
+              <h3><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></span>Buscar <span class="tempo">instantâneo</span></h3>
+              <p>Mostra as páginas que tratam do tema. Clique para abrir o PDF com as palavras grifadas.</p>
+              <button class="exemplo" data-modo="buscar">agressão contra mulher</button>
+              <button class="exemplo" data-modo="buscar">como notificar violência autoprovocada</button>
+              <button class="exemplo" data-modo="buscar">acolhimento de pessoa idosa</button>
+            </div>
+            <div class="modo-card">
+              <h3><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.4L12 15l-1.8-4.6L5.5 9l4.7-1.4z"/><path d="M18 15l.8 2.2L21 18l-2.2.8L18 21l-.8-2.2L15 18l2.2-.8z"/></svg></span>Perguntar à Susmi <span class="tempo">cerca de 1 a 2 min</span></h3>
+              <p>A Susmi (<em>Somente Um Sistema Muito Inteligente</em>) lê as páginas mais relevantes e escreve uma resposta citando cada uma.</p>
+              <button class="exemplo" data-modo="perguntar">Qual o papel do psicólogo no CAPS?</button>
+              <button class="exemplo" data-modo="perguntar">O que a Lei Maria da Penha considera violência psicológica?</button>
+              <button class="exemplo" data-modo="perguntar">O que o Código de Ética diz sobre o sigilo profissional?</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form class="entrada" id="form">
+      <div class="coluna caixa">
+        <div class="contexto-ia" id="contexto-ia" hidden>
+          <span class="rot">Perguntando sobre</span><span class="qual" id="contexto-qual"></span>
+          <span class="estado-leitura" id="contexto-estado"></span>
+          <button type="button" class="sair-ctx" id="contexto-limpar" title="Para outro assunto, a resposta sai melhor procurando no acervo todo">
+            Usar acervo todo
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </div>
+        <div class="linha-caixa">
+          <textarea id="texto" rows="1" placeholder="Digite um tema…" aria-label="Sua busca ou pergunta" maxlength="1000"></textarea>
+          <button class="enviar" id="enviar" type="submit" disabled aria-label="Enviar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+          </button>
+        </div>
+        <div class="rodape-caixa">
+          <div class="alternador" role="group" aria-label="Modo">
+            <button type="button" data-modo="buscar" aria-pressed="true">Buscar</button>
+            <button type="button" data-modo="perguntar" aria-pressed="false">Perguntar à Susmi</button>
+          </div>
+          <span class="escopo" id="escopo"></span>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <aside id="leitor" aria-label="Leitor de PDF">
+    <div class="cab-leitor">
+      <div class="t"><strong id="leitor-titulo"></strong><span id="leitor-sub"></span></div>
+      <button class="acao leitor-guardar" id="leitor-ficha" type="button" title="Ficha da obra: resumo, pontos principais, leis citadas e obras parecidas">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><span class="rot-botao">Ficha</span>
+      </button>
+      <button class="acao leitor-guardar" id="leitor-guardar" type="button" title="Selecione um trecho no PDF e clique aqui para guardá-lo no caderno, com a página">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h11a2 2 0 0 1 2 2v16l-7-4-7 4V5a2 2 0 0 1 1-2z"/></svg><span class="rot-botao">Guardar seleção</span>
+      </button>
+      <a class="botao-icone" id="leitor-aba" target="_blank" rel="noopener" title="Abrir em nova aba" aria-label="Abrir em nova aba">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>
+      </a>
+      <button class="botao-icone" id="leitor-fechar" type="button" title="Fechar" aria-label="Fechar leitor">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="leitor-aviso" id="leitor-aviso" role="status" hidden></div>
+    <div class="barra-grifo" id="barra-grifo" hidden>
+      <span class="grifo-trecho" id="grifo-trecho" title="O trecho desta página que mais se parece com o que foi citado: confira se diz o mesmo" hidden><i aria-hidden="true"></i>De onde veio</span>
+      <span class="rot">Grifado:</span><span class="termos" id="grifo-termos"></span>
+      <span class="cont" id="grifo-cont"></span>
+      <button class="botao-icone" id="grifo-ant" type="button" title="Ocorrência anterior" aria-label="Ocorrência anterior">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 15l-6-6-6 6"/></svg>
+      </button>
+      <button class="botao-icone" id="grifo-prox" type="button" title="Próxima ocorrência" aria-label="Próxima ocorrência">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+    </div>
+    <iframe id="quadro" title="Documento"></iframe>
+  </aside>
+</main>
+
+<dialog class="citar" id="dlg-citar" aria-labelledby="citar-titulo">
+  <div class="citar-cab">
+    <h3 id="citar-titulo">Como citar</h3>
+    <button class="botao-icone" type="button" id="citar-fechar" aria-label="Fechar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div class="citar-corpo">
+    <h4>Citação no texto</h4>
+    <div class="citar-caixa"><div id="citar-curta"></div><button type="button" class="acao" data-copiar="curta">Copiar</button></div>
+    <h4>Referência (ABNT NBR 6023)</h4>
+    <div class="citar-caixa"><div id="citar-ref"></div><button type="button" class="acao" data-copiar="ref">Copiar</button></div>
+    <p class="citar-nota" id="citar-nota"></p>
+  </div>
+</dialog>
+
+<dialog class="caderno linha-tempo" id="dlg-linha" aria-labelledby="linha-titulo">
+  <div class="citar-cab">
+    <h3 id="linha-titulo">Linha do tempo do acervo</h3>
+    <button class="botao-icone" type="button" id="linha-fechar" aria-label="Fechar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div class="linha-topo">
+    <p id="linha-resumo"></p>
+    <div class="tipos-fonte" id="linha-tipos" role="group" aria-label="Mostrar só um tipo"></div>
+  </div>
+  <div class="caderno-lista" id="linha-lista"></div>
+</dialog>
+
+<dialog class="caderno ficha" id="dlg-ficha" aria-labelledby="ficha-titulo">
+  <div class="citar-cab">
+    <h3 id="ficha-titulo">Ficha da obra</h3>
+    <button class="botao-icone" type="button" id="ficha-fechar" aria-label="Fechar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div class="caderno-lista ficha-corpo" id="ficha-corpo"></div>
+  <div class="caderno-rodape" id="ficha-rodape"></div>
+</dialog>
+
+<dialog class="caderno" id="dlg-caderno" aria-labelledby="caderno-titulo">
+  <div class="citar-cab">
+    <h3 id="caderno-titulo">Caderno de pesquisa</h3>
+    <button class="botao-icone" type="button" id="caderno-fechar" aria-label="Fechar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <p class="caderno-aviso">Fica guardado só neste navegador, nada vai para o servidor. Para guardar de vez, baixe para o Word. Em computador compartilhado, apague ao terminar.</p>
+  <div class="caderno-lista" id="caderno-lista"></div>
+  <div class="caderno-rodape">
+    <button type="button" class="acao" id="caderno-word">Baixar para o Word</button>
+    <button type="button" class="acao" id="caderno-copiar">Copiar tudo</button>
+    <button type="button" class="acao" id="caderno-imprimir">Imprimir ou salvar em PDF</button>
+    <button type="button" class="acao apagar" id="caderno-apagar">Apagar caderno</button>
+  </div>
+</dialog>
+
+<script>
+const $ = (s) => document.querySelector(s);
+const estado = { modo: "buscar", fontes: [], marcadas: new Set(), ocupado: false, paginas: null, aberto: null };
+
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) =>
+  ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+/* ---------- Nomes de exibição ----------
+   Os títulos vêm do nome do arquivo ("2022 - RT - Alcool e Drogas"). Aqui viram
+   nome legível, categoria e ano. (Depois isso deve ir para o banco.) */
+const ACENTOS = {
+  alcool: "álcool", atencao: "atenção", basica: "básica", educacao: "educação",
+  emergencias: "emergências", indigenas: "indígenas", questoes: "questões",
+  relacoes: "relações", saude: "saúde", seguranca: "segurança", publica: "pública",
+  familia: "família", violencia: "violência", transito: "trânsito", migracao: "migração",
+  refugio: "refúgio", seminario: "seminário", referencias: "referências",
+  populacao: "população", praticas: "práticas",
+  tecnicas: "técnicas", atuacao: "atuação", psicologas: "psicólogas", "2a": "2ª",
+};
+const acentuar = (t) => t.replace(/[\p{L}\d]+/gu, (p) => {
+  const novo = ACENTOS[p.toLowerCase()];
+  if (!novo) return p;
+  return p[0] === p[0].toUpperCase() ? novo[0].toUpperCase() + novo.slice(1) : novo;
+});
+
+const GRUPOS = ["Referências Técnicas", "Seminários e mostras", "Guias para gestores", "Outras"];
+// Ordem dos eixos temáticos na lista lateral (os nomes vêm do banco, tabela eixo_tematico).
+const ORDEM_EIXOS = ["Saúde e saúde mental", "Assistência social (SUAS)", "Violências", "Justiça e segurança",
+  "Diversidade e direitos", "Povos e territórios", "Educação", "Trabalho, esporte e trânsito",
+  "Emergências e desastres", "Ética e normas do CFP", "Leis (texto integral)", "Seminários regionais"];
+function exibir(titulo) {
+  let m;
+  // Leis e normas do CFP (10/11/2026): o nome bonito vem do servidor (nome_curto).
+  if ((m = /^(\d{4}) - Lei - (.+)$/.exec(titulo)))
+    return { grupo: GRUPOS[3], nome: acentuar(m[2]), ano: m[1], cat: "Lei" };
+  if ((m = /^(\d{4}) - CFP - (.+)$/.exec(titulo)))
+    return { grupo: GRUPOS[3], nome: acentuar(m[2]), ano: m[1], cat: "Norma do CFP" };
+  if ((m = /^(\d{4}) - Gov - (.+)$/.exec(titulo)))
+    return { grupo: GRUPOS[3], nome: acentuar(m[2]), ano: m[1], cat: "Manual do governo" };
+  if ((m = /^(\d{4}) - RT - (.+)$/.exec(titulo)))
+    return { grupo: GRUPOS[0], nome: acentuar(m[2]).replace(/ 2ª ed$/, " (2ª ed.)"), ano: m[1], cat: "Referência Técnica" };
+  if ((m = /^(\d{4}) - Seminario ([IVXL]+) - (.+)$/.exec(titulo)))
+    return { grupo: GRUPOS[1], nome: `${m[2]} · ${acentuar(m[3])}`, ano: m[1], cat: `Seminário ${m[2]}` };
+  if ((m = /^(\d{4}) - Mostra - (.+)$/.exec(titulo)))
+    return { grupo: GRUPOS[1], nome: acentuar(m[2]), ano: m[1], cat: "Mostra" };
+  if ((m = /^(\d{4}) - Gestores - (.+)$/.exec(titulo)))
+    return { grupo: GRUPOS[2], nome: m[2], ano: m[1], cat: "Guia para gestores" };
+  if (/caps/i.test(titulo))  // edição revisada de 2022 (a de 2013 é "2022 - RT - CAPS")
+    return { grupo: GRUPOS[0], nome: "CAPS", ano: "", cat: "Referência Técnica" };
+  return { grupo: GRUPOS[3], nome: acentuar(titulo), ano: "", cat: "" };
+}
+const fontePorId = (id) => estado.fontes.find((f) => f.id_publicacao === id);
+
+/* Tipo da fonte: as obras do CREPOP (RTs, seminários, guias) e, desde 10/11/2026, leis,
+   normas do CFP e manuais do governo. Serve ao selo colorido e ao filtro da lista. */
+const TIPOS = [
+  { id: "crepop", rotulo: "CREPOP" },
+  { id: "lei", rotulo: "Leis", cat: "Lei" },
+  { id: "norma", rotulo: "Normas do CFP", cat: "Norma do CFP" },
+  { id: "manual", rotulo: "Manuais", cat: "Manual do governo" },
+];
+const tipoDe = (f) => (TIPOS.find((t) => t.cat && f && t.cat === f.cat) || TIPOS[0]).id;
+const ICONE_TIPO = {
+  lei: `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M12 3v18M5 7h14M7 7l-3 7a3 3 0 0 0 6 0zM17 7l-3 7a3 3 0 0 0 6 0z"/></svg>`,
+  norma: `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h5"/></svg>`,
+  manual: `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M3 10l9-6 9 6M5 10v9M19 10v9M9 10v9M15 10v9M3 21h18"/></svg>`,
+};
+// Rótulo de categoria (+ ano) de uma obra: cinza para o CREPOP, selo colorido para os demais.
+function seloTipo(f, comAno = true) {
+  const t = tipoDe(f);
+  const ano = comAno && f.ano ? " · " + f.ano : "";
+  if (t === "crepop") return f.cat ? `<span class="cat">${esc(f.cat)}${ano}</span>` : "";
+  return `<span class="cat selo-tipo tipo-${t}">${ICONE_TIPO[t]}${esc(f.cat)}${ano}</span>`;
+}
+const nomeDe = (titulo, id) => fontePorId(id)?.nome || exibir(titulo).nome;
+const ICONE_FICHA = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>`;
+
+async function api(caminho, corpo) {
+  const r = await fetch(caminho, corpo ? {
+    method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(corpo),
+  } : undefined);
+  if (r.status === 401) { location.href = "/entrar"; throw new Error("sessão expirada"); }
+  if (!r.ok) {
+    let msg = `erro ${r.status}`;
+    try {
+      const d = (await r.json()).detail;
+      msg = typeof d === "string" ? d : r.status === 422 ? "texto longo demais ou inválido" : msg;
+    } catch {}
+    throw new Error(msg);
+  }
+  return r.json();
+}
+
+/* ---------- Conta ---------- */
+api("/eu").then((u) => {
+  $("#nome-usuario").textContent = u.nome;
+  $("#avatar").textContent = (u.nome || "?").trim()[0];
+  $("#link-uso").hidden = !u.admin;
+}).catch(() => {});
+$("#botao-usuario").addEventListener("click", (e) => {
+  e.stopPropagation();
+  const menu = $("#menu-usuario");
+  menu.hidden = !menu.hidden;
+  $("#botao-usuario").setAttribute("aria-expanded", String(!menu.hidden));
+});
+document.addEventListener("click", (e) => { if (!e.target.closest(".usuario")) $("#menu-usuario").hidden = true; });
+$("#sair").addEventListener("click", async () => {
+  try { await api("/sair", {}); } finally { location.href = "/entrar"; }
+});
+
+/* ---------- Status e fontes ---------- */
+const fmt = (n) => n.toLocaleString("pt-BR");
+async function atualizarStatus() {
+  try {
+    const s = await api("/estatisticas");
+    $("#ponto").className = "ponto ok";
+    $("#status-texto").textContent = `${fmt(s.paginas_no_acervo)} páginas · Susmi, IA local`;
+    const resumo = $("#resumo-acervo");
+    if (resumo) resumo.textContent = `${s.publicacoes} publicações (CREPOP/CFP, normas da profissão, leis e manuais do governo), ${fmt(s.paginas_no_acervo)} páginas — pesquisadas pelo sentido, não só pela palavra exata.`;
+    if (s.paginas_no_acervo !== estado.paginas) {
+      estado.paginas = s.paginas_no_acervo;
+      carregarFontes().catch((e) => console.error("fontes:", e));
+    }
+  } catch {
+    $("#ponto").className = "ponto falha";
+    $("#status-texto").textContent = "servidor indisponível";
+  }
+}
+
+async function carregarFontes() {
+  const novas = await api("/publicacoes");
+  const conhecidas = new Set(estado.fontes.map((f) => f.id_publicacao));
+  for (const f of novas) {
+    Object.assign(f, exibir(f.titulo));
+    if (f.nome_curto) f.nome = f.nome_curto;
+    // O ano do nome do arquivo é o do download; o de publicação vem da ficha catalográfica.
+    if (f.referencia) f.ano = String(f.referencia.ano);
+    if (!conhecidas.has(f.id_publicacao)) estado.marcadas.add(f.id_publicacao);
+  }
+  // Mesmo nome em anos diferentes (ex.: SUAS 2022 e 2025): o ano desempata.
+  const vezes = {};
+  for (const f of novas) vezes[f.nome] = (vezes[f.nome] || 0) + 1;
+  for (const f of novas) if (vezes[f.nome] > 1 && f.ano) f.nome += ` (${f.ano})`;
+  estado.fontes = novas;
+  desenharFontes();
+  // Na primeira carga, a conversa desta aba volta (depois das fontes: os nomes vêm delas).
+  if (!estado.conversaRestaurada) { estado.conversaRestaurada = true; restaurarConversa(); }
+}
+
+/* Botões "CREPOP · Leis · Normas do CFP · Manuais" acima da lista: mostram só aquele tipo,
+   e "Pesquisar só nestas" deixa marcadas só as obras daquele tipo. */
+function desenharTipos() {
+  const caixaT = $("#tipos-fonte");
+  const conta = {};
+  for (const f of estado.fontes) conta[tipoDe(f)] = (conta[tipoDe(f)] || 0) + 1;
+  caixaT.innerHTML = TIPOS.filter((t) => conta[t.id]).map((t) =>
+    `<button type="button" class="tipo-chip" data-tipo="${t.id}" aria-pressed="${estado.tipo === t.id}">${esc(t.rotulo)}<span class="n">${conta[t.id]}</span></button>`).join("");
+  $("#so-estas").hidden = !estado.tipo;
+}
+$("#tipos-fonte").addEventListener("click", (e) => {
+  const b = e.target.closest(".tipo-chip");
+  if (!b) return;
+  estado.tipo = estado.tipo === b.dataset.tipo ? null : b.dataset.tipo;
+  desenharFontes();
+});
+$("#so-estas").addEventListener("click", () => {
+  estado.marcadas = new Set(estado.fontes.filter((f) => tipoDe(f) === estado.tipo).map((f) => f.id_publicacao));
+  desenharFontes();
+});
+function mostrarTipo(tipo) {  // links da tela inicial ("Ver as leis")
+  estado.tipo = tipo;
+  $("#grade").classList.remove("fontes-recolhidas");
+  if (matchMedia("(max-width: 900px)").matches) {
+    $("#grade").classList.add("fontes-abertas");
+    $("#botao-fontes").setAttribute("aria-expanded", "true");
+  }
+  desenharFontes();
+}
+
+function desenharFontes() {
+  desenharTipos();
+  const filtro = $("#filtro").value.trim().toLowerCase();
+  const abertos = new Set([...document.querySelectorAll(".grupo[open]")].map((g) => g.dataset.grupo));
+  const primeiraVez = !document.querySelector(".grupo");
+  const lista = $("#lista-fontes");
+  lista.innerHTML = "";
+  // Agrupa pelos eixos temáticos do banco (tabela publicacao_eixo). Uma obra com dois
+  // eixos aparece nos dois; a marcação é a mesma (sincronizada pelo data-id).
+  const eixosDe = (f) => (f.eixos && f.eixos.length ? f.eixos : ["Outras"]);
+  const todos = [...new Set(estado.fontes.flatMap(eixosDe))];
+  const grupos = [...ORDEM_EIXOS.filter((g) => todos.includes(g)), ...todos.filter((g) => !ORDEM_EIXOS.includes(g)).sort()];
+  for (const g of grupos) {
+    const itens = estado.fontes
+      .filter((f) => eixosDe(f).includes(g) && (!filtro || (f.nome + " " + f.cat + " " + g).toLowerCase().includes(filtro))
+        && (!estado.tipo || tipoDe(f) === estado.tipo))
+      .sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"));
+    if (!itens.length) continue;
+    const det = document.createElement("details");
+    det.className = "grupo";
+    det.dataset.grupo = g;
+    det.open = filtro || estado.tipo || (primeiraVez ? g === grupos[0] : abertos.has(g));
+    det.innerHTML = `<summary><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M9 6l6 6-6 6"/></svg>${esc(g)}<span class="n">${itens.length}</span></summary>`;
+    for (const f of itens) {
+      const div = document.createElement("div");
+      const dentro = estado.marcadas.has(f.id_publicacao);
+      div.className = "fonte" + (dentro ? "" : " fora") + (estado.aberto === f.id_publicacao ? " ativa" : "");
+      div.dataset.id = f.id_publicacao;
+      div.innerHTML = `
+        <button type="button" class="abrir" title="${esc(f.nome)} — ${esc(f.cat)}${f.ano ? " · " + f.ano : ""} — abrir">
+          <span class="nome">${esc(f.nome)}</span><span class="pags">${f.paginas} p.</span>
+        </button>
+        <button type="button" class="ficha-fonte" title="Ficha da obra" aria-label="Ficha de ${esc(f.nome)}">${ICONE_FICHA}</button>
+        <input type="checkbox" class="marca-fonte" ${dentro ? "checked" : ""} title="Incluir na pesquisa" aria-label="Incluir ${esc(f.nome)} na pesquisa">`;
+      div.querySelector(".abrir").addEventListener("click", () => abrirPdf(f.id_publicacao, 1, []));
+      div.querySelector(".ficha-fonte").addEventListener("click", () => abrirFicha(f.id_publicacao));
+      div.querySelector("input").addEventListener("change", (e) => {
+        e.target.checked ? estado.marcadas.add(f.id_publicacao) : estado.marcadas.delete(f.id_publicacao);
+        lista.querySelectorAll(`.fonte[data-id="${f.id_publicacao}"]`).forEach((d) => {
+          d.classList.toggle("fora", !e.target.checked);
+          d.querySelector("input").checked = e.target.checked;
+        });
+        atualizarEscopo();
+      });
+      det.appendChild(div);
+    }
+    lista.appendChild(det);
+  }
+  atualizarEscopo();
+}
+
+function atualizarEscopo() {
+  const total = estado.fontes.length, n = estado.marcadas.size;
+  $("#qtd-fontes").textContent = total;
+  $("#trilho-n").textContent = total;
+  const todas = n === total;
+  $("#escopo-fontes").textContent = todas ? "Todas na pesquisa" : `${n} de ${total} na pesquisa`;
+  $("#alternar-todas").textContent = todas ? "Desmarcar" : "Marcar todas";
+  $("#escopo").textContent = estado.contexto && estado.modo === "perguntar"
+    ? `só nas páginas escolhidas`
+    : n === 0 ? "Marque ao menos uma fonte"
+    : todas ? `em todo o acervo` : `em ${n} fonte${n > 1 ? "s" : ""} selecionada${n > 1 ? "s" : ""}`;
+  validarEnvio();
+}
+$("#alternar-todas").addEventListener("click", () => {
+  const todas = estado.marcadas.size === estado.fontes.length;
+  estado.marcadas = todas ? new Set() : new Set(estado.fontes.map((f) => f.id_publicacao));
+  desenharFontes();
+});
+$("#filtro").addEventListener("input", desenharFontes);
+$("#recolher").addEventListener("click", () => {
+  $("#grade").classList.add("fontes-recolhidas");
+  estado.recolhidoAuto = false;
+});
+$("#abrir-fontes").addEventListener("click", () => {
+  $("#grade").classList.remove("fontes-recolhidas");
+  estado.recolhidoAuto = false;
+});
+
+/* ---------- Leitor (PDF.js) ----------
+   O PDF.js roda num iframe da mesma origem; daqui comandamos a página inicial e a
+   busca, que grifa no PDF as palavras que a pesquisa achou naquela página. */
+const VIEWER = "/static/pdfjs/web/viewer.html";
+// A barra do PDF.js segue o tema do sistema (claro/escuro); aqui só trocamos a cor do
+// grifo (amarelo; a ocorrência atual em laranja) e escondemos os botões de edição.
+const CSS_VIEWER = `
+  .textLayer [data-susmi] { background-color: rgb(255 208 60 / .38); border-radius: 2px;
+    box-shadow: 0 0 0 1.5px rgb(255 208 60 / .38); animation: susmi-pulso 1.8s ease-out 1; }
+  @keyframes susmi-pulso { 0%, 30% { background-color: rgb(255 170 0 / .75); box-shadow: 0 0 0 4px rgb(255 170 0 / .45); } }
+  .textLayer .highlight { background-color: rgb(245 190 40 / .45) !important; border-radius: 3px; }
+  .textLayer .highlight.selected { background-color: rgb(226 110 30 / .55) !important; }
+  #editorModeButtons, #editorModeSeparator, #openFile, #secondaryOpenFile,
+  #viewBookmark, #secondaryViewBookmark { display: none !important; }
+`;
+let leitorToken = 0;
+
+/* ---------- Trecho grifado ----------
+   Quem abre uma página pela citação da resposta ("p. 13") vê grifado em amarelo o trecho
+   da página que mais se parece com a frase da Susmi: de onde ela tirou aquilo. Vale também
+   para um resultado da busca (o trecho mostrado) e para o que foi guardado no caderno.
+   Roda no navegador, sobre o texto que o próprio PDF.js extraiu da página: nada vai à VM. */
+const VAZIAS_PT = new Set(("a o as os um uma uns umas de da do das dos em na no nas nos ao aos por pela pelo " +
+  "pelas pelos para pra com sem sob sobre entre ate que se e ou mas nem como mais menos muito muita muitos " +
+  "muitas ja nao sim sao ser foi foram esta estao estar ter tem ha isso isto esse essa esses essas este " +
+  "estes estas aquele aquela seu sua seus suas lhe lhes ele ela eles elas nos voce voces quando onde qual " +
+  "quais quem tambem so cada outro outra outros outras deve devem pode podem sua art").split(" "));
+const raizDe = (w) => (w.length > 6 ? w.slice(0, 6) : w);
+const palavrasChave = (texto) => (semAcento(texto).match(/[\p{L}\d]+/gu) || [])
+  .filter((w) => /^\d+/.test(w) || (w.length > 2 && !VAZIAS_PT.has(w))).map(raizDe);
+
+// "Art. 9º" não termina frase.
+const ABREVIACOES = new Set("art arts n no nº p pp pag inc al ex cf sr sra dr dra prof vol ed cap par fl fls etc".split(" "));
+// Palavras da página na ordem, cada uma com o pedaço de texto (item do PDF.js) de onde veio.
+// Palavra cortada por hífen no fim da linha ("psicoló-" + "gico") vira uma só.
+function palavrasDaPagina(itens) {
+  const lista = [];
+  let cortada = null;  // { w, d }: palavra que fechou o item anterior com hífen
+  itens.forEach((s, d) => {
+    const t = semAcento(s || "");
+    const ws = [...t.matchAll(/[\p{L}\d]+/gu)];
+    ws.forEach((m, k) => {
+      let w = m[0], de = d;
+      if (k === 0 && cortada) {
+        if (/^\p{L}/u.test(w)) { w = cortada.w + w; de = cortada.d; }
+        else lista.push({ r: raizDe(cortada.w), d: cortada.d, fim: false });
+        cortada = null;
+      }
+      const resto = t.slice(m.index + m[0].length);
+      if (k === ws.length - 1 && /^-\s*$/.test(resto)) { cortada = { w, d: de }; return; }
+      lista.push({ r: raizDe(w), d: de, fim: /^\s*[.;:!?]/.test(resto) && !(ABREVIACOES.has(w) && /^\s*\./.test(resto)) });
+    });
+  });
+  if (cortada) lista.push({ r: raizDe(cortada.w), d: cortada.d, fim: false });
+  return lista;
+}
+
+// O trecho (de qual a qual item do PDF.js) que melhor cobre as palavras do alvo. null se
+// nada na página se parece o bastante com ele (aí fica só o grifo das palavras da busca).
+function acharTrecho(itens, alvo) {
+  const chave = [...new Set(palavrasChave(alvo || ""))];
+  if (chave.length < 2) return null;
+  const pal = palavrasDaPagina(itens);
+  if (pal.length < 5) return null;
+  const freq = {};
+  for (const p of pal) freq[p.r] = (freq[p.r] || 0) + 1;
+  // Palavra que aparece a página inteira vale menos que a que só aparece ali no trecho.
+  const peso = (r) => 1 / (1 + Math.log(1 + (freq[r] || 0)));
+  const naChave = new Set(chave);
+  const total = chave.reduce((s, r) => s + peso(r), 0);
+  let melhor = null;
+  for (const tam of [12, 20, 32, 48, 64]) {
+    for (let i = 0; i < Math.max(1, pal.length - tam + 1); i += 2) {
+      const vistas = new Set();
+      for (let j = i; j < Math.min(pal.length, i + tam); j++) if (naChave.has(pal[j].r)) vistas.add(pal[j].r);
+      let soma = 0;
+      for (const r of vistas) soma += peso(r);
+      const nota = soma / total - 0.0025 * tam;
+      if (!melhor || nota > melhor.nota) melhor = { nota, i, tam, cobertura: soma / total, n: vistas.size };
+    }
+  }
+  if (!melhor || melhor.cobertura < 0.3 || melhor.n < Math.min(3, chave.length)) return null;
+  // Aperta nas palavras achadas e abre até o começo e o fim da frase.
+  let ini = melhor.i, fim = Math.min(pal.length, melhor.i + melhor.tam) - 1;
+  while (ini < fim && !naChave.has(pal[ini].r)) ini++;
+  while (fim > ini && !naChave.has(pal[fim].r)) fim--;
+  for (let k = 0; k < 40 && ini > 0 && !pal[ini - 1].fim; k++) ini--;
+  for (let k = 0; k < 40 && fim < pal.length - 1 && !pal[fim].fim; k++) fim++;
+  // Frase da ponta que quase nada acrescenta sai: o inciso vizinho que repete "violência,
+  // entendida como qualquer conduta", o "apenas" do artigo ao lado. Fica a que diz aquilo.
+  const frases = [];
+  for (let j = ini, c = ini; j <= fim; j++) if (pal[j].fim || j === fim) { frases.push([c, j]); c = j + 1; }
+  const raizes = ([a, b]) => {
+    const v = new Set();
+    for (let j = a; j <= b; j++) if (naChave.has(pal[j].r)) v.add(pal[j].r);
+    return v;
+  };
+  const acrescenta = (f) => {  // peso do que só essa frase tem
+    const outras = new Set(frases.filter((x) => x !== f).flatMap((x) => [...raizes(x)]));
+    let s = 0;
+    for (const r of raizes(f)) if (!outras.has(r)) s += peso(r);
+    return s / total;
+  };
+  for (let mudou = true; mudou && frases.length > 1;) {
+    mudou = false;
+    for (const f of [frases[0], frases.at(-1)]) {
+      if (frases.length > 1 && acrescenta(f) < 0.15) { frases.splice(frases.indexOf(f), 1); mudou = true; }
+    }
+  }
+  ini = frases[0][0];
+  fim = frases.at(-1)[1];
+  return { de: pal[ini].d, ate: pal[fim].d, cobertura: melhor.cobertura };
+}
+
+// Grifa o trecho no texto da página e devolve o primeiro pedaço grifado (null se não achou).
+// É um atributo, não uma classe: o grifo das palavras da busca troca a classe desses mesmos
+// elementos e apagaria o nosso.
+function grifarTrecho(app, pagina, alvo) {
+  const hl = app.pdfViewer.getPageView(pagina - 1)?.textLayer?.highlighter;
+  const itens = hl?.textContentItemsStr, divs = hl?.textDivs;
+  if (!divs?.length || !itens?.length) return null;
+  const achado = acharTrecho(itens, alvo);
+  if (!achado) return null;
+  let primeiro = null;
+  for (let d = achado.de; d <= achado.ate; d++) {
+    if (divs[d] && itens[d]?.trim()) { divs[d].setAttribute("data-susmi", ""); primeiro ||= divs[d]; }
+  }
+  return primeiro;
+}
+
+function abrirPdf(id, pagina, destaques, alvo) {
+  const f = fontePorId(id);
+  const termos = [...new Set((destaques || []).map((d) => d.texto.toLowerCase()))];
+  const token = ++leitorToken;
+  const quadro = $("#quadro");
+  const hash = `#page=${pagina}&zoom=page-width&pagemode=none`;
+  quadro.src = `${VIEWER}?file=${encodeURIComponent(`/pdf/${id}`)}&t=${token}${hash}`;
+  $("#leitor-aba").href = `${VIEWER}?file=${encodeURIComponent(`/pdf/${id}`)}#page=${pagina}${termos.length ? "&search=" + encodeURIComponent(termos.join(" ")) : ""}`;
+  $("#leitor-titulo").textContent = f ? f.nome : "Documento";
+  $("#leitor-sub").textContent = [f?.cat, f?.ano, `página ${pagina}`].filter(Boolean).join(" · ");
+
+  const barra = $("#barra-grifo");
+  barra.hidden = !termos.length;
+  barra.classList.toggle("so-trecho", !termos.length);
+  $("#grifo-trecho").hidden = true;
+  $("#grifo-cont").textContent = "";
+  $("#grifo-termos").innerHTML = (destaques || [])
+    .filter((d, i, a) => a.findIndex((x) => x.texto.toLowerCase() === d.texto.toLowerCase()) === i)
+    .map((d) => `<mark class="${d.tipo}">${esc(d.texto)}</mark>`).join(" ");
+
+  quadro.onload = () => prepararLeitor(quadro, token, pagina, termos, alvo);
+
+  const grade = $("#grade");
+  fecharFontesCelular();
+  grade.classList.add("com-leitor");
+  if (window.innerWidth < 1500 && !grade.classList.contains("fontes-recolhidas")) {
+    grade.classList.add("fontes-recolhidas");
+    estado.recolhidoAuto = true;  // ao fechar o leitor, as fontes voltam
+  }
+  estado.aberto = id;
+  desenharFontes();
+}
+
+async function prepararLeitor(quadro, token, pagina, termos, alvo) {
+  const w = quadro.contentWindow;
+  try {
+    const estilo = w.document.createElement("style");
+    estilo.textContent = CSS_VIEWER;
+    w.document.head.appendChild(estilo);
+    let app;
+    for (let i = 0; i < 100 && !(app = w.PDFViewerApplication); i++) await new Promise((r) => setTimeout(r, 50));
+    if (!app) return;
+    await app.initializedPromise;
+    const pronto = () => app.pdfViewer && app.pdfViewer.pagesCount > 0;
+    if (!pronto()) await new Promise((r) => app.eventBus.on("pagesinit", r, { once: true }));
+    if (token !== leitorToken) return;
+    // O trecho é grifado quando o texto da página fica pronto (e de novo se o PDF.js
+    // descartar a página e desenhá-la outra vez); a rolagem até ele, só na primeira vez.
+    let trecho = null;
+    const rolarTrecho = () => {
+      const cx = app.pdfViewer.container, d = trecho && trecho.isConnected && trecho;
+      if (d) cx.scrollTop += d.getBoundingClientRect().top - cx.getBoundingClientRect().top - cx.clientHeight / 4;
+    };
+    if (alvo) {
+      const tentar = () => {
+        if (token !== leitorToken) return;
+        const d = grifarTrecho(app, pagina, alvo);
+        if (!d) return;
+        const primeira = !trecho;
+        trecho = d;
+        if (primeira) {
+          rolarTrecho();
+          $("#grifo-trecho").hidden = false;
+          $("#barra-grifo").hidden = false;
+        }
+      };
+      app.eventBus.on("textlayerrendered", ({ pageNumber }) => { if (pageNumber === pagina) tentar(); });
+      setTimeout(tentar, 0);
+    }
+    app.pdfViewer.currentPageNumber = pagina;
+    if (!termos.length) return;
+
+    let corrigido = false;
+    const contar = (mc) => {
+      if (token === leitorToken && mc && mc.total)
+        $("#grifo-cont").textContent = `${mc.current || 0} de ${mc.total} no PDF`;
+    };
+    app.eventBus.on("updatefindmatchescount", ({ matchesCount }) => contar(matchesCount));
+    app.eventBus.on("updatefindcontrolstate", ({ matchesCount }) => {
+      if (token !== leitorToken) return;
+      contar(matchesCount);
+      // Se a 1ª ocorrência achada não for na página citada, volta para ela.
+      const sel = app.findController?.selected;
+      if (!corrigido && sel && sel.pageIdx >= 0) {
+        corrigido = true;
+        if (sel.pageIdx !== pagina - 1) app.pdfViewer.currentPageNumber = pagina;
+        // A 1ª palavra achada puxa a rolagem para ela; com trecho grifado, ele manda.
+        if (alvo) setTimeout(rolarTrecho, 80);
+      }
+    });
+    buscarNoLeitor(app, termos, "");
+    estado.leitor = { app, termos };
+  } catch (e) {
+    console.warn("leitor:", e);
+  }
+}
+
+function buscarNoLeitor(app, termos, tipo, anterior = false) {
+  app.eventBus.dispatch("find", {
+    source: null, type: tipo, query: termos, caseSensitive: false, entireWord: false,
+    highlightAll: true, findPrevious: anterior, matchDiacritics: false,
+  });
+}
+$("#grifo-prox").addEventListener("click", () => estado.leitor && buscarNoLeitor(estado.leitor.app, estado.leitor.termos, "again"));
+$("#grifo-ant").addEventListener("click", () => estado.leitor && buscarNoLeitor(estado.leitor.app, estado.leitor.termos, "again", true));
+
+$("#leitor-fechar").addEventListener("click", () => {
+  $("#grade").classList.remove("com-leitor");
+  if (estado.recolhidoAuto) $("#grade").classList.remove("fontes-recolhidas");
+  estado.recolhidoAuto = false;
+  leitorToken++;
+  $("#quadro").src = "about:blank";
+  estado.aberto = null;
+  estado.leitor = null;
+  document.querySelectorAll(".achado.aberto").forEach((b) => b.classList.remove("aberto"));
+  desenharFontes();
+});
+
+/* ---------- Modo e envio ---------- */
+function definirModo(modo) {
+  estado.modo = modo;
+  document.querySelectorAll(".alternador button").forEach((b) =>
+    b.setAttribute("aria-pressed", String(b.dataset.modo === modo)));
+  $("#texto").placeholder = modo === "buscar"
+    ? "Digite um tema — ex.: acolhimento, luto, medida protetiva…"
+    : estado.contexto ? "Pergunte sobre essas páginas…" : "Escreva sua pergunta sobre o acervo…";
+  $("#contexto-ia").hidden = !(estado.contexto && modo === "perguntar");
+  if (estado.fontes.length) atualizarEscopo();
+}
+document.querySelectorAll(".alternador button").forEach((b) =>
+  b.addEventListener("click", () => { definirModo(b.dataset.modo); $("#texto").focus(); }));
+
+const caixa = $("#texto");
+function validarEnvio() {
+  $("#enviar").disabled = estado.ocupado || !caixa.value.trim() || estado.marcadas.size === 0;
+}
+caixa.addEventListener("input", () => {
+  caixa.style.height = "auto";
+  caixa.style.height = Math.min(caixa.scrollHeight, 150) + "px";
+  validarEnvio();
+});
+caixa.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); $("#form").requestSubmit(); }
+});
+// Exemplos e temas da tela inicial (delegado: a tela inicial volta com "Nova pesquisa").
+$("#mensagens").addEventListener("click", (e) => {
+  if (e.target.id === "limpar-recentes") {
+    try { localStorage.removeItem(CHAVE_RECENTES); } catch {}
+    desenharRecentes();
+    return;
+  }
+  if (e.target.id === "ver-leis" || e.target.id === "ver-normas") {
+    e.stopPropagation();  // senão o clique fora da lista (no celular) a fecha na hora
+    mostrarTipo(e.target.id === "ver-leis" ? "lei" : "norma");
+    return;
+  }
+  const b = e.target.closest(".exemplo, .exemplo-tema");
+  if (!b || estado.ocupado) return;
+  definirModo(b.dataset.modo);
+  caixa.value = b.dataset.texto || b.textContent.trim();
+  validarEnvio();
+  $("#form").requestSubmit();
+});
+const TELA_INICIAL = $("#boas-vindas").outerHTML;
+$("#nova").addEventListener("click", () => {
+  if (estado.ocupado) return;
+  $("#mensagens").innerHTML = TELA_INICIAL;
+  ultimaResposta = null;
+  limparConversa();
+  desenharRecentes();
+  definirContexto(null);
+  definirModo("buscar");
+  atualizarStatus();
+  caixa.value = ""; validarEnvio(); caixa.focus();
+});
+
+function adicionar(html) {
+  $("#boas-vindas")?.remove();
+  const div = document.createElement("div");
+  div.className = "coluna msg";
+  div.innerHTML = html;
+  $("#mensagens").appendChild(div);
+  div.scrollIntoView({ block: "end" });
+  return div;
+}
+const idsFiltro = () => (estado.marcadas.size === estado.fontes.length ? null : [...estado.marcadas]);
+
+/* ---------- Assunto fixo da IA ----------
+   Quando a pessoa escolhe "perguntar sobre estas páginas", as perguntas seguintes vão
+   sobre ELAS (sem buscar de novo). O contexto fica idêntico, e a IA reaproveita a
+   leitura: da 2ª pergunta em diante a resposta começa em segundos. */
+function definirContexto(ctx, lerJa) {
+  estado.contexto = ctx;
+  const el = $("#contexto-ia");
+  el.hidden = !ctx;
+  definirModo(estado.modo);
+  if (!ctx) return;
+  $("#contexto-qual").textContent = ctx.rotulo;
+  $("#contexto-qual").title = ctx.rotulo;
+  const st = $("#contexto-estado");
+  st.innerHTML = "";
+  if (!lerJa) return;
+  st.innerHTML = `<span class="giro"></span>a Susmi já está lendo…`;
+  api("/preparar", { ids_pagina: ctx.ids, termo_busca: ctx.termo })
+    .then((r) => { if (estado.contexto === ctx) st.textContent = r.preparado ? "lidas ✓ pode perguntar" : ""; })
+    .catch(() => { if (estado.contexto === ctx) st.textContent = ""; });
+}
+$("#contexto-limpar").addEventListener("click", () => { definirContexto(null); caixa.focus(); });
+
+// Busca vazia: "Buscar no acervo todo" / "Perguntar à Susmi".
+function ligarVazio(alvo, texto) {
+  alvo.querySelectorAll("[data-vazio]").forEach((b) => b.addEventListener("click", () => {
+    if (b.dataset.vazio === "todo") {
+      estado.marcadas = new Set(estado.fontes.map((f) => f.id_publicacao));
+      estado.tipo = null;
+      desenharFontes();
+      definirModo("buscar");
+    } else {
+      definirContexto(null);
+      definirModo("perguntar");
+      semContinuacao = true;
+    }
+    caixa.value = texto;
+    validarEnvio();
+    $("#form").requestSubmit();
+  }));
+}
+
+/* ---------- A conversa sobrevive ao recarregar a página ----------
+   Guardada só NESTA ABA (sessionStorage): volta depois de um F5 ou de cair a conexão,
+   mas some ao fechar a aba — num computador do laboratório, a próxima pessoa não vê.
+   Nada vai para o servidor. As respostas voltam como estavam: a Susmi não é chamada de novo. */
+const CHAVE_CONVERSA = "acervo-conversa";
+function lerConversa() { try { return JSON.parse(sessionStorage.getItem(CHAVE_CONVERSA)) || []; } catch { return []; } }
+function guardarTurno(t) {
+  try {
+    const l = lerConversa();
+    l.push(t);
+    sessionStorage.setItem(CHAVE_CONVERSA, JSON.stringify(l.slice(-20)));
+  } catch {}  // aba privada, cota cheia: segue sem guardar
+}
+function limparConversa() { try { sessionStorage.removeItem(CHAVE_CONVERSA); } catch {} }
+
+function desenharRespostaGuardada(alvo, t) {
+  alvo.innerHTML = `<div class="cartao"><div class="resposta"></div><div class="slot-fontes"></div><div class="rodape-resposta"></div></div>`;
+  const q = (s) => alvo.querySelector(s);
+  q(".resposta").classList.toggle("ia", !!t.ia);
+  q(".resposta").innerHTML = formatarResposta(t.resposta, t.fontes, false);
+  q(".slot-fontes").innerHTML = desenharConsultadas(t.fontes);
+  if (t.ia) {
+    const aviso = document.createElement("div");
+    aviso.className = "aviso-ia";
+    aviso.setAttribute("role", "note");
+    aviso.innerHTML = `<span class="ic" aria-hidden="true">⚠️</span><span>Resposta gerada por inteligência artificial. Ela pode cometer erros: confira sempre nas páginas citadas antes de usar.</span>`;
+    q(".resposta").after(aviso);
+  }
+  if (t.fontes.length && t.resposta.trim()) q(".rodape-resposta").before(acoesResposta(t.resposta, t.fontes, t.texto));
+  q(".rodape-resposta").textContent = "Resposta guardada nesta aba (a Susmi não foi chamada de novo).";
+}
+
+function restaurarConversa() {
+  if (!$("#boas-vindas")) return;  // a pessoa já começou a pesquisar: não mistura a ordem
+  const turnos = lerConversa();
+  for (const t of turnos) {
+    const tipo = t.modo === "buscar" ? "BUSCA" : t.rotulo ? `PERGUNTA · sobre ${t.rotulo}` : "PERGUNTA";
+    adicionar(`<div class="pergunta"><div class="bolha"><span class="tipo">${esc(tipo)}</span>${esc(t.texto)}</div></div>`);
+    const alvo = adicionar("");
+    try {
+      if (t.modo === "buscar") { alvo.innerHTML = desenharBusca(t.texto, t.r); ligarVazio(alvo, t.texto); }
+      else {
+        desenharRespostaGuardada(alvo, t);
+        const ids = t.fontes.map((f) => f.id_pagina).filter(Boolean).slice(0, 5);
+        if (ids.length) ultimaResposta = { ids, termo: (t.termo || t.texto).slice(0, 300) };
+      }
+      ligarAberturas(alvo);
+    } catch { alvo.remove(); }  // formato antigo ou corrompido: pula esse turno
+  }
+}
+
+/* ---------- Continuação da conversa ----------
+   "Resuma", "explique melhor", "dê um exemplo", "e o que é X?" (conversas reais de 20/10)
+   viravam uma busca nova e solta. Agora, se a pergunta parece continuação da resposta
+   anterior, a Susmi lê de novo as MESMAS páginas daquela resposta. Se não estiver nelas,
+   aparece o botão "Perguntar no acervo todo" (como em toda pergunta sobre páginas escolhidas). */
+let ultimaResposta = null;  // { ids: [id_pagina…], termo: pergunta anterior }
+let semContinuacao = false;  // o botão "Perguntar no acervo todo" reenvia sem reaproveitar páginas
+const CONTINUACAO = /^(e\s|resum|sintetiz|simplifi|explique (melhor|mais)|explica (melhor|mais)|me explique melhor|(me )?fale mais|continu|mais detalhes|detalh[ae]\s*(mais|melhor)?\s*[?.!]*$|aprofund|(me )?d[eê] (um |uns )?exemplos?|exemplos?\s*[?.!]*$|como assim|o que (isso|isto) (quer dizer|significa)|em (outras|poucas) palavras|por ?qu[eê]\s*\??$)/i;
+const ehContinuacao = (t) => !!ultimaResposta && t.length <= 140 && CONTINUACAO.test(t.trim());
+
+$("#form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const texto = caixa.value.trim();
+  if (!texto || estado.ocupado) return;
+  const modo = estado.modo;
+  caixa.value = ""; caixa.style.height = "auto";
+  estado.ocupado = true; validarEnvio();
+  if (!(modo === "perguntar" && estado.contexto)) guardarRecente(modo, texto);
+
+  const continuacao = !semContinuacao && ehContinuacao(texto);
+  semContinuacao = false;
+  const ctx = modo !== "perguntar" ? null
+    : estado.contexto || (continuacao
+      ? { ids: ultimaResposta.ids, termo: ultimaResposta.termo, rotulo: "as páginas da resposta anterior" }
+      : null);
+  const tipo = modo === "buscar" ? "BUSCA" : ctx ? `PERGUNTA · sobre ${ctx.rotulo}` : "PERGUNTA";
+  adicionar(`<div class="pergunta"><div class="bolha"><span class="tipo">${esc(tipo)}</span>${esc(texto)}</div></div>`);
+  const alvo = adicionar(`<div class="cartao"><div class="pensando"><span class="giro"></span><div class="txt">Procurando no acervo…</div></div></div>`);
+  try {
+    if (modo === "buscar") {
+      const r = await api("/buscar", { termo: texto, k: 10, ids_publicacao: idsFiltro() });
+      alvo.innerHTML = desenharBusca(texto, r);
+      ligarVazio(alvo, texto);
+      guardarTurno({ modo: "buscar", texto, r });
+    } else {
+      await perguntarStream(texto, alvo, ctx);
+    }
+    ligarAberturas(alvo);
+  } catch (err) {
+    alvo.innerHTML = `<div class="cartao erro">Não foi possível concluir: ${esc(err.message)}</div>`;
+  } finally {
+    estado.ocupado = false; validarEnvio();
+    alvo.scrollIntoView({ block: "nearest" });
+  }
+});
+
+/* ---------- Pergunta à IA, em streaming ----------
+   O servidor manda um evento JSON por linha: as fontes (na hora), a fila (se outra
+   pessoa estiver usando a IA), e o texto da resposta aos pedaços, conforme é escrito. */
+/* ---------- Título da aba: avisa quando a Susmi termina ----------
+   Uma resposta leva 1 a 3 minutos. Quem troca de aba para escrever o trabalho vê
+   "⏳ Susmi escrevendo…" e depois "✓ Resposta pronta" (volta ao normal ao voltar à aba). */
+const TITULO = document.title;
+let respondendo = 0;
+const aba = {
+  comecou() { respondendo++; document.title = "⏳ Susmi escrevendo… · " + TITULO; },
+  terminou(ok) {
+    respondendo = Math.max(0, respondendo - 1);
+    if (respondendo) return;
+    document.title = document.hidden ? (ok ? "✓ Resposta pronta · " : "⚠ A Susmi parou · ") + TITULO : TITULO;
+  },
+};
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden && !respondendo) document.title = TITULO;
+});
+
+async function perguntarStream(texto, alvo, ctx) {
+  aba.comecou();
+  let terminouBem = false;
+  alvo.innerHTML = `<div class="cartao">
+      ${avisoCrise(texto)}
+      <div class="pensando"><span class="giro"></span><div class="txt"></div></div>
+      <details class="linha-pensamento" open hidden>
+        <summary>Linha de pensamento da Susmi</summary>
+        <div class="lp-corpo"></div>
+      </details>
+      <div class="resposta" hidden></div>
+      <div class="slot-fontes"></div>
+      <div class="rodape-resposta" hidden></div>
+    </div>`;
+  const $a = (s) => alvo.querySelector(s);
+  const t0 = Date.now();
+  let fase = ctx ? "Preparando…" : "Procurando as páginas no acervo…", dica = "";
+  const tique = () => {
+    const s = Math.round((Date.now() - t0) / 1000);
+    $a(".txt").innerHTML = `${fase}<small>${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}${dica}</small>`;
+  };
+  tique();
+  const relogio = setInterval(tique, 1000);
+  let fontes = [], resposta = "", pensamento = null;
+  const desenharTexto = (final) => {
+    const caixaR = $a(".resposta");
+    caixaR.hidden = false;
+    caixaR.innerHTML = formatarResposta(resposta, fontes, !final);
+  };
+  try {
+    const r = await fetch("/perguntar", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(ctx
+        ? { pergunta: texto, ids_pagina: ctx.ids, termo_busca: ctx.termo }
+        : { pergunta: texto, ids_publicacao: idsFiltro() }),
+    });
+    if (r.status === 401) { location.href = "/entrar"; return; }
+    if (!r.ok) {
+      let msg = `erro ${r.status}`;
+      try { const d = (await r.json()).detail; if (typeof d === "string") msg = d; } catch {}
+      throw new Error(msg);
+    }
+    const leitor = r.body.getReader(), dec = new TextDecoder();
+    let buf = "";
+    for (;;) {
+      const { value, done } = await leitor.read();
+      if (done) break;
+      buf += dec.decode(value, { stream: true });
+      let i;
+      while ((i = buf.indexOf("\n")) >= 0) {
+        const linha = buf.slice(0, i).trim();
+        buf = buf.slice(i + 1);
+        if (!linha) continue;
+        const ev = JSON.parse(linha);
+        if (ev.tipo === "fontes") {
+          fontes = ev.fontes || [];
+          $a(".slot-fontes").innerHTML = desenharConsultadas(fontes);
+          ligarAberturas($a(".slot-fontes"));
+          fase = "Páginas encontradas. Preparando a Susmi…";
+          if (ev.longo && fontes.length) {
+            const aviso = document.createElement("div");
+            aviso.className = "aviso-longo";
+            aviso.textContent = `Pedido de texto longo: a Susmi vai ler ${fontes.length} páginas e escrever um texto maior, em seções. Pode levar alguns minutos — dá para ir lendo enquanto ela escreve.`;
+            $a(".pensando").after(aviso);
+          }
+        } else if (ev.tipo === "pensamento") {
+          pensamento = linhaDePensamento($a(".linha-pensamento"), ev);
+          $a(".resposta").classList.add("ia");  // a resposta vai ser escrita pela IA: marca d'água
+        } else if (ev.tipo === "fila") {
+          fase = `Aguardando a vez: ${ev.na_frente} pergunta${ev.na_frente > 1 ? "s" : ""} na frente`;
+          dica = " · a Susmi responde poucas perguntas ao mesmo tempo";
+        } else if (ev.tipo === "lendo") {
+          fase = "A Susmi está lendo as páginas…";
+          dica = " · a resposta começa a aparecer em seguida";
+          pensamento?.lendo();
+        } else if (ev.tipo === "texto") {
+          if (!resposta) { fase = "Escrevendo…"; dica = ""; pensamento?.concluir(); }
+          resposta += ev.delta;
+          desenharTexto(false);
+        } else if (ev.tipo === "fim") {
+          terminouBem = true;
+          // Páginas desta resposta: base para a próxima pergunta, se for continuação.
+          const ids = fontes.map((f) => f.id_pagina).filter(Boolean).slice(0, 5);
+          if (ids.length) ultimaResposta = { ids, termo: (ctx?.termo || texto).slice(0, 300) };
+          resposta = ev.resposta || resposta;
+          desenharTexto(true);
+          guardarTurno({ modo: "perguntar", texto, rotulo: ctx?.rotulo || null, termo: ctx?.termo || texto,
+            fontes, resposta, ia: $a(".resposta").classList.contains("ia") });
+          $a(".pensando").remove();
+          $a(".aviso-longo")?.remove();
+          const m = ev.metricas;
+          if (m) {
+            const rod = $a(".rodape-resposta");
+            rod.hidden = false;
+            rod.textContent = m.guardada
+              ? "Resposta já pronta: a mesma pergunta sobre estas páginas foi feita antes. Escrita pela Susmi (IA local), a partir apenas dessas páginas. Confira sempre na fonte."
+              : `Escrita em ${Math.round((Date.now() - t0) / 1000)} s pela Susmi (IA local), a partir apenas dessas páginas. Confira sempre na fonte.`;
+          }
+          if ($a(".resposta").classList.contains("ia")) {
+            const aviso = document.createElement("div");
+            aviso.className = "aviso-ia";
+            aviso.setAttribute("role", "note");
+            aviso.innerHTML = `<span class="ic" aria-hidden="true">⚠️</span><span>Resposta gerada por inteligência artificial. Ela pode cometer erros: confira sempre nas páginas citadas antes de usar.</span>`;
+            $a(".resposta").after(aviso);
+          }
+          if (fontes.length && resposta.trim()) $a(".rodape-resposta").before(acoesResposta(resposta, fontes, texto));
+          if (ev.id_consulta) $a(".rodape-resposta").before(caixaAvaliacao(ev.id_consulta));
+          // Pergunta presa a páginas escolhidas que não falam do assunto: oferece o acervo todo.
+          if (ctx && /n[ãa]o encontrei/i.test(resposta)) {
+            const aviso = document.createElement("div");
+            aviso.className = "rodape-busca";
+            aviso.innerHTML = `<button type="button" class="perguntar-sobre">${ICONE_IA} Perguntar no acervo todo</button>
+              <span>esta pergunta foi feita só sobre ${esc(ctx.rotulo)}</span>`;
+            aviso.querySelector("button").addEventListener("click", () => {
+              definirContexto(null);
+              definirModo("perguntar");
+              semContinuacao = true;
+              caixa.value = texto;
+              validarEnvio();
+              $("#form").requestSubmit();
+            });
+            $a(".slot-fontes").before(aviso);
+          }
+        } else if (ev.tipo === "erro") {
+          throw new Error(ev.detalhe);
+        }
+      }
+    }
+  } finally {
+    clearInterval(relogio);
+    pensamento?.concluir();
+    aba.terminou(terminouBem);
+  }
+}
+
+/* ---------- 👍/👎 na resposta ----------
+   Grava em avaliacao_resposta. No 👎, pergunta (opcional) o que faltou: é isso que mostra
+   onde a Susmi erra e vira pergunta-teste. */
+function caixaAvaliacao(idConsulta) {
+  const div = document.createElement("div");
+  div.className = "avaliacao";
+  div.innerHTML = `<span class="rot">Esta resposta ajudou?</span>
+    <button type="button" data-util="1" aria-label="Sim, ajudou">👍 Sim</button>
+    <button type="button" data-util="0" aria-label="Não ajudou">👎 Não</button>`;
+  const enviar = async (util, comentario) => {
+    div.querySelectorAll("button, textarea").forEach((b) => (b.disabled = true));
+    try {
+      await api("/avaliar", { id_consulta: idConsulta, util, comentario: comentario || null });
+      div.innerHTML = `<span class="rot">${util ? "Obrigado!" : "Obrigado! Isso ajuda a melhorar a Susmi."}</span>`;
+    } catch {
+      div.innerHTML = `<span class="rot">Não consegui registrar agora. Tente de novo mais tarde.</span>`;
+    }
+  };
+  div.querySelector('[data-util="1"]').addEventListener("click", () => enviar(true));
+  div.querySelector('[data-util="0"]').addEventListener("click", () => {
+    div.innerHTML = `<label class="rot" for="coment-${idConsulta}">O que faltou ou estava errado? (opcional)</label>
+      <textarea id="coment-${idConsulta}" maxlength="500" rows="2" placeholder="Ex.: não citou a lei certa; a página não falava disso…"></textarea>
+      <button type="button" class="mandar">Enviar</button>`;
+    const t = div.querySelector("textarea");
+    t.focus();
+    div.querySelector(".mandar").addEventListener("click", () => enviar(false, t.value.trim()));
+  });
+  return div;
+}
+
+/* ---------- Linha de pensamento ----------
+   Enquanto a Susmi lê, a tela mostra os passos reais que o servidor mandou (equivalências,
+   por que cada página foi escolhida) e o MESMO trecho que vai para a IA, palavra por
+   palavra. Quando a resposta começa, o painel se recolhe e fica para consulta. */
+const semAcento = (s) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+const chavePalavra = (s) => semAcento(s).replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu, "");
+const PALAVRAS_POR_SEGUNDO = 9;  // ~25 s por página de 1.500 caracteres
+
+function linhaDePensamento(el, ev) {
+  const corpo = el.querySelector(".lp-corpo");
+  const rapido = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let parado = false, timer = null, acordar = null, liberarLeitura;
+  const podeLer = new Promise((r) => { liberarLeitura = r; });
+  const pausa = (ms) => new Promise((r) => { acordar = r; timer = setTimeout(r, rapido ? 0 : ms); });
+  const mostrar = (no) => {  // rola só a caixa (não a página) até o elemento
+    const a = no.getBoundingClientRect(), c = corpo.getBoundingClientRect();
+    if (a.bottom > c.bottom) corpo.scrollTop += a.bottom - c.bottom + 10;
+  };
+  const mostrarInicio = (no) => {
+    corpo.scrollTop += no.getBoundingClientRect().top - corpo.getBoundingClientRect().top - 6;
+  };
+  el.hidden = false;
+
+  const leitura = (l) => {
+    const tipos = new Map();
+    for (const d of l.destaques || [])
+      for (const w of d.texto.split(/\s+/)) {
+        const k = chavePalavra(w);
+        if (k.length > 2 && !tipos.has(k)) tipos.set(k, d.tipo);
+      }
+    const div = document.createElement("div");
+    div.className = "lp-leitura";
+    div.innerHTML = `<h5><span class="giro mini"></span>Lendo p. ${l.pagina} · ${esc(l.fonte)}</h5>
+      <div class="lp-texto">${l.texto.split(/\s+/).filter(Boolean).map((w) => {
+        const t = tipos.get(chavePalavra(w));
+        return `<span>${t ? `<mark${t === "equivalente" ? ' class="equivalente"' : ""}>${esc(w)}</mark>` : esc(w)}</span>`;
+      }).join(" ")}</div>`;
+    return div;
+  };
+  const marcarLida = (div) => {
+    div.querySelectorAll(".lp-texto span").forEach((s) => { s.classList.add("lida"); s.classList.remove("agora"); });
+    const g = div.querySelector(".giro");
+    if (g) g.outerHTML = `<span class="ok">✓</span>`;
+    div.querySelector("h5").lastChild.textContent = div.querySelector("h5").lastChild.textContent.replace("Lendo", "Li");
+  };
+
+  let proxima = 0;  // próxima leitura a entrar na caixa
+  (async () => {
+    for (const p of ev.passos) {
+      if (parado) return;
+      const no = document.createElement("p");
+      no.className = "lp-passo"; no.textContent = p;
+      corpo.append(no); mostrar(no);
+      await pausa(1100);
+    }
+    await podeLer;  // na fila, não finge que está lendo
+    while (proxima < ev.leituras.length) {
+      if (parado) return;
+      const div = leitura(ev.leituras[proxima++]);
+      corpo.append(div); mostrarInicio(div);
+      const spans = div.querySelectorAll(".lp-texto span");
+      for (let i = 0; i < spans.length && !parado; i++) {
+        spans[i - 1]?.classList.remove("agora");
+        spans[i].classList.add("lida", "agora");
+        if (i % 6 === 0) mostrar(spans[i]);
+        await pausa(1000 / PALAVRAS_POR_SEGUNDO);
+      }
+      if (parado) return;
+      marcarLida(div);
+    }
+    if (parado) return;
+    const fim = document.createElement("p");
+    fim.className = "lp-passo";
+    fim.textContent = "Li tudo. Agora estou juntando o que encontrei para escrever a resposta, citando cada página…";
+    corpo.append(fim); mostrar(fim);
+  })();
+
+  return {
+    lendo: () => liberarLeitura(),
+    concluir() {
+      if (parado) return;
+      parado = true;
+      clearTimeout(timer); acordar?.(); liberarLeitura();
+      // A IA leu todas; as que a animação não chegou a mostrar entram já como lidas.
+      while (proxima < ev.leituras.length) corpo.append(leitura(ev.leituras[proxima++]));
+      el.querySelectorAll(".lp-leitura").forEach(marcarLida);
+      corpo.scrollTop = 0;  // quem abrir depois vê do começo
+      el.open = false;
+      el.querySelector("summary").textContent = "Linha de pensamento da Susmi · ver como ela chegou à resposta";
+    },
+  };
+}
+
+/* ---------- Renderização ---------- */
+// O servidor marca o que achou: ⟦digitado⟧ (amarelo, o que a pessoa escreveu) e
+// ⟪equivalente⟫ (verde, veio do vocabulário controlado). Aqui viram <mark>.
+function grifar(trecho) {
+  return esc(trecho)
+    .replace(/⟦(.+?)⟧/g, "<mark>$1</mark>")
+    .replace(/⟪(.+?)⟫/g, `<mark class="equivalente">$1</mark>`);
+}
+
+function desenharEquivalencias(eqs) {
+  const uteis = (eqs || []).filter((e) => e.equivalentes.length);
+  if (!uteis.length) return "";
+  return `<div class="equivalencias"><span class="rot">Também busquei:</span>${uteis.map((e) =>
+    `<span class="eq">${e.equivalentes.slice(0, 5).map((t) => `<span class="chip-eq">${esc(t)}</span>`).join(" ")}
+     <span>(para “${esc(e.digitado.join(", "))}”)</span></span>`).join("")}</div>`;
+}
+
+const guardados = new Map();  // destaques de cada item clicável
+const buscasFeitas = new Map();  // termo + primeiras páginas de cada busca (para perguntar sobre elas)
+const PAGINAS_CONTEXTO = 3;
+const ICONE_IA = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.4L12 15l-1.8-4.6L5.5 9l4.7-1.4z"/><path d="M18 15l.8 2.2L21 18l-2.2.8L18 21l-.8-2.2L15 18l2.2-.8z"/></svg>`;
+let seqItem = 0;
+function guardar(destaques) { const id = ++seqItem; guardados.set(id, destaques || []); return id; }
+
+// Frase de crise em 1ª pessoa ("quero me matar", "não aguento mais viver"): antes de
+// qualquer resultado, a tela mostra onde pedir ajuda. "risco de suicídio" (tema de estudo)
+// não dispara. Mesma ideia do CRISE em rag.py.
+const CRISE = /\b(me|se|te)\s+matar\b|\bmatar-(me|se)\b|\bme\s+suicidar\b|\bquero\s+morrer\b|\b(tirar|acabar\s+com)\s+(a\s+)?(minha|pr[óo]pria)\s+vida\b|n[ãa]o\s+aguento\s+mais\s+viver|\bvontade\s+de\s+morrer\b/i;
+function avisoCrise(texto) {
+  if (!CRISE.test(texto || "")) return "";
+  return `<div class="aviso-crise" role="alert">
+    <strong>Se você está passando por isso, não precisa enfrentar sozinho.</strong>
+    Ligue <a href="tel:188"><b>188</b></a> (CVV, de graça, 24 horas) ou converse pelo chat em
+    <a href="https://cvv.org.br" target="_blank" rel="noopener">cvv.org.br</a>.
+    Em emergência, ligue <a href="tel:192"><b>192</b></a> (SAMU) ou vá ao pronto-socorro mais próximo.
+  </div>`;
+}
+
+function desenharBusca(consulta, r) {
+  const resultados = r.resultados;
+  if (!resultados.length) {  // busca vazia com saída: acervo todo ou perguntar à Susmi
+    const parcial = estado.marcadas.size < estado.fontes.length;
+    return `<div class="cartao">${avisoCrise(consulta)}<div class="vazio">Nada encontrado ${parcial ? "nas fontes marcadas" : "no acervo"} para “${esc(consulta)}”.</div>
+      <div class="rodape-busca">
+        ${parcial ? `<button type="button" class="perguntar-sobre" data-vazio="todo">Buscar no acervo todo</button>` : ""}
+        <button type="button" class="perguntar-sobre" data-vazio="perguntar">${ICONE_IA} Perguntar à Susmi</button>
+        <span>${parcial ? "Algumas fontes estão desmarcadas na lista ao lado. " : ""}Tente também outras palavras.</span>
+      </div></div>`;
+  }
+  const VISIVEIS = 5;
+  const item = (x, i) => {
+    const f = fontePorId(x.id_publicacao) || exibir(x.titulo);
+    const soSentido = !x.por_palavra;
+    return `<div class="achado" role="button" tabindex="0" data-id="${x.id_publicacao}" data-pag="${x.pagina}" data-item="${guardar(x.destaques)}" ${i >= VISIVEIS ? "hidden" : ""}>
+      <div class="linha1"><span class="doc">${esc(nomeDe(x.titulo, x.id_publicacao))}</span>${seloTipo(f)}
+        ${soSentido ? `<span class="assunto" title="Achada pelo sentido: a página trata do tema com outras palavras">mesmo assunto</span>` : ""}
+        <button type="button" class="explicar" data-explicar="${x.id_pagina}" title="A Susmi lê só esta página e explica">${ICONE_IA} Explicar</button>
+        ${botaoCitar(x)}${botaoGuardar(itemDeTrecho(x))}
+        <span class="chip-pag" title="${esc(rotuloPagina(x))}">p. ${x.pagina}</span></div>
+      <div class="trecho">${grifar(x.trecho)}</div>
+      ${x.leis && x.leis.length ? `<div class="leis-cit" title="Leis citadas nesta página">⚖ ${x.leis.slice(0, 3).map(esc).join(" · ")}${x.leis.length > 3 ? ` · +${x.leis.length - 3}` : ""}</div>` : ""}
+    </div>`;
+  };
+  const extra = resultados.length - VISIVEIS;
+  const topo = resultados.slice(0, PAGINAS_CONTEXTO);
+  const idBusca = ++seqItem;
+  buscasFeitas.set(idBusca, { termo: consulta, paginas: topo });
+  return `<div class="cartao">
+    ${avisoCrise(consulta)}
+    <div class="cartao-cab"><strong>${resultados.length} página${resultados.length > 1 ? "s" : ""}</strong> sobre “${esc(consulta)}” · clique para abrir no PDF</div>
+    ${desenharEquivalencias(r.equivalencias)}
+    ${resultados.map(item).join("")}
+    ${extra > 0 ? `<button type="button" class="mais">Mostrar mais ${extra}</button>` : ""}
+    <div class="rodape-busca">
+      <button type="button" class="perguntar-sobre" data-busca="${idBusca}">${ICONE_IA} Perguntar à Susmi sobre ${topo.length > 1 ? `as ${topo.length} primeiras páginas` : "esta página"}</button>
+      <span>a Susmi lê só estas páginas: bom para aprofundar este assunto, e as próximas perguntas saem em segundos. Para outro assunto, pergunte no acervo todo — a resposta sai melhor.</span>
+    </div>
+  </div>`;
+}
+
+// "[p. 129]" / "[p. 12, 13]" / "[Título — p. 129]" / "(p. 129)" / "p. 129" viram botões
+// que abrem o PDF na página. A forma solta só vira link se a página estiver entre as lidas.
+const CITACAO = /\[([^\]]*?)p\.\s*([\d\s,e\-–]+)\]|\(p\.\s*(\d+)\)|(?<![\w>/])p\.\s*(\d+)/g;
+function linkarCitacoes(textoEsc, fontes) {
+  return textoEsc.replace(CITACAO, (todo, prefixo, numeros, entreParenteses, solta) => {
+    if (solta && !fontes.some((f) => f.pagina === Number(solta))) return todo;
+    const nums = (numeros || entreParenteses || solta).match(/\d+/g) || [];
+    const pref = (prefixo || "").toLowerCase();
+    const botoes = nums.map((n) => {
+      const pag = Number(n);
+      const cands = fontes.filter((f) => f.pagina === pag);
+      const f = cands.find((c) => pref && pref.includes(exibir(c.titulo).nome.toLowerCase())) || cands[0];
+      return f
+        ? `<button type="button" class="cita" data-id="${f.id_publicacao}" data-pag="${pag}" data-item="${guardar(f.destaques)}" title="${esc(nomeDe(f.titulo, f.id_publicacao))}, p. ${pag}">p. ${pag}</button>`
+        : `<span class="cita">p. ${pag}</span>`;
+    });
+    return botoes.length ? botoes.join("") : todo;
+  });
+}
+
+// Markdown simples da IA -> HTML (o texto já vem escapado): subtítulos, listas, parágrafos.
+const inline = (s) => s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+  .replace(/(^|[^*\w])\*([^*\n]+?)\*(?!\w)/g, "$1<em>$2</em>");
+function formatarResposta(texto, fontes, escrevendo) {
+  let html = "", lista = null;
+  const fechar = () => { if (lista) { html += `</${lista}>`; lista = null; } };
+  const abrirLista = (tipo) => { if (lista !== tipo) { fechar(); html += `<${tipo}>`; lista = tipo; } };
+  for (const linha of esc(texto.trim()).split("\n")) {
+    const t = linha.trim();
+    let m;
+    if (!t) { fechar(); continue; }
+    if ((m = /^#{1,4}\s+(.+)$/.exec(t)) || (m = /^\*\*([^*]{2,90})\*\*:?$/.exec(t))) {
+      fechar(); html += `<h4>${inline(m[1])}</h4>`;
+    } else if ((m = /^[*•\-–]\s+(.+)$/.exec(t))) {
+      abrirLista("ul"); html += `<li>${inline(m[1])}</li>`;
+    } else if ((m = /^(\d{1,2})[.)]\s+(.+)$/.exec(t))) {
+      abrirLista("ol"); html += `<li>${inline(m[2])}</li>`;
+    } else {
+      fechar(); html += `<p>${inline(t)}</p>`;
+    }
+  }
+  fechar();
+  if (escrevendo) {  // o cursor piscando fica no fim do último parágrafo/item
+    const i = html.search(/<\/(p|li|h4)>(<\/(ul|ol)>)?$/);
+    html = i >= 0 ? html.slice(0, i) + `<span class="cursor"></span>` + html.slice(i) : html + `<span class="cursor"></span>`;
+  }
+  return linkarCitacoes(html, fontes);
+}
+
+/* ---------- Citar (ABNT) ----------
+   A referência de cada obra vem da ficha catalográfica (backend/referencias.py). A página
+   citada é a do LIVRO (impressa), quando o sistema conseguiu descobrir; senão, a do PDF. */
+const paginaLivro = (x) => x.pagina_impressa
+  ? (x.pagina_impressa_fim ? `${x.pagina_impressa}-${x.pagina_impressa_fim}` : String(x.pagina_impressa)) : null;
+const rotuloPagina = (x) => paginaLivro(x)
+  ? `Página ${paginaLivro(x)} do livro (página ${x.pagina} do PDF)` : `Página ${x.pagina} do PDF`;
+const ICONE_CITAR = `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>`;
+function botaoCitar(x) {
+  return `<button type="button" class="citar-pag" data-citar="${x.id_publicacao}" data-pdf="${x.pagina}"
+    data-imp="${x.pagina_impressa ?? ""}" data-imp-fim="${x.pagina_impressa_fim ?? ""}"
+    title="Como citar esta página (ABNT)">${ICONE_CITAR} Citar</button>`;
+}
+function citacaoCurta(ref, pag) { return `(${ref.autor_citacao}, ${ref.ano}, p. ${pag})`; }
+const refHtml = (ref) => esc(ref.abnt).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+
+let citarAtual = null;
+function abrirCitar(id, pdf, imp, impFim) {
+  const f = fontePorId(id);
+  const livro = imp ? (impFim ? `${imp}-${impFim}` : `${imp}`) : null;
+  const pag = livro || String(pdf);
+  const ref = f?.referencia || { autor_citacao: "CONSELHO FEDERAL DE PSICOLOGIA", ano: f?.ano || "s.d.",
+    abnt: `CONSELHO FEDERAL DE PSICOLOGIA (Brasil). **${f ? f.nome : "Título"}**. Brasília: CFP, ${f?.ano || "s.d."}.` };
+  citarAtual = { curta: citacaoCurta(ref, pag), refHtml: refHtml(ref), refTexto: ref.abnt.replace(/\*\*/g, "") };
+  $("#citar-titulo").textContent = `Como citar · ${f ? f.nome : "fonte"}`;
+  $("#citar-curta").textContent = citarAtual.curta;
+  $("#citar-ref").innerHTML = citarAtual.refHtml;
+  $("#citar-nota").textContent = (livro
+    ? `“p. ${livro}” é a página impressa no livro (no PDF, é a página ${pdf}).`
+    : `Não achamos o número impresso desta página: “p. ${pdf}” é a página do PDF. Confira no documento.`)
+    + (f?.referencia ? "" : " Referência montada só com o nome do arquivo: confira na ficha catalográfica do PDF.")
+    + " Em citação direta (trecho copiado), use aspas. Confira também as normas da sua instituição.";
+  document.querySelectorAll("#dlg-citar .acao").forEach((b) => { b.textContent = "Copiar"; b.classList.remove("feito"); });
+  $("#dlg-citar").showModal();
+}
+$("#citar-fechar").addEventListener("click", () => $("#dlg-citar").close());
+$("#dlg-citar").addEventListener("click", (e) => { if (e.target === e.currentTarget) e.currentTarget.close(); });
+document.querySelectorAll("#dlg-citar [data-copiar]").forEach((b) => b.addEventListener("click", async () => {
+  const ok = b.dataset.copiar === "curta"
+    ? await copiar(citarAtual.curta) : await copiar(citarAtual.refTexto, citarAtual.refHtml);
+  b.textContent = ok ? "Copiado ✓" : "Selecione e copie";
+  b.classList.toggle("feito", ok);
+}));
+
+// Copiar: o site é http (sem HTTPS), onde o navigator.clipboard não existe; aí vai pelo
+// jeito antigo (seleciona um elemento escondido e "copia"), que também leva o negrito.
+async function copiar(texto, html) {
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      if (html && window.ClipboardItem)
+        await navigator.clipboard.write([new ClipboardItem({
+          "text/plain": new Blob([texto], { type: "text/plain" }),
+          "text/html": new Blob([html], { type: "text/html" }) })]);
+      else await navigator.clipboard.writeText(texto);
+      return true;
+    }
+  } catch {}
+  const pai = document.querySelector("dialog[open]") || document.body;  // fora do diálogo aberto, a página fica inerte
+  const div = document.createElement("div");
+  div.style.cssText = "position:fixed;left:-9999px;top:0;white-space:pre-wrap;color:#000;background:#fff";
+  if (html) div.innerHTML = html; else div.textContent = texto;
+  pai.appendChild(div);
+  const sel = getSelection(), r = document.createRange();
+  r.selectNodeContents(div); sel.removeAllRanges(); sel.addRange(r);
+  let ok = false;
+  try { ok = document.execCommand("copy"); } catch {}
+  sel.removeAllRanges(); div.remove();
+  return ok;
+}
+
+// A resposta da IA pronta para colar num trabalho: [p. N] vira (AUTOR, ano, p. impressa)
+// e no fim vão as referências ABNT das obras citadas + o aviso de que foi gerada por IA.
+// semRefs: para o caderno, que junta as referências de tudo numa lista só no fim.
+function respostaParaCopiar(texto, fontes, semRefs = false) {
+  const usadas = new Map();
+  const citar = (prefixo, nums) => (nums.match(/\d+/g) || []).map(Number).map((n) => {
+    const cands = fontes.filter((f) => f.pagina === n);
+    const pref = (prefixo || "").toLowerCase();
+    const f = cands.find((c) => pref && pref.includes(nomeDe(c.titulo, c.id_publicacao).toLowerCase())) || cands[0];
+    const ref = f && fontePorId(f.id_publicacao)?.referencia;
+    if (!ref) return null;
+    usadas.set(f.id_publicacao, ref);
+    return `${ref.autor_citacao}, ${ref.ano}, p. ${paginaLivro(f) || n}`;
+  }).filter(Boolean);
+  const corpo = texto.trim().replace(/\[([^\]]*?)p\.\s*([\d\s,e\-–]+)\]/g, (todo, prefixo, nums) => {
+    const c = citar(prefixo, nums);
+    return c.length ? `(${c.join("; ")})` : todo;
+  });
+  const refs = [...usadas.values()].sort((a, b) => a.abnt.localeCompare(b.abnt, "pt-BR"));
+  const aviso = `Texto gerado pela Susmi, a IA do Acervo Psico, em ${new Date().toLocaleDateString("pt-BR")}. `
+    + "Confira cada informação nas páginas citadas antes de usar.";
+  const semMarcas = corpo.replace(/\*\*(.+?)\*\*/g, "$1").replace(/^[ \t]*[*•\-–][ \t]+/gm, "• ");
+  const comRefs = refs.length && !semRefs;
+  const textoFinal = semMarcas + (comRefs ? "\n\nREFERÊNCIAS\n\n" + refs.map((r) => r.abnt.replace(/\*\*/g, "")).join("\n\n") : "")
+    + `\n\n(${aviso})`;
+  const html = formatarResposta(corpo, []).replace(/<button[^>]*>|<\/button>/g, "")
+    + (comRefs ? `<p><strong>REFERÊNCIAS</strong></p>${refs.map((r) => `<p>${refHtml(r)}</p>`).join("")}` : "")
+    + `<p><em>(${esc(aviso)})</em></p>`;
+  return { texto: textoFinal, html, refs };
+}
+
+function acoesResposta(resposta, fontes, pergunta) {
+  const div = document.createElement("div");
+  div.className = "acoes-resposta";
+  div.innerHTML = `<button type="button" class="acao" data-a="copiar">Copiar com referências (ABNT)</button>
+    ${botaoGuardar(itemDeResposta(pergunta, resposta, fontes), "Guardar no caderno", "acao")}
+    <button type="button" class="acao" data-a="imprimir">Imprimir ou salvar em PDF</button>`;
+  div.querySelector('[data-a="copiar"]').addEventListener("click", async (e) => {
+    const b = e.currentTarget;  // depois do await, e.currentTarget já é null
+    const { texto, html } = respostaParaCopiar(resposta, fontes);
+    const ok = await copiar(texto, html);
+    b.textContent = ok ? "Copiado ✓ (cole no seu texto)" : "Não consegui copiar";
+    b.classList.toggle("feito", ok);
+  });
+  div.querySelector('[data-a="imprimir"]').addEventListener("click", () => window.print());
+  return div;
+}
+
+/* ---------- Caderno de pesquisa ----------
+   Junta trechos da busca, trechos selecionados no PDF (palavras exatas) e respostas da
+   Susmi, cada um com a página e a citação ABNT, e exporta para o Word com a lista de
+   referências no fim. Fica no localStorage deste navegador: nada vai para o servidor
+   (o login é compartilhado; LGPD). */
+const CHAVE_CADERNO = "acervo-caderno";
+const ICONE_GUARDAR = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 3h11a2 2 0 0 1 2 2v16l-7-4-7 4V5a2 2 0 0 1 1-2z"/></svg>`;
+function lerCaderno() {
+  try { const c = JSON.parse(localStorage.getItem(CHAVE_CADERNO)); return Array.isArray(c) ? c : []; } catch { return []; }
+}
+let caderno = lerCaderno();
+function salvarCaderno() {
+  let ok = true;
+  try { localStorage.setItem(CHAVE_CADERNO, JSON.stringify(caderno)); } catch { ok = false; }
+  atualizarContaCaderno();
+  return ok;
+}
+function atualizarContaCaderno() { $("#n-caderno").textContent = caderno.length ? String(caderno.length) : ""; }
+window.addEventListener("storage", (e) => {  // caderno mudou em outra aba
+  if (e.key === CHAVE_CADERNO) { caderno = lerCaderno(); atualizarContaCaderno(); marcarBotoesGuardar(); }
+});
+
+const limparTrecho = (t) => String(t || "").replace(/[⟦⟧⟪⟫]/g, "").replace(/\s+/g, " ").trim();
+const soDaFonte = (f) => ({ id_publicacao: f.id_publicacao, titulo: f.titulo, pagina: f.pagina, id_pagina: f.id_pagina,
+  pagina_impressa: f.pagina_impressa ?? null, pagina_impressa_fim: f.pagina_impressa_fim ?? null });
+const itemDeTrecho = (x) => ({ tipo: "trecho", ...soDaFonte(x), texto: limparTrecho(x.trecho) });
+const itemDeResposta = (pergunta, resposta, fontes) =>
+  ({ tipo: "resposta", pergunta: pergunta || "", resposta, fontes: (fontes || []).map(soDaFonte) });
+const chaveItem = (it) => it.tipo === "resposta"
+  ? `r|${it.pergunta}|${(it.resposta || "").slice(0, 120)}`
+  : `${it.tipo}|${it.id_publicacao}|${it.pagina}|${(it.texto || "").slice(0, 120)}`;
+const noCaderno = (it) => caderno.some((c) => chaveItem(c) === chaveItem(it));
+function guardarNoCaderno(it) {
+  if (noCaderno(it)) return true;
+  caderno.push({ ...it, id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6), nota: "" });
+  return salvarCaderno();
+}
+
+// Os botões "Guardar" levam o item numa gaveta; o HTML só guarda o número.
+const gaveta = new Map();
+let seqGaveta = 0;
+function botaoGuardar(it, rotulo = "Guardar", classe = "") {
+  const id = ++seqGaveta;
+  gaveta.set(id, { it, rotulo });
+  const ja = noCaderno(it);
+  return `<button type="button" class="guardar-pag ${classe}${ja ? " feito" : ""}" data-guardar="${id}" title="Guardar no caderno de pesquisa">${ICONE_GUARDAR}${ja ? "Guardado ✓" : esc(rotulo)}</button>`;
+}
+function marcarBotoesGuardar() {
+  document.querySelectorAll("[data-guardar]").forEach((b) => {
+    const g = gaveta.get(Number(b.dataset.guardar));
+    if (!g) return;
+    const ja = noCaderno(g.it);
+    b.classList.toggle("feito", ja);
+    b.innerHTML = ICONE_GUARDAR + (ja ? "Guardado ✓" : esc(g.rotulo));
+  });
+}
+document.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-guardar]");
+  if (!b) return;
+  const g = gaveta.get(Number(b.dataset.guardar));
+  if (!g) return;
+  if (!guardarNoCaderno(g.it)) { b.innerHTML = ICONE_GUARDAR + "Não coube: baixe e apague o caderno"; return; }
+  marcarBotoesGuardar();
+});
+
+const refDe = (id) => fontePorId(id)?.referencia || null;
+const nomeItem = (it) => nomeDe(it.titulo || "", it.id_publicacao);
+function citacaoItem(it) {
+  const ref = refDe(it.id_publicacao);
+  const pag = paginaLivro(it) || it.pagina;
+  return ref ? citacaoCurta(ref, pag) : `(${nomeItem(it)}, p. ${pag})`;
+}
+
+function desenharCaderno() {
+  const lista = $("#caderno-lista");
+  document.querySelectorAll(".caderno-rodape .acao").forEach((b) => (b.disabled = !caderno.length));
+  if (!caderno.length) {
+    lista.innerHTML = `<p class="caderno-vazio">Seu caderno está vazio. Para juntar material para o trabalho:<br>
+      • na busca, clique em <strong>Guardar</strong> numa página;<br>
+      • numa resposta da Susmi, clique em <strong>Guardar no caderno</strong>;<br>
+      • no PDF, selecione um trecho e clique em <strong>Guardar seleção</strong>: guarda as palavras exatas, para citação direta.<br>
+      Depois, <strong>Baixar para o Word</strong> leva tudo com a citação de cada trecho e a lista de referências ABNT no fim.</p>`;
+    return;
+  }
+  lista.innerHTML = caderno.map((it, i) => {
+    const num = `<span class="num">${i + 1}.</span>`;
+    const nota = `<textarea data-nota="${esc(it.id)}" placeholder="Sua anotação (opcional): por que guardou, onde vai usar…" aria-label="Anotação do item ${i + 1}">${esc(it.nota || "")}</textarea>`;
+    const remover = `<button type="button" class="acao" data-remover="${esc(it.id)}">Remover</button>`;
+    if (it.tipo === "resposta") {
+      const html = formatarResposta(it.resposta || "", it.fontes || [], false).replace(/<button[^>]*>|<\/button>/g, "");
+      return `<div class="item-caderno"><div class="cab">${num}<span class="obra">Resposta da Susmi</span><span>· ${esc(it.pergunta)}</span></div>
+        <div class="resp">${html}</div>${nota}<div class="acoes-item">${remover}</div></div>`;
+    }
+    const f = fontePorId(it.id_publicacao) || exibir(it.titulo || "");
+    const exato = it.tipo === "selecao";
+    return `<div class="item-caderno">
+      <div class="cab">${num}<span class="obra">${esc(nomeItem(it))}</span>${seloTipo(f, false)}<span>${esc(rotuloPagina(it))}</span></div>
+      <blockquote>“${esc(it.texto)}”</blockquote>
+      <div class="cit">${esc(citacaoItem(it))}</div>
+      <div class="dica">${exato ? "Palavras exatas, selecionadas no PDF." : "Trecho mostrado na busca: confira as palavras exatas no PDF antes de citar entre aspas."}</div>
+      ${nota}
+      <div class="acoes-item"><button type="button" class="acao" data-abrir="${esc(it.id)}">Abrir no PDF</button>${remover}</div></div>`;
+  }).join("");
+}
+$("#caderno-lista").addEventListener("input", (e) => {
+  const id = e.target.dataset && e.target.dataset.nota;
+  const it = id && caderno.find((c) => c.id === id);
+  if (it) { it.nota = e.target.value.slice(0, 2000); salvarCaderno(); }
+});
+$("#caderno-lista").addEventListener("click", (e) => {
+  const rem = e.target.closest("[data-remover]");
+  if (rem) {
+    caderno = caderno.filter((c) => c.id !== rem.dataset.remover);
+    salvarCaderno(); desenharCaderno(); marcarBotoesGuardar();
+    return;
+  }
+  const ab = e.target.closest("[data-abrir]");
+  const it = ab && caderno.find((c) => c.id === ab.dataset.abrir);
+  if (it) { $("#dlg-caderno").close(); abrirPdf(it.id_publicacao, it.pagina, [], it.texto || ""); }
+});
+$("#botao-caderno").addEventListener("click", () => { desenharCaderno(); $("#dlg-caderno").showModal(); });
+$("#caderno-fechar").addEventListener("click", () => $("#dlg-caderno").close());
+$("#dlg-caderno").addEventListener("click", (e) => { if (e.target === e.currentTarget) e.currentTarget.close(); });
+
+// O caderno como documento: cada item com a citação (ABNT NBR 10520: direta curta entre
+// aspas; com mais de 3 linhas, recuada 4 cm, letra menor, sem aspas) e, no fim, as
+// referências (NBR 6023) de todas as obras, sem repetir, em ordem alfabética.
+function documentoCaderno() {
+  const refs = new Map();
+  const somaRef = (r) => { if (r) refs.set(r.abnt_texto || r.abnt, r); };
+  const html = [], texto = [];
+  caderno.forEach((it, i) => {
+    const notaT = (it.nota || "").trim();
+    const notaH = notaT ? `<p class="nota"><b>Anotação:</b> ${esc(notaT).replace(/\n/g, "<br>")}</p>` : "";
+    if (it.tipo === "resposta") {
+      const r = respostaParaCopiar(it.resposta || "", it.fontes || [], true);
+      r.refs.forEach(somaRef);
+      html.push(`<h3>${i + 1}. Pergunta à Susmi: ${esc(it.pergunta)}</h3>${r.html}${notaH}`);
+      texto.push(`${i + 1}. Pergunta à Susmi: ${it.pergunta}\n${r.texto}${notaT ? "\nAnotação: " + notaT : ""}`);
+      return;
+    }
+    somaRef(refDe(it.id_publicacao));
+    const cit = citacaoItem(it);
+    const longa = it.texto.length > 240;
+    const obs = it.tipo === "selecao" ? "" : "(Trecho mostrado na busca: confira as palavras exatas no PDF antes de citar.)";
+    html.push(`<h3>${i + 1}. ${esc(nomeItem(it))} — ${esc(rotuloPagina(it))}</h3>`
+      + (longa ? `<p class="longa">${esc(it.texto)} ${esc(cit)}.</p>` : `<p>“${esc(it.texto)}” ${esc(cit)}.</p>`)
+      + (obs ? `<p class="obs">${obs}</p>` : "") + notaH);
+    texto.push(`${i + 1}. ${nomeItem(it)} — ${rotuloPagina(it)}\n“${it.texto}” ${cit}.${obs ? "\n" + obs : ""}${notaT ? "\nAnotação: " + notaT : ""}`);
+  });
+  const lista = [...refs.values()].sort((a, b) => (a.abnt_texto || a.abnt).localeCompare(b.abnt_texto || b.abnt, "pt-BR"));
+  const data = new Date().toLocaleDateString("pt-BR");
+  const cab = `<h1>Caderno de pesquisa</h1><p class="sub">Acervo Psico · gerado em ${data}. Confira cada citação no documento original antes de entregar o trabalho.</p>`;
+  const refsH = lista.length ? `<h2>REFERÊNCIAS</h2><div class="refs">${lista.map((r) => `<p>${refHtml(r)}</p>`).join("")}</div>` : "";
+  const corpo = cab + html.join("\n") + refsH;
+  const doc = `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Caderno de pesquisa</title><style>
+    body { font-family: "Times New Roman", serif; font-size: 12pt; line-height: 1.5; color: #000; margin: 2cm; }
+    h1 { font-size: 16pt; margin: 0 0 4pt; } h2 { font-size: 13pt; margin: 20pt 0 8pt; } h3 { font-size: 12pt; margin: 16pt 0 4pt; }
+    .sub, .obs { font-size: 10pt; color: #444; }
+    .longa { margin-left: 4cm; font-size: 10pt; line-height: 1; text-align: justify; }
+    .nota { font-size: 11pt; color: #333; border-left: 2pt solid #999; padding-left: 6pt; }
+    .refs p { text-align: left; line-height: 1; margin: 0 0 12pt; }
+  </style></head><body>${corpo}</body></html>`;
+  const textoTudo = `CADERNO DE PESQUISA (Acervo Psico, ${data})\n\n` + texto.join("\n\n")
+    + (lista.length ? "\n\nREFERÊNCIAS\n\n" + lista.map((r) => (r.abnt_texto || r.abnt).replace(/\*\*/g, "")).join("\n\n") : "");
+  return { doc, corpo, texto: textoTudo };
+}
+$("#caderno-word").addEventListener("click", () => {
+  // Word abre HTML salvo como .doc (com negrito, recuos e acentos), sem biblioteca extra.
+  const blob = new Blob(["﻿", documentoCaderno().doc], { type: "application/msword" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `caderno-acervo-psico-${new Date().toISOString().slice(0, 10)}.doc`;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+});
+$("#caderno-copiar").addEventListener("click", async (e) => {
+  const b = e.currentTarget;
+  const { texto, corpo } = documentoCaderno();
+  const ok = await copiar(texto, corpo);
+  b.textContent = ok ? "Copiado ✓ (cole no seu texto)" : "Não consegui copiar";
+  setTimeout(() => (b.textContent = "Copiar tudo"), 3000);
+});
+$("#caderno-imprimir").addEventListener("click", () => {
+  const w = window.open("", "_blank");
+  if (!w) return;
+  w.document.open(); w.document.write(documentoCaderno().doc); w.document.close();
+  w.focus(); setTimeout(() => w.print(), 300);
+});
+$("#caderno-apagar").addEventListener("click", (e) => {
+  const b = e.currentTarget;
+  if (!b.classList.contains("confirmar")) {  // sem janela de confirmação: o 2º clique confirma
+    b.classList.add("confirmar"); b.textContent = "Clique de novo para apagar tudo";
+    setTimeout(() => { b.classList.remove("confirmar"); b.textContent = "Apagar caderno"; }, 4000);
+    return;
+  }
+  caderno = []; salvarCaderno();
+  b.classList.remove("confirmar"); b.textContent = "Apagar caderno";
+  desenharCaderno(); marcarBotoesGuardar();
+});
+
+// Leitor: guardar o trecho selecionado no PDF, com a página do livro (para citação direta).
+function avisoLeitor(msg) {
+  const a = $("#leitor-aviso");
+  a.textContent = msg; a.hidden = !msg;
+  clearTimeout(avisoLeitor.t);
+  if (msg) avisoLeitor.t = setTimeout(() => (a.hidden = true), 7000);
+}
+$("#leitor-guardar").addEventListener("click", async () => {
+  const id = estado.aberto;
+  let w = null, sel = null;
+  try { w = $("#quadro").contentWindow; sel = w.getSelection(); } catch {}
+  const texto = (sel ? sel.toString() : "").replace(/\s+/g, " ").trim();
+  if (!id || !texto) {
+    avisoLeitor("Selecione um trecho do PDF (arraste sobre o texto) e clique de novo em “Guardar seleção”.");
+    return;
+  }
+  const no = sel.anchorNode, el = no && (no.nodeType === 1 ? no : no.parentElement);
+  const pagina = Number(el?.closest?.(".page")?.dataset.pageNumber)
+    || w.PDFViewerApplication?.pdfViewer?.currentPageNumber || 1;
+  let imp = null;
+  try { imp = await api(`/pagina-impressa/${id}/${pagina}`); } catch {}
+  const item = { tipo: "selecao", id_publicacao: id, titulo: fontePorId(id)?.titulo || "", pagina,
+    pagina_impressa: imp?.pagina_impressa ?? null, pagina_impressa_fim: imp?.pagina_impressa_fim ?? null,
+    texto: texto.slice(0, 4000) };
+  avisoLeitor(guardarNoCaderno(item)
+    ? `Guardado no caderno: “${texto.slice(0, 70)}${texto.length > 70 ? "…" : ""}” — ${rotuloPagina(item)}.`
+    : "Não consegui guardar: o caderno deste navegador está cheio. Baixe para o Word e apague.");
+});
+
+/* ---------- Linha do tempo e ficha da obra ----------
+   Linha do tempo: o acervo inteiro em ordem de ano de publicação (o da ficha catalográfica),
+   da lei da profissão, de 1962, até hoje. Cada obra abre a sua ficha.
+   Ficha: o que o gerar_fichas.py preparou de madrugada (resumo e pontos principais escritos
+   pela Susmi, cada ponto com a página; leis citadas; obras parecidas; quem cita a lei) e o
+   que a tela já sabe (tipo, eixos, referência ABNT). */
+function desenharLinha() {
+  const conta = {};
+  for (const f of estado.fontes) conta[tipoDe(f)] = (conta[tipoDe(f)] || 0) + 1;
+  $("#linha-tipos").innerHTML = TIPOS.filter((t) => conta[t.id]).map((t) =>
+    `<button type="button" class="tipo-chip" data-tipo="${t.id}" aria-pressed="${estado.linhaTipo === t.id}">${esc(t.rotulo)}<span class="n">${conta[t.id]}</span></button>`).join("");
+  const obras = estado.fontes.filter((f) => !estado.linhaTipo || tipoDe(f) === estado.linhaTipo);
+  const anos = obras.map((f) => Number(f.ano)).filter(Boolean);
+  $("#linha-resumo").textContent = anos.length
+    ? `${obras.length} obra${obras.length > 1 ? "s" : ""}, de ${Math.min(...anos)} a ${Math.max(...anos)}. Clique numa obra para ver a ficha: resumo, pontos principais, leis citadas e obras parecidas.`
+    : "";
+  const porAno = new Map();
+  const ordem = [...obras].sort((a, b) => (Number(a.ano) || 9999) - (Number(b.ano) || 9999) || a.nome.localeCompare(b.nome, "pt-BR"));
+  for (const f of ordem) {
+    const k = f.ano || "s.d.";
+    if (!porAno.has(k)) porAno.set(k, []);
+    porAno.get(k).push(f);
+  }
+  let html = "", decada = null;
+  for (const [ano, lista] of porAno) {
+    const d = Number(ano) ? `Anos ${Math.floor(Number(ano) / 10) * 10}` : "Sem data";
+    if (d !== decada) { decada = d; html += `<div class="tl-decada">${d}</div>`; }
+    html += `<div class="tl-ano"><div class="tl-marca">${esc(ano)}</div><div class="tl-itens">${lista.map((f) =>
+      `<button type="button" class="tl-obra t-${tipoDe(f)}" data-ficha="${f.id_publicacao}" title="Ver a ficha da obra">
+        <span class="nome">${esc(f.nome)}</span>${seloTipo(f, false)}<span class="pags">${f.paginas} p.</span></button>`).join("")}</div></div>`;
+  }
+  $("#linha-lista").innerHTML = `<div class="tl">${html}</div>`;
+}
+function abrirLinha() {
+  desenharLinha();
+  $("#dlg-linha").showModal();
+}
+$("#botao-linha").addEventListener("click", abrirLinha);
+$("#ver-linha").addEventListener("click", (e) => { e.stopPropagation(); abrirLinha(); });
+$("#linha-fechar").addEventListener("click", () => $("#dlg-linha").close());
+$("#dlg-linha").addEventListener("click", (e) => {
+  if (e.target === e.currentTarget) return e.currentTarget.close();
+  const chip = e.target.closest(".tipo-chip");
+  if (chip) {
+    estado.linhaTipo = estado.linhaTipo === chip.dataset.tipo ? null : chip.dataset.tipo;
+    desenharLinha();
+    return;
+  }
+  const obra = e.target.closest("[data-ficha]");
+  if (obra) abrirFicha(Number(obra.dataset.ficha));
+});
+
+const fichas = new Map();  // id -> ficha do servidor (null: ainda não gerada)
+async function abrirFicha(id) {
+  const f = fontePorId(id);
+  if (!f) return;
+  estado.ficha = id;
+  const desenhar = () => {
+    $("#ficha-titulo").textContent = f.nome;
+    $("#ficha-corpo").innerHTML = desenharFicha(f, fichas.get(id), !fichas.has(id));
+    $("#ficha-rodape").innerHTML = rodapeFicha(f, fichas.get(id));
+    $("#ficha-corpo").scrollTop = 0;
+  };
+  desenhar();
+  if (!$("#dlg-ficha").open) $("#dlg-ficha").showModal();
+  if (fichas.has(id)) return;
+  let d = null;
+  try { d = await api(`/ficha/${id}`); } catch {}
+  fichas.set(id, d);
+  if (estado.ficha === id) desenhar();
+}
+
+const nomeObra = (x) => fontePorId(x.id_publicacao)?.nome || exibir(x.titulo).nome;
+function desenharFicha(f, d, carregando) {
+  const pags = (n) => `${n} página${n > 1 ? "s" : ""}`;
+  let h = `<div class="ficha-meta">${seloTipo(f)}<span>${pags(f.paginas)}</span>${(f.eixos || []).map((e) => `<span class="eixo">${esc(e)}</span>`).join("")}</div>`;
+  if (carregando) return h + `<p class="ficha-espera">Carregando a ficha…</p>`;
+  if (d?.resumo) {
+    h += `<h4>Resumo</h4><p class="ficha-resumo">${esc(d.resumo)}</p>`;
+    if (d.pontos?.length) h += `<h4>Pontos principais</h4><ul class="ficha-pontos">${d.pontos.map((p) => `<li>${esc(p.texto)}${p.pagina
+      ? `<button type="button" class="cita" data-ficha-pag="${p.pagina}" data-alvo="${esc(p.texto)}" title="Abrir o PDF na página ${p.pagina}, com o trecho grifado">p. ${p.pagina}</button>` : ""}</li>`).join("")}</ul>`;
+    if (d.estagio) h += `<h4>No estágio</h4><p class="ficha-resumo">${esc(d.estagio)}</p>`;
+    h += `<div class="ficha-ia">${ICONE_IA}<span>Escrito pela Susmi a partir de ${pags(d.paginas_lidas.length)} da obra (${d.paginas_lidas.map((n) => "p. " + n).join(", ")}). É um ponto de partida: confira no PDF antes de citar. A página de cada ponto abre com o trecho grifado.</span></div>`;
+    if (d.temas?.length) h += `<h4>Temas</h4><div class="ficha-temas">${d.temas.map((t) => `<button type="button" data-tema="${esc(t)}" title="Buscar “${esc(t)}” no acervo">${esc(t)}</button>`).join("")}</div>`;
+  } else {
+    h += `<div class="ficha-espera">A Susmi escreve o resumo e os pontos principais desta obra de madrugada, quando o servidor fica livre: volte amanhã. Enquanto isso, abra o PDF ou pergunte à Susmi só sobre esta obra.</div>`;
+  }
+  const lista = (titulo, itens) => itens.length ? `<h4>${titulo}</h4><div class="ficha-lista">${itens.join("")}</div>` : "";
+  h += lista("Leis que esta obra cita", (d?.leis || []).map((l) => {
+    const dentro = `${ICONE_TIPO.lei}<span>${esc(l.nome)}</span><span class="n">em ${pags(l.paginas)}</span>`;
+    return l.id_publicacao && fontePorId(l.id_publicacao)
+      ? `<button type="button" data-ficha="${l.id_publicacao}" title="Esta lei está no acervo: ver a ficha">${dentro}</button>`
+      : `<span class="item">${dentro}</span>`;
+  }));
+  h += lista(tipoDe(f) === "lei" ? "Obras do acervo que citam esta lei" : "Obras do acervo que citam esta obra",
+    (d?.citada_por || []).filter((x) => fontePorId(x.id_publicacao)).map((x) =>
+      `<button type="button" data-ficha="${x.id_publicacao}"><span>${esc(nomeObra(x))}</span><span class="n">em ${pags(x.paginas)}</span></button>`));
+  h += lista("Obras parecidas", (d?.parecidas || []).filter((x) => fontePorId(x.id_publicacao)).map((x) => {
+    const g = fontePorId(x.id_publicacao);
+    return `<button type="button" data-ficha="${x.id_publicacao}"><span>${esc(g.nome)}</span>${seloTipo(g)}</button>`;
+  }));
+  if (f.referencia) h += `<h4>Como citar (ABNT)</h4><div class="ficha-ref">${refHtml(f.referencia)}</div>`;
+  return h;
+}
+
+function rodapeFicha(f, d) {
+  let guardar = "";
+  if (d?.resumo) {
+    const texto = d.resumo + "\n\n" + (d.pontos || []).map((p) => `* ${p.texto}${p.pagina ? ` [p. ${p.pagina}]` : ""}`).join("\n")
+      + (d.estagio ? `\n\n**No estágio:** ${d.estagio}` : "");
+    const paginas = [...new Set((d.pontos || []).map((p) => p.pagina).filter(Boolean))];
+    guardar = botaoGuardar(itemDeResposta(`Ficha: ${f.nome}`, texto,
+      paginas.map((n) => ({ id_publicacao: f.id_publicacao, titulo: f.titulo, pagina: n }))), "Guardar a ficha no caderno", "acao");
+  }
+  return `<button type="button" class="acao primaria" data-ficha-abrir>Abrir o PDF</button>
+    <button type="button" class="acao" data-ficha-perguntar>Perguntar à Susmi só nesta obra</button>${guardar}`;
+}
+
+function fecharDialogos() {
+  for (const d of ["#dlg-ficha", "#dlg-linha"]) if ($(d).open) $(d).close();
+}
+function pesquisar(modo, texto) {
+  if (estado.ocupado) return;
+  definirModo(modo);
+  caixa.value = texto;
+  validarEnvio();
+  $("#form").requestSubmit();
+}
+function perguntarNaObra(id) {
+  if (estado.contexto) definirContexto(null);
+  estado.marcadas = new Set([id]);
+  desenharFontes();
+  definirModo("perguntar");
+  caixa.placeholder = `Pergunte sobre ${fontePorId(id)?.nome || "esta obra"}…`;
+  caixa.focus();
+}
+$("#ficha-fechar").addEventListener("click", () => $("#dlg-ficha").close());
+$("#dlg-ficha").addEventListener("click", (e) => {
+  if (e.target === e.currentTarget) return e.currentTarget.close();
+  const id = estado.ficha;
+  const outra = e.target.closest("[data-ficha]");
+  if (outra) return void abrirFicha(Number(outra.dataset.ficha));
+  const pag = e.target.closest("[data-ficha-pag]");
+  if (pag) { fecharDialogos(); return abrirPdf(id, Number(pag.dataset.fichaPag), [], pag.dataset.alvo); }
+  if (e.target.closest("[data-ficha-abrir]")) { fecharDialogos(); return abrirPdf(id, 1, []); }
+  if (e.target.closest("[data-ficha-perguntar]")) { fecharDialogos(); return perguntarNaObra(id); }
+  const tema = e.target.closest("[data-tema]");
+  if (tema) { fecharDialogos(); pesquisar("buscar", tema.dataset.tema); }
+});
+$("#leitor-ficha").addEventListener("click", () => { if (estado.aberto) abrirFicha(estado.aberto); });
+
+/* ---------- Últimas pesquisas (só neste aparelho, no localStorage) ---------- */
+const CHAVE_RECENTES = "acervo-recentes";
+function lerRecentes() { try { return JSON.parse(localStorage.getItem(CHAVE_RECENTES)) || []; } catch { return []; } }
+function guardarRecente(modo, texto) {
+  // Texto com cara de dado de paciente (CPF, "paciente") não fica guardado no aparelho.
+  if (/\d{3}[.\s]?\d{3}[.\s]?\d{3}|paciente|\bcpf\b|\brg\b/i.test(texto) || texto.length > 160) return;
+  try {
+    const l = lerRecentes().filter((r) => !(r.texto === texto && r.modo === modo));
+    l.unshift({ modo, texto });
+    localStorage.setItem(CHAVE_RECENTES, JSON.stringify(l.slice(0, 6)));
+  } catch {}
+}
+function desenharRecentes() {
+  const box = $("#recentes");
+  if (!box) return;
+  const l = lerRecentes();
+  box.hidden = !l.length;
+  if (!l.length) { box.innerHTML = ""; return; }
+  box.innerHTML = `Suas últimas pesquisas neste aparelho · <button type="button" class="link" id="limpar-recentes">limpar</button>
+    <div class="lista">${l.map((r) => `<button class="tema exemplo-tema" data-modo="${r.modo === "perguntar" ? "perguntar" : "buscar"}" data-texto="${esc(r.texto)}"
+      title="${r.modo === "perguntar" ? "Perguntar à Susmi" : "Buscar"}"><span class="m" aria-hidden="true">${r.modo === "perguntar" ? "✦" : "⌕"}</span>${esc(r.texto)}</button>`).join("")}</div>`;
+}
+
+/* ---------- Fontes no celular (painel por cima, pelo botão do topo) ---------- */
+function fecharFontesCelular() {
+  $("#grade").classList.remove("fontes-abertas");
+  $("#botao-fontes").setAttribute("aria-expanded", "false");
+}
+$("#botao-fontes").addEventListener("click", (e) => {
+  e.stopPropagation();
+  const aberto = $("#grade").classList.toggle("fontes-abertas");
+  $("#botao-fontes").setAttribute("aria-expanded", String(aberto));
+});
+document.addEventListener("click", (e) => {
+  if ($("#grade").classList.contains("fontes-abertas") && !e.target.closest("#fontes, #botao-fontes")) fecharFontesCelular();
+});
+
+function desenharConsultadas(fontes) {
+  if (!fontes.length) return "";
+  const lista = fontes.map((f, i) =>
+    `<div class="consultada" role="button" tabindex="0" data-id="${f.id_publicacao}" data-pag="${f.pagina}" data-item="${guardar(f.destaques)}">
+      <span class="i">${i + 1}</span><span>${esc(nomeDe(f.titulo, f.id_publicacao))}</span>${tipoDe(fontePorId(f.id_publicacao) || exibir(f.titulo)) === "crepop" ? "" : seloTipo(fontePorId(f.id_publicacao) || exibir(f.titulo), false)}${botaoCitar(f)}<span class="chip-pag" title="${esc(rotuloPagina(f))}">p. ${f.pagina}</span></div>`).join("");
+  return `<div class="consultadas"><h4>Páginas que a Susmi lê para responder</h4>${lista}</div>`;
+}
+
+// O que grifar como "de onde veio" ao abrir o PDF: na resposta, a frase que termina na
+// citação clicada; num resultado da busca, o maior pedaço do trecho mostrado.
+function alvoDe(b) {
+  if (b.classList.contains("achado")) {
+    const t = b.querySelector(".trecho")?.textContent || "";
+    return t.split("…").sort((x, y) => y.length - x.length)[0];
+  }
+  if (!b.classList.contains("cita")) return "";
+  const bloco = b.closest("p, li, blockquote, td");
+  if (!bloco) return "";
+  const r = document.createRange();
+  r.setStart(bloco, 0);
+  r.setEndBefore(b);
+  const antes = r.toString().replace(/\bp\.\s*\d+/g, " ");
+  const frases = antes.split(/(?<=[.!?])\s+(?=\S)/).map((s) => s.trim()).filter(Boolean);
+  let alvo = frases.pop() || "";
+  if (alvo.split(/\s+/).length < 8 && frases.length) alvo = frases.pop() + " " + alvo;
+  if (alvo.split(/\s+/).length < 5) {  // citação no começo: a frase vem depois dela
+    r.setStartAfter(b);
+    r.setEnd(bloco, bloco.childNodes.length);
+    alvo += " " + (r.toString().replace(/\bp\.\s*\d+/g, " ").split(/(?<=[.!?])\s/)[0] || "");
+  }
+  return alvo;
+}
+
+function ligarAberturas(raiz) {
+  raiz.querySelectorAll("[data-id][data-pag]:not([data-ligado])").forEach((b) => {
+    b.dataset.ligado = "1";
+    const abrir = () => {
+      document.querySelectorAll(".achado.aberto").forEach((x) => x.classList.remove("aberto"));
+      if (b.classList.contains("achado")) b.classList.add("aberto");
+      abrirPdf(Number(b.dataset.id), Number(b.dataset.pag), guardados.get(Number(b.dataset.item)), alvoDe(b));
+    };
+    b.addEventListener("click", (e) => { if (!e.target.closest(".explicar, .citar-pag, .guardar-pag")) abrir(); });
+    if (b.getAttribute("role") === "button")
+      b.addEventListener("keydown", (e) => { if ((e.key === "Enter" || e.key === " ") && e.target === b) { e.preventDefault(); abrir(); } });
+  });
+  // "Citar": referência ABNT + citação com a página do livro.
+  raiz.querySelectorAll(".citar-pag:not([data-ligado])").forEach((b) => {
+    b.dataset.ligado = "1";
+    b.addEventListener("click", (e) => {
+      e.stopPropagation();
+      abrirCitar(Number(b.dataset.citar), Number(b.dataset.pdf), b.dataset.imp, b.dataset.impFim);
+    });
+  });
+  // "Explicar esta página": a IA lê só ela (e ela vira o assunto das próximas perguntas).
+  raiz.querySelectorAll(".explicar:not([data-ligado])").forEach((b) => {
+    b.dataset.ligado = "1";
+    b.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (estado.ocupado) return;
+      const busca = buscasFeitas.get(Number(b.closest(".cartao").querySelector(".perguntar-sobre")?.dataset.busca));
+      const achado = b.closest(".achado");
+      const nome = achado.querySelector(".doc").textContent;
+      definirContexto({ ids: [Number(b.dataset.explicar)], termo: busca?.termo || null,
+        rotulo: `${nome}, p. ${achado.dataset.pag}` }, false);
+      definirModo("perguntar");
+      caixa.value = busca?.termo
+        ? `Explique, de forma simples, o que esta página diz sobre “${busca.termo}”.`
+        : "Explique, de forma simples, o que esta página diz.";
+      validarEnvio();
+      $("#form").requestSubmit();
+    });
+  });
+  // "Perguntar à IA sobre estas páginas": fixa as páginas e a IA já começa a ler.
+  raiz.querySelectorAll(".perguntar-sobre:not([data-ligado])").forEach((b) => {
+    b.dataset.ligado = "1";
+    b.addEventListener("click", () => {
+      const busca = buscasFeitas.get(Number(b.dataset.busca));
+      if (!busca) return;
+      definirContexto({ ids: busca.paginas.map((p) => p.id_pagina), termo: busca.termo,
+        rotulo: `${busca.paginas.length} páginas da busca “${busca.termo}”` }, true);
+      definirModo("perguntar");
+      caixa.focus();
+    });
+  });
+  raiz.querySelector(".mais")?.addEventListener("click", (e) => {
+    raiz.querySelectorAll(".achado[hidden]").forEach((b) => (b.hidden = false));
+    e.currentTarget.remove();
+  });
+}
+
+definirModo("buscar");
+desenharRecentes();
+atualizarContaCaderno();
+atualizarStatus();
+setInterval(atualizarStatus, 30000);
+</script>
+</body>
+</html>
